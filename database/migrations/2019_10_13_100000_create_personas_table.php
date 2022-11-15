@@ -26,7 +26,11 @@ class CreatePersonasTable extends Migration
                 $table->integer('idocupacion')->nullable();
                 $table->text('ocupacion')->nullable();
                 $table->string('provincia',60)->nullable();
+                $table->unsignedInteger('provincia_id');
+                $table->foreign('provincia_id')->references('id')->on('provincias');
                 $table->string('canton',60)->nullable();
+                $table->unsignedInteger('canton_id');
+                $table->foreign('canton_id')->references('id')->on('cantones');
                 $table->string('ciudad',60)->nullable();
                 $table->text('direccion')->nullable();
                 $table->string('telefono',12)->nullable();
