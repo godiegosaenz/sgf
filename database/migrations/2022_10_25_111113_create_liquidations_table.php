@@ -16,8 +16,6 @@ class CreateLiquidationsTable extends Migration
         Schema::create('liquidations', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('voucher_number')->nullable();
-            $table->bigInteger('liquidation_number');
-            $table->char('liquidation_code',20);
             $table->decimal('total_payment',$precision = 20, $scale = 2)->nullable();
             $table->boolean('status');
             $table->char('username');
@@ -32,7 +30,6 @@ class CreateLiquidationsTable extends Migration
             $table->unsignedInteger('categoria_id')->nullable();
             $table->index('categoria_id');
             $table->foreign('categoria_id')->references('id')->on('categorias');
-            $table->boolean('is_coercive');
             $table->timestamps();
         });
     }

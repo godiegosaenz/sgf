@@ -188,6 +188,7 @@ return [
         App\Providers\FortifyServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
         /*
          * Application Service Providers...
          */

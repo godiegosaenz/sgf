@@ -251,10 +251,12 @@
                                                     <div class="col-6">
 
                                                         @if(isset($persona->rutaimagen))
-                                                            <div class="media">
-                                                                <img height="160px" src="{{ asset($persona->rutaimagen) }}" class="mr-3" alt="">
-                                                            </div>
-
+                                                        <div class="media">
+                                                            <img height="130px" src="{{ asset($persona->rutaimagen) }}" class="mr-3" alt="">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <input class="form-control" id="txtFoto" name="txtFoto" type="file" >
+                                                        </div>
                                                         @else
                                                         <div class="media">
                                                             <img height="130px" src="{{ asset('img/perfil.png') }}" class="mr-3" alt="">
@@ -492,45 +494,7 @@
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="card mt-4">
-                                        <div class="card-body">
-                                            <h3>Guardar foto</h3>
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">
-                                                        @if(isset($persona->rutaimagen))
-                                                        <div class="media">
-                                                            <img height="160px" src="{{ asset($persona->rutaimagen) }}" class="mr-3" alt="">
-                                                        </div>
-                                                        <form method="POST" action="{{route('foto.persona')}}" enctype="multipart/form-data">
-                                                            @csrf
-                                                            <input type="hidden" name="idpersona" value="{{$persona->id}}">
-                                                            <input type="file" class="form-control-file {{$errors->has('txtFoto') ? 'is-invalid' : ''}}" id="txtFoto" name="txtFoto" required>
-                                                            <input class="btn btn-default" type="submit" class="" value="Subir Imagen">
-                                                        </form>
-                                                        @else
-                                                        <div class="media">
-                                                            <img height="130px" src="{{ asset('img/perfil.png') }}" class="mr-3" alt="">
-                                                        </div>
-                                                        <form method="POST" action="{{route('foto.persona')}}" enctype="multipart/form-data">
-                                                            @csrf
-                                                            <input type="hidden" name="idpersona" value="{{$persona->id}}">
-                                                            <input type="file" class="form-control-file {{$errors->has('txtFoto') ? 'is-invalid' : ''}}" id="txtFoto" name="txtFoto" required>
-                                                            <input type="submit" class="" value="Subir Imagen">
-                                                        </form>
 
-                                                        @endif
-                                                </li>
-
-                                            </ul>
-                                            <br>
-
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
                                 <div class="col-md-6">
                                     <div class="card mt-4">
                                         <div class="card-body">
@@ -551,18 +515,21 @@
                                                     <li class="list-group-item">
                                                         <div class="form-group row mt-3">
                                                             <label for="txtArchivo" class="col-sm-3 col-form-label">Archivo :</label>
-                                                            <div class="col-sm-9">
-                                                                <input type="file" class="form-control-file {{$errors->has('txtArchivo') ? 'is-invalid' : ''}}" id="txtArchivo" name="txtArchivo">
+                                                            <div class="col-sm-9 mb-3">
+
+                                                                <input class="form-control {{$errors->has('txtArchivo') ? 'is-invalid' : ''}}" type="file" id="txtArchivo" name="txtArchivo">
                                                                 <div class="invalid-feedback">
                                                                     @if($errors->has('txtArchivo'))
                                                                         {{$errors->first('txtArchivo')}}
                                                                     @endif
                                                                 </div>
                                                             </div>
+
                                                         </div>
                                                     </li>
+
                                                     <li class="list-group-item">
-                                                        <input type="submit" class="btn btn-default" value="Subir Archivo">
+                                                        <input type="submit" class="btn btn-secondary btn-block" value="Subir Archivo">
                                                     </li>
 
                                                 </form>
@@ -571,9 +538,7 @@
                                     </div>
 
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="card mt-3">
                                         <div class="card-body">
                                         <h3>Lista archivos</h3>
@@ -582,14 +547,19 @@
                                                 <table class="table table-bordered" id="tableDocumento">
                                                     <thead>
                                                         <tr>
-                                                        <th scope="col">#</th>
-                                                        <th>miniatura</th>
-                                                        <th scope="col">Archivo</th>
+
+                                                        <th scope="col">Nombre</th>
                                                         <th scope="col">Accion</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach ($archivo as $a)
+                                                        <tr>
 
+                                                            <td scope="col">{{$a->nombreArchivo}}</td>
+                                                            <td scope="col"><a target="_blank" href="{{ route('descargar.archivo',['id' => $a->id]) }}" class="btn btn-dark btn-sm">Descargar</a></td>
+                                                        </tr>
+                                                        @endforeach
 
                                                     </tbody>
                                                 </table>
@@ -599,6 +569,7 @@
 
                                 </div>
                             </div>
+
                         </div>
                     </div>
 

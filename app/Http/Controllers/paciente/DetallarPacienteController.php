@@ -38,11 +38,11 @@ class DetallarPacienteController extends Controller
         $arregloRutas = explode('/',$ruta);
         $rutaparaimgen = 'storage/'.$arregloRutas[1];
         $archivo = new Archivo;
-        $archivo->nombreArchivo = $r->txtNombre;
+        $archivo->nombreArchivo = $r->nombres;
         $archivo->rutaArchivo = $rutaparaimgen;
         $archivo->idpersona = $r->idpersona;
         $archivo->save();
-        return redirect('/api/paciente/detallar/'.$r->idpersona);
+        return redirect('/api/paciente/editar/'.$r->idpersona);
     }
 
     public function actualizar(Request $r){
@@ -128,5 +128,12 @@ class DetallarPacienteController extends Controller
 
         return redirect()->route('detallar.persona', ['id' => $idpersona])->with('estado','actualizado');
 
+    }
+
+    public function descargar($id)
+    {
+        $Archivo = Archivo::find($id);
+        $rutaArchivo = public_path($Archivo->rutaArchivo);
+        return response()->download($rutaArchivo);
     }
 }

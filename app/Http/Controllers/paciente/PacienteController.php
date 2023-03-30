@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Provincia;
 use App\Models\Persona;
 use App\Models\Canton;
+use App\Models\Archivo;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -143,8 +144,8 @@ class PacienteController extends Controller
         $provincias = Provincia::all();
         $persona = Persona::find($id);
         $cantones = Canton::where('id_provincia',$persona->provincia_id)->get();
-        //$archivo = Archivo::where('idpersona',$id)->get();
-        return view('paciente.editarpaciente',compact('persona','provincias','cantones'))->with('estado',$r->estado);
+        $archivo = Archivo::where('idpersona',$id)->get();
+        return view('paciente.editarpaciente',compact('persona','provincias','cantones','archivo'))->with('estado',$r->estado);
     }
 
     public function update(Request $r,$id){

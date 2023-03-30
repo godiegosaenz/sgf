@@ -41,7 +41,8 @@
                                 @csrf
                                 <div class="d-flex align-items-center mb-3 pb-1">
                                   <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                                  <span class="h1 fw-bold mb-0"><img src="{{asset('img/logosv.png')}}" alt=""></span>
+                                  <span class="h1 fw-bold mb-0"><img src="{{asset('img/logosv.png')}}" alt="" height="100px"></span>
+                                  <span class="h1 fw-bold mb-0"><img src="{{asset('img/LOGO-FISIOTERAPIA.jpg')}}" alt="" height="100px"></span>
                                 </div>
 
                                 <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Inicia sesión en tu cuenta</h5>

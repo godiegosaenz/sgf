@@ -1,14 +1,20 @@
 <?php
 
-namespace App\models;
+namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Archivo extends Model
 {
-    protected $table = 'archivos_adjuntos';
-    
-    protected $fillable = [
-        'nombreArchivo', 'rutaArchivo'
-    ];
+    use HasFactory;
+
+    protected $table = 'archivos';
+    protected $fillable = ['id',
+                            'nombreArchivo',
+                            'rutaArchivo',
+                            'idpersona',
+                            'created_at',
+                            'updated_at'
+                        ];
 }

@@ -41,6 +41,7 @@ Route::post('paciente/guardar', [PacienteController::class, 'store'])->name('gua
 Route::patch('paciente/actualizar/{id}', [PacienteController::class, 'update'])->name('actualizar.paciente');
 Route::post('paciente/foto', [DetallarPacienteController::class, 'guardarFoto'])->name('foto.persona');
 Route::post('paciente/archivo', [DetallarPacienteController::class, 'guardarArchivo'])->name('guardar.archivo');
+Route::get('paciente/descargar/{id}', [DetallarPacienteController::class, 'descargar'])->name('descargar.archivo');
 Route::get('paciente/detallar/{id}',[DetallarPacienteController::class, 'index'])->name('detallar.persona');
 Route::get('paciente/editar/{id}',[PacienteController::class, 'edit'])->name('editar.paciente');
 Route::post('paciente/verificar', [PacienteController::class, 'verificarCedula'])->name('verificar.persona');
@@ -62,6 +63,8 @@ Route::patch('cita/{id}', [CitasController::class, 'update'])->name('update.cita
 Route::post('cita/cancel', [CitasController::class, 'cancel'])->name('cancel.cita');
 
 Route::get('pago/{id}', [PagoController::class, 'index'])->name('index.pago');
+Route::post('pago', [PagoController::class, 'store'])->name('store.pago');
+Route::get('recibo/{id}', [PagoController::class, 'recibo'])->name('recibo.pago');
 
 Route::get('citareporte/ficha/{id}', [CitaReporteController::class, 'index'])->name('ficha.citareporte');
 Route::get('citareporte/recibo/{id}', [CitaReporteController::class, 'recibo'])->name('recibo.citareporte');
