@@ -8,8 +8,9 @@ use App\Http\Controllers\Controller;
 use App\models\Persona;
 use App\models\Archivo;
 use App\models\Consulta;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 
 class DetallarPacienteController extends Controller
 {
@@ -21,8 +22,9 @@ class DetallarPacienteController extends Controller
 
     public function index(Request $r, $id){
         $persona = Persona::find($id);
+        $archivo = Archivo::where('idpersona',$id)->get();
         //$archivo = Archivo::where('idpersona',$id)->get();
-        return view('paciente.detallepaciente2',compact('persona'))->with('estado',$r->estado);
+        return view('paciente.detallepaciente2',compact('persona','archivo'))->with('estado',$r->estado);
     }
 
     public function guardarFoto(Request $r){
@@ -34,6 +36,25 @@ class DetallarPacienteController extends Controller
     }
 
     public function guardarArchivo(Request $r){
+        $messages = [
+            'required' => 'El campo :attribute es requerido.',
+            'size' => 'El campo :attribute debe tener exactamente :size caracteres',
+            'max' => 'El campo :attribute no debe exceder los :max caracteres',
+        ];
+        $reglas = [
+            'nombres' => 'bail|required|max:25',
+            'txtArchivo' => ['required',File::types(['pdf'])]
+        ];
+        $validator = Validator::make($r->all(),$reglas,$messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)
+                                    ->withInput()
+                                    ->with('success', 'your message,here');
+            /*return redirect('/paciente//editar')
+                        ->withErrors($validator)
+                        ->withInput();*/
+        }
         $ruta = $r->file('txtArchivo')->store('public');
         $arregloRutas = explode('/',$ruta);
         $rutaparaimgen = 'storage/'.$arregloRutas[1];
@@ -42,7 +63,7 @@ class DetallarPacienteController extends Controller
         $archivo->rutaArchivo = $rutaparaimgen;
         $archivo->idpersona = $r->idpersona;
         $archivo->save();
-        return redirect('/api/paciente/editar/'.$r->idpersona);
+        return redirect('paciente/editar/'.$r->idpersona);
     }
 
     public function actualizar(Request $r){

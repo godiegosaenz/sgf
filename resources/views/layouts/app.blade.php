@@ -26,15 +26,13 @@
         @auth
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#">Navbar</a>
+              <a class="navbar-brand" href="{{route('home')}}">SGF</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  </li>
+
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Paciente
@@ -79,17 +77,10 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <a class="dropdown-item" href="{{ route('index.cita') }}">
+                            <a class="dropdown-item" href="{{ route('index.consulta') }}">
                                 Lista de consultas
                             </a>
                         </li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('create.cita') }}">
-                                Ingresa consulta
-                            </a>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                   </li>
                   <li class="nav-item dropdown">
@@ -98,8 +89,29 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <a class="dropdown-item" href="{{ route('index.categoria') }}">
-                                Categorias
+                            <a class="dropdown-item" href="{{ route('index.roles') }}">
+                                Roles
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('create.roles') }}">
+                                Ingresar roles
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('create.assign') }}">
+                                Asignar roles
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('index.usuario') }}">
+                                usuarios
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('create.usuario') }}">
+                                Ingresar usuario
                             </a>
                         </li>
                     </ul>
@@ -110,7 +122,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <a class="dropdown-item" href="{{ route('mostrar.persona') }}">
+                            <a class="dropdown-item" href="{{ route('show.usuario',['id' => auth()->user()->id]) }}">
                                 Perfil
                             </a>
                         </li>
@@ -120,7 +132,12 @@
                             </a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <form action="{{route('logout')}}" method="post">
+                            @csrf
+                            <a onclick="this.closest('form').submit()" style="cursor: pointer;" class="dropdown-item">
+                              <i class="fas fa-sign-out-alt mr-2"></i> Salir
+                            </a>
+                          </form>
                     </ul>
                   </li>
                 </ul>

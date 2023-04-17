@@ -24,11 +24,12 @@ class Persona extends Model
                             'ciudad',
                             'direccion',
                             'telefono',
+                            'correo',
                             'discapacidad',
                             'porcentaje',
                             'nota',
                             'rutaimagen',
-                            'historiaClinica',
+                            'secuencia_historia_clinica',
                             'created_at',
                             'updated_at'
                         ];
@@ -39,5 +40,9 @@ class Persona extends Model
 
     public function cita(){
         return $this->hasMany(Cita::class,'persona_id');
+    }
+
+    public function getSecuenciaHistoriaClinicaAttribute($secuencia){
+        return str_pad($secuencia, 4, "0", STR_PAD_LEFT);
     }
 }

@@ -18,12 +18,15 @@ class Liquidation extends Model
                             'year',
                             'type_liquidation_id',
                             'cita_id',
-                            'categoria_id',
                             'created_at',
                             'updated_at'
                         ];
 
-    public function liquidation_rubros(){
-        return $this->belongsToMany(Rubro::class,'liquidation_rubros','liquidation_id','rubro_id')->withPivot('id','value','status')->withTimestamps();
+    public function liquidation_services(){
+        return $this->belongsToMany(Servicios::class,'liquidation_services','liquidation_id','servicios_id')->withPivot('id','cantidad','precio','importe','iva','retencion','descuento','subtotal','status')->withTimestamps();
+    }
+
+    public function cita(){
+        return $this->belongsTo(Cita::class, 'cita_id','id');
     }
 }

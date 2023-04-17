@@ -19,14 +19,8 @@
                             <th scope="col">Accion</th>
                             <th>Foto</th>
                             <th scope="col">Cedula</th>
-                            <th scope="col">Historia clinica</th>
                             <th scope="col">Nombres</th>
                             <th scope="col">Apellidos</th>
-                            <th scope="col">Fecha Nacimiento</th>
-                            <th scope="col">Provincia</th>
-                            <th scope="col">Canton</th>
-                            <th scope="col">Ciudad</th>
-                            <th scope="col">Direccion</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,15 +64,8 @@
                 {width: '',data: 'action', name: 'action', orderable: false, searchable: false},
                 {width: '',data: 'foto', name: 'foto', orderable: false, searchable: false},
                 {width: '',data: 'cedula'},
-                {width: '',data: 'historiaClinica'},
                 {width: '',data: 'nombres'},
                 {width: '',data: 'apellidos'},
-                {width: '',data: 'fechaNacimiento'},
-                {width: '',data: 'provincia'},
-                {width: '',data: 'canton'},
-                {width: '',data: 'ciudad'},
-                {width: '',data: 'direccion'},
-
             ],
             "fixedColumns" : true
         });

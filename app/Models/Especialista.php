@@ -26,4 +26,10 @@ class Especialista extends Model
     public function especialidad(){
         return $this->belongsTo(Especialidades::class,'especialidades_id');
     }
+
+    public function scopeEsEspecialista($query, $idpersona)
+    {
+        return (boolean) $query->where('persona_id', $idpersona)->count();
+
+    }
 }

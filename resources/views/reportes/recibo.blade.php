@@ -72,10 +72,10 @@
                                     <td style="border: 1px solid; border-color:darkgrey"><strong>Concepto de pago</strong></td>
                                     <td style="border: 1px solid; border-color:darkgrey"><strong>Valor</strong></td>
                                 </tr>
-                                @foreach ($Liquidation->liquidation_rubros as $lr)
+                                @foreach ($Liquidation->liquidation_services as $lr)
                                     <tr style="border: 1px solid; border-color:darkgrey">
-                                        <td style="border: 1px solid; border-color:darkgrey">{{$lr->name}}</td>
-                                        <td style="border: 1px solid; border-color:darkgrey">{{$lr->pivot->value}}</td>
+                                        <td style="border: 1px solid; border-color:darkgrey">{{$lr->nombre}}</td>
+                                        <td style="border: 1px solid; border-color:darkgrey">{{$lr->subtotal}}</td>
                                     </tr>
                                 @endforeach
                                 <tr style="border: 1px solid; border-color:darkgrey">

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\usuarios;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
-use App\models\Persona;
+use App\Models\User;
+use App\Models\Persona;
 
 class DetallarUsuarioController extends Controller
 {
@@ -19,5 +19,10 @@ class DetallarUsuarioController extends Controller
         $persona = Persona::find($id2);
 
         return view('auth.detallar',['usuario' => $usuario, 'persona' => $persona]);
+    }
+
+    public function show(Request $r, $id){
+        $User = User::find($id);
+        return view('usuarios.perfil',compact('User'));
     }
 }

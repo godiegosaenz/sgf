@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RubroLiquidation extends Model
+class SecuenciaHistoriaClinica extends Model
 {
     use HasFactory;
-    protected $table = 'liquidation_rubros';
+    protected $table = 'secuencia_historia_clinica';
     protected $fillable = ['id',
-                            'rubro_id',
-                            'liquidation_id',
-                            'value',
-                            'status',
+                            'secuencia',
+                            'year',
                             'created_at',
                             'updated_at'
                         ];

@@ -33,4 +33,13 @@ class Cita extends Model
     public function consulta(){
         return $this->hasOne(Consulta::class,'cita_id');
     }
+
+    public function liquidacion(){
+        return $this->hasOne(Liquidation::class,'cita_id');
+    }
+
+    public function servicios_citas()
+    {
+        return $this->belongsToMany(Servicios::class,'cita_servicios','cita_id','servicio_id');
+    }
 }

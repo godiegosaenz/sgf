@@ -94,10 +94,10 @@
                                             <td>Concepto de pago</td>
                                             <td>Valor</td>
                                         </tr>
-                                        @foreach ($Liquidation->liquidation_rubros as $lr)
+                                        @foreach ($Liquidation->liquidation_services as $lr)
                                             <tr>
-                                                <td>{{$lr->name}}</td>
-                                                <td>{{$lr->pivot->value}}</td>
+                                                <td>{{$lr->nombre}}</td>
+                                                <td>{{$lr->pivot->subtotal}}</td>
                                             </tr>
                                         @endforeach
                                         <tr>
@@ -129,54 +129,90 @@
                     <a target="_blank" href="{{route('recibo.pago',$Cita->id)}}" class="btn btn-secondary mb-3" disabled><i class="bi bi-receipt"></i> Generar recibo</a>
                 </div>
             @else
-            <div class="col-8">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Procesar pago</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <form action="{{route('store.pago')}}" method="post" id="formPago">
-                            @csrf
-                            <input type="hidden" name="cita_id" value="{{$Cita->id}}">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label for="diagnostico">* Categoria : </label>
-                                        <select class="form-select" aria-label="Default select example" id="categoria_id" name="categoria_id">
-                                            <option selected>Seleccione categoria</option>
-                                            @isset($Categoria)
-                                                @foreach ($Categoria as $c)
-                                                    <option value="{{$c->id}}">{{$c->nombre}}</option>
-                                                @endforeach
-                                            @endisset
-                                          </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="diagnostico">* Valor recibido : </label>
-                                        <input type="text" class="form-control" id="inputValorRecibido" name="inputValorRecibido" value="" onkeyup="calcularCambio()">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="diagnostico">* Valor a cobrar : </label>
-                                        <input type="text" class="form-control" id="inputValorCobrar" name="inputValorCobrar" value="0.00">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="diagnostico">* Cambio : </label>
-                                        <input type="text" class="form-control" id="inputCambio" name="inputCambio" value="0.00">
-                                    </div>
-                                    <div class="mb-3">
-                                        <button type="button" id="btnProcesarPago" class="btn btn-primary mb-3"><i class="bi bi-wallet"></i> Procesar</button>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Procesar pago</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                <form action="{{route('store.pago')}}" method="post" id="formPago">
+                                    @csrf
+                                    <input type="hidden" name="cita_id" value="{{$Cita->id}}">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <div class="mb-3">
+                                                <label for="diagnostico">* Valor recibido : </label>
+                                                <input type="text" class="form-control" id="inputValorRecibido" name="inputValorRecibido" value="" onkeyup="calcularCambio()">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="diagnostico">* Valor a cobrar : </label>
+                                                <input type="text" class="form-control" id="inputValorCobrar" name="inputValorCobrar" value="{{number_format($Cita->servicios_citas->sum('subtotal'), 2);}}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="diagnostico">* Cambio : </label>
+                                                <input type="text" class="form-control" id="inputCambio" name="inputCambio" value="0.00">
+                                            </div>
+                                            <div class="mb-3">
+                                                <button type="button" id="btnProcesarPago" class="btn btn-primary mb-3"><i class="bi bi-wallet"></i> Procesar</button>
 
-                                    </div>
+                                            </div>
 
-                                </div>
-                                <div class="col-6">
-                                    <p class="fs-1">TOTAL A PAGAR</p>
-                                    <h1><span class="badge bg-primary" id="spanValor">$ 0.00</span></h1>
-                                </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <p class="fs-3">TOTAL A PAGAR</p>
+                                            <h1><span class="badge bg-primary" id="spanValor">$ {{number_format($Cita->servicios_citas->sum('subtotal'), 2);}}</span></h1>
+                                        </div>
+                                    </div>
+                                </form>
+
                             </div>
-                        </form>
-
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Accion</th>
+                                    <th>Unidad</th>
+                                    <th style="width: 40%">Concepto</th>
+                                    <th>Precio Uni</th>
+                                    <th>Desc (%)</th>
+                                    <th>Base ($)</th>
+                                    <th>Iva (%)</th>
+                                    <th>Ret (%)</th>
+                                    <th>Subtotal ($)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyservicios">
+                                @foreach ($Cita->servicios_citas as $cs)
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>1</td>
+                                        <td>{{$cs->nombre}}</td>
+                                        <td>{{$cs->precio}}</td>
+                                        <td>{{$cs->descuento}}</td>
+                                        <td>{{$cs->importe}}</td>
+                                        <td>{{$cs->iva}}</td>
+                                        <td>{{$cs->retencion}}</td>
+                                        <td>{{$cs->subtotal}}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5"></td>
+                                    <td id="tdBase"><strong> TOTAL BASE ($) {{number_format($Cita->servicios_citas->sum('importe'), 2);}}</strong> </td>
+                                    <td id="tdIva"><strong> TOTAL IVA ($) {{number_format($Cita->servicios_citas->sum('iva'), 2);}}</strong> </td>
+                                    <td></td>
+                                    <td id="tdTotal"><strong> TOTAL ($) {{number_format($Cita->servicios_citas->sum('subtotal'), 2);}}</strong> </td>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
                 </div>
+
             </div>
             @endif
         </div>

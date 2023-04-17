@@ -8,7 +8,7 @@ use App\models\Categoria;
 use App\models\Cita;
 use App\models\Liquidation;
 use App\models\LiquidationSequence;
-use App\models\RubroLiquidation;
+use App\models\LiquidationServices;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 
@@ -26,13 +26,12 @@ class PagoController extends Controller
     public function index($id)
     {
         $Cita = Cita::find($id);
-        $Categoria = Categoria::all();
         $Liquidation = new Liquidation();
         $contadorLiquidacion = Liquidation::where('cita_id',$id)->count();
         if(Liquidation::where('cita_id',$id)->count() == 1){
             $Liquidation = Liquidation::where('cita_id',$id)->first();
         }
-        return view('liquidaciones.pago',compact('Categoria','Cita','Liquidation','contadorLiquidacion'));
+        return view('liquidaciones.pago',compact('Cita','Liquidation','contadorLiquidacion'));
     }
 
     /**
@@ -63,7 +62,6 @@ class PagoController extends Controller
         $reglas = [
             'inputValorCobrar' => 'bail|required',
             'cita_id' => 'bail|required',
-            'categoria_id' => 'bail|required',
         ];
 
         $validator = Validator::make($r->all(),$reglas,$messages);
@@ -87,20 +85,29 @@ class PagoController extends Controller
         $Liquidation = new Liquidation();
         $Liquidation->total_payment = $r->inputValorCobrar;
         $Liquidation->cita_id = $r->cita_id;
-        $Liquidation->categoria_id = $r->categoria_id;
         $Liquidation->type_liquidation_id = 1;
         $Liquidation->year = '2022';
         $Liquidation->status = 1;
-        $Liquidation->username = 'tecnologia.informacion@sanvicente.gob.ec';
+        $Liquidation->username = Auth()->user()->email;
         $Liquidation->voucher_number = $secuenciaLiquidacion;
         $Liquidation->save();
 
-        $RubroLiquidation = new RubroLiquidation();
-        $RubroLiquidation->rubro_id = 1;
-        $RubroLiquidation->liquidation_id = $Liquidation->id;
-        $RubroLiquidation->value = $Liquidation->total_payment;
-        $RubroLiquidation->status = true;
-        $RubroLiquidation->save();
+        $Cita = Cita::find($r->cita_id);
+
+        foreach($Cita->servicios_citas as $c){
+            $LiquidationServices = new LiquidationServices();
+            $LiquidationServices->servicios_id = $c->id;
+            $LiquidationServices->liquidation_id = $Liquidation->id;
+            $LiquidationServices->subtotal = $c->subtotal;
+            $LiquidationServices->status = true;
+            $LiquidationServices->cantidad = 1;
+            $LiquidationServices->precio = $c->precio;
+            $LiquidationServices->importe = $c->importe;
+            $LiquidationServices->iva = $c->iva;
+            $LiquidationServices->retencion = $c->retencion;
+            $LiquidationServices->descuento = $c->descuento;
+            $LiquidationServices->save();
+        }
 
         return redirect('pago/'.$r->cita_id)->with('guardado','Pago realizado con exito, descargue el comprobante');
     }

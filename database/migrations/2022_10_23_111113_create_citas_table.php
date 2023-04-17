@@ -17,13 +17,14 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('persona_id')->nullable();
             $table->foreign('persona_id')->references('id')->on('personas');
-            $table->unsignedInteger('especialidades_id')->nullable();
-            $table->foreign('especialidades_id')->references('id')->on('especialidades');
+            ///$table->unsignedInteger('especialidades_id')->nullable();
+            //$table->foreign('especialidades_id')->references('id')->on('especialidades');
             $table->unsignedInteger('especialista_id')->nullable();
             $table->foreign('especialista_id')->references('persona_id')->on('especialistas');
             $table->date('fecha');
             $table->time('hora');
             $table->enum('estado', ['pendiente', 'atendido','cancelado']);
+            $table->enum('tipo_cita', ['Primera visita', 'Cita derivida','Urgencia','Empieza tratamiento','Continua tratamiento','Revision'])->nullable();
             $table->text('motivo')->nullable();
             $table->timestamps();
         });

@@ -15,7 +15,7 @@ class Consulta extends Model
                             'created_at',
                             'updated_at'
                         ];
-
+    protected $primaryKey = 'cita_id';
     public function cita(){
         return $this->belongsTo(Cita::class, 'cita_id','id');
     }

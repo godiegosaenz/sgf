@@ -236,6 +236,19 @@
                                                                     </div>
                                                                 </div>
                                                             </li>
+                                                            <li class="list-group-item">
+                                                                <div class="form-group row mt-3">
+                                                                    <label for="correo" class="col-sm-3 col-form-label">Correo</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input type="text" class="form-control {{$errors->has('correo') ? 'is-invalid' : ''}}" id="correo" name="correo" value="{{$errors->any() ? old('correo') : $persona->correo}}">
+                                                                        <div class="invalid-feedback">
+                                                                            @if($errors->has('correo'))
+                                                                                {{$errors->first('correo')}}
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
                                                         </ul>
                                                     </div>
 
@@ -273,10 +286,10 @@
                                                             <div class="form-group row">
 
                                                                 <div class="col-sm-12">
-                                                                    <input type="text" class="form-control {{$errors->has('historiaClinica') ? 'is-invalid' : ''}}" id="historiaClinica" name="historiaClinica" value="{{$errors->any() ? old('historiaClinica'): $persona->historiaClinica }}">
+                                                                    <input type="text" class="form-control {{$errors->has('historiaClinica') ? 'is-invalid' : ''}}" id="secuencia_historia_clinica" name="secuencia_historia_clinica" value="{{$errors->any() ? old('secuencia_historia_clinica'): $persona->secuencia_historia_clinica }}" disabled>
                                                                     <div class="invalid-feedback">
-                                                                        @if($errors->has('historiaClinica'))
-                                                                            {{$errors->first('historiaClinica')}}
+                                                                        @if($errors->has('secuencia_historia_clinica'))
+                                                                            {{$errors->first('secuencia_historia_clinica')}}
                                                                         @endif
                                                                     </div>
                                                                 </div>
@@ -482,7 +495,7 @@
                                         <div class="form-group row mt-3">
                                             <div class="col-sm-12 col-md-12">
                                                 <input type="hidden" name="idpersona" value="{{$persona->id}}">
-                                                <button type="submit" name="btn_Guardar_Persona" class="btn btn-secondary btn-block">Actualizar datos</button>
+                                                <button type="submit" name="btn_Guardar_Persona" class="btn btn-primary btn-block">Actualizar datos</button>
                                             </div>
                                         </div>
                                     </div>
@@ -507,7 +520,7 @@
                                                         <div class="form-group row mt-3">
                                                             <label for="nombres" class="col-sm-3 col-form-label">Nombre del archivo :</label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" class="form-control {{$errors->has('nombres') ? 'is-invalid' : ''}}" id="nombres" name="nombres" value="">
+                                                                <input type="text" class="form-control {{$errors->has('nombres') ? 'is-invalid' : ''}}" id="nombres" name="nombres" value="" required>
 
                                                             </div>
                                                         </div>
@@ -517,7 +530,7 @@
                                                             <label for="txtArchivo" class="col-sm-3 col-form-label">Archivo :</label>
                                                             <div class="col-sm-9 mb-3">
 
-                                                                <input class="form-control {{$errors->has('txtArchivo') ? 'is-invalid' : ''}}" type="file" id="txtArchivo" name="txtArchivo">
+                                                                <input class="form-control {{$errors->has('txtArchivo') ? 'is-invalid' : ''}}" type="file" id="txtArchivo" name="txtArchivo" required>
                                                                 <div class="invalid-feedback">
                                                                     @if($errors->has('txtArchivo'))
                                                                         {{$errors->first('txtArchivo')}}
@@ -529,7 +542,7 @@
                                                     </li>
 
                                                     <li class="list-group-item">
-                                                        <input type="submit" class="btn btn-secondary btn-block" value="Subir Archivo">
+                                                        <input type="submit" class="btn btn-primary btn-block" value="Subir Archivo">
                                                     </li>
 
                                                 </form>

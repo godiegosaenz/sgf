@@ -22,7 +22,7 @@
                         </tr>
                         <tr>
                             <td>Historia clínica</td>
-                            <td>{{$persona->historiaClinica}}</td>
+                            <td>{{$persona->secuencia_historia_clinica}}</td>
                         </tr>
                         <tr>
                             <td><i class="fa fa-user"></i> Nombres :</td>
@@ -39,7 +39,7 @@
                                     <?php
                                     $fechaN = explode('-',date($persona->fechaNacimiento));
                                     $year = date("Y");
-                                    echo $year - $fechaN[0] . ' años';
+                                    echo intval($year) - intval($fechaN[0]) . ' años';
                                     ?>
                                 </span>
                             </td>
@@ -109,23 +109,28 @@
                         <td>{{$persona->historiaClinica}}</td>
                     </tr>
                 </table>
-                <table class="table table-sm table-bordered">
-                    <tr style="background-color: #BCDCF9">
-                        <td colspan="4" style="text-align: center"><strong>Documentos</strong></td>
-                    </tr>
-                    <tr>
-                        <td style="width: 25%"><i class="fa fa-phone"></i> Fecha :</td>
-                        <td style="width: 25%">{{$persona->fecha}}</td>
-                        <td style="width: 25%"><i class="fa fa-hourglass"></i> Hora :</td>
-                        <td style="width: 25%">{{$persona->hora}}</td>
-                    </tr>
-                    <tr>
-                        <td style="width: 25%"><i class="fa fa-phone"></i> Estado :</td>
-                        <td style="width: 25%">{{$persona->estado}}</td>
-                        <td style="width: 25%"><i class="fa fa-hourglass"></i> Motivo :</td>
-                        <td style="width: 25%">{{$persona->motivo}}</td>
-                    </tr>
-                </table>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="tableDocumento">
+                        <thead>
+                            <tr style="background-color: #BCDCF9">
+
+                            <th scope="col">Documento</th>
+                            <th scope="col">Accion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($archivo as $a)
+                            <tr>
+
+                                <td scope="col">{{$a->nombreArchivo}}</td>
+                                <td scope="col"><a target="_blank" href="{{ route('descargar.archivo',['id' => $a->id]) }}" class="btn btn-dark btn-sm">Descargar</a></td>
+                            </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="row justify-content-md-center">

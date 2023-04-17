@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('especialistas', function (Blueprint $table) {
             $table->integer('persona_id')->unsigned();
-            $table->string('correo')->nullable();
+            $table->string('correo',60)->nullable();
             $table->string('telefono')->nullable();
             $table->unsignedInteger('especialidades_id')->nullable();
             $table->foreign('especialidades_id')->references('id')->on('especialidades');

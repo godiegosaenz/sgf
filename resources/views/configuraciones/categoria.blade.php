@@ -64,7 +64,7 @@
                         <hr>
                         <table class="table table-bordered">
                             <thead>
-                                {{$Categoria}}
+
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Valor</th>
@@ -72,9 +72,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if($Categoria->count() > 0)
 
-                                @endisset
+                                   @foreach ($TodasCategorias as $ca)
+                                   <tr>
+                                        <td>{{$ca->nombre}}</td>
+                                        <td>{{$ca->valor}}</td>
+                                        <td><button class="btn btn-dark btn-sm">Editar</button></td>
+                                    </tr>
+                                   @endforeach
+
                             </tbody>
                         </table>
 

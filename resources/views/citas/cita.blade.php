@@ -13,22 +13,31 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <label for="">Citas del dia</label>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="mb-3">
-                                    <input class="form-control" type="date" id="fecha" name="fecha" value="<?php echo date("Y-m-d");?>">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          Filtros
+                        </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="mb-3">
+                                        <label for="">Citas del dia</label>
+                                        <input class="form-control form-control-sm" type="date" id="fecha" name="fecha" value="<?php echo date("Y-m-d");?>">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <br>
+                                    <button id="btnActualizar" class="btn btn-primary btn-sm">Actualizar</button>
                                 </div>
                             </div>
-                            <div class="col-4">
-                                <button id="btnActualizar" class="btn btn-primary">Actualizar</button>
-                            </div>
                         </div>
+                      </div>
                     </div>
+
                 </div>
             </div>
         </div>

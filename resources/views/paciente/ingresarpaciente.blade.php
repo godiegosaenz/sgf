@@ -177,6 +177,17 @@
                             </div>
                         </div>
                         <div class="row mb-3">
+                            <label for="correo" class="col-sm-2 col-form-label">Correo</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control {{$errors->has('telefono') ? 'is-invalid' : ''}}" id="correo" name="correo" placeholder="Ejemplo micorreo@hotmail.com" value="{{ old('correo')}}" @if($errors->any())  @else disabled @endif>
+                                <div class="invalid-feedback">
+                                    @if($errors->has('correo'))
+                                        {{$errors->first('correo')}}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
                             <label for="discapacidad" class="col-2 col-form-label">Discapacidad</label>
                             <div class="col-10">
                                 <select class="form-select {{$errors->has('discapacidad') ? 'is-invalid' : ''}}" id="discapacidad" name="discapacidad" @if($errors->any())  @else disabled @endif>
@@ -212,17 +223,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label for="historiaClinica" class="col-sm-2 col-form-label">* Historia Clinica</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control {{$errors->has('historiaClinica') ? 'is-invalid' : ''}}" id="historiaClinica" name="historiaClinica" placeholder="Ejemplo 1-002" value="{{ old('historiaClinica')}}" @if($errors->any())  @else disabled @endif>
-                                <div class="invalid-feedback">
-                                    @if($errors->has('historiaClinica'))
-                                        {{$errors->first('historiaClinica')}}
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="row mb-3">
                             <label for="formFile" class="col-sm-2 col-form-label">Foto</label>
                             <div class="col-sm-10">
@@ -291,10 +292,10 @@
         var ciudad = document.getElementById('ciudad').removeAttribute('disabled');
         var direccion = document.getElementById('direccion').removeAttribute('disabled');
         var telefono = document.getElementById('telefono').removeAttribute('disabled');
+        var correo = document.getElementById('correo').removeAttribute('disabled');
         var discapacidad = document.getElementById('discapacidad').removeAttribute('disabled');
         var porcentaje = document.getElementById('porcentaje').removeAttribute('disabled');
         var nota = document.getElementById('nota').removeAttribute('disabled');
-        var historiaClinica = document.getElementById('historiaClinica').removeAttribute('disabled');
         var txtFoto = document.getElementById('txtFoto').removeAttribute('disabled');
         var btn_Guardar_Persona = document.getElementById('btn_Guardar_Persona').removeAttribute('disabled');
     }

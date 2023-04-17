@@ -4,7 +4,7 @@ namespace App\Http\Controllers\usuarios;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 
 class ListarUsuarioController extends Controller
 {
@@ -17,4 +17,6 @@ class ListarUsuarioController extends Controller
         $user = User::all();
         return view('auth.list',compact('user'));
     }
+
+
 }

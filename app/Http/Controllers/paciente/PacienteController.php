@@ -8,6 +8,7 @@ use App\Models\Provincia;
 use App\Models\Persona;
 use App\Models\Canton;
 use App\Models\Archivo;
+use App\Models\ClinicalHistorySequence;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -20,14 +21,19 @@ class PacienteController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Request $r){
+    public function index(){
+
+    }
+
+    public function create(Request $r){
+        //$this->authorize('create');
         $provincias = Provincia::all();
         $cantones = new Canton();
         if(Cookie::get('provincia_id') !== null){
             $cantones = Canton::where('id_provincia',Cookie::get('provincia_id'))->get();
         }
         Cookie::queue('provincia_id', '');
-        return view('paciente.ingresarpaciente',compact('provincias','cantones'))->with('estado',$r->estado);;
+        return view('paciente.ingresarpaciente',compact('provincias','cantones'))->with('estado',$r->estado);
     }
 
     public function store(Request $r){
@@ -55,7 +61,6 @@ class PacienteController extends Controller
                         'porcentaje' => 'max:3',
                         'nota' => '',
                         //'txtFoto' => 'required',
-                        'historiaClinica' => 'required|max:6'
                     ];
             }else{
 
@@ -75,7 +80,6 @@ class PacienteController extends Controller
                     'porcentaje' => 'required|max:3',
                     'nota' => '',
                     //'txtFoto' => 'required',
-                    'historiaClinica' => 'required|max:6'
                 ];
             }
 
@@ -108,6 +112,20 @@ class PacienteController extends Controller
                 $arregloRutas = explode('/',$ruta);
                 $rutaparaimgen = 'storage/'.$arregloRutas[1];
             }
+            $secuencia = 1;
+            $obtenermaximasecuencia = DB::table('secuencia_historia_clinica')->max('secuencia');
+            if($obtenermaximasecuencia != null){
+                $secuencia = $obtenermaximasecuencia + 1;
+                DB::table('secuencia_historia_clinica')->insert([
+                    'secuencia' => $secuencia,
+                    'year' => date("Y")
+                ]);
+            }else{
+                DB::table('secuencia_historia_clinica')->insert([
+                    'secuencia' => $secuencia,
+                    'year' => date("Y")
+                ]);
+            }
 
             $cedula = $r->cedula;
             $personas = new Persona;
@@ -126,10 +144,12 @@ class PacienteController extends Controller
             $personas->ciudad = $r->ciudad;
             $personas->direccion = $r->direccion;
             $personas->telefono = $r->telefono;
+            $personas->correo = $r->correo;
             $personas->discapacidad = $r->discapacidad;
             $personas->porcentaje = $r->porcentaje;
             $personas->nota = $r->nota;
-            $personas->historiaClinica = $r->historiaClinica;
+            $personas->secuencia_historia_clinica = $secuencia;
+
             if($r->file('txtFoto') != ''){
                 $personas->rutaimagen = $rutaparaimgen;
             }
@@ -151,7 +171,7 @@ class PacienteController extends Controller
     public function update(Request $r,$id){
         $messages = [
             'required' => 'El campo :attribute es requerido.',
-            'unique' => 'El numero de cedula ingresado ya existe',
+            'unique' => 'El numero de :attribute ingresado ya existe',
             'size' => 'El campo :attribute debe tener exactamente :size caracteres',
             'max' => 'El campo :attribute no debe exceder los :max caracteres',
         ];
@@ -173,7 +193,7 @@ class PacienteController extends Controller
                     'porcentaje' => '',
                     'nota' => '',
                     //'txtFoto' => 'required',
-                    'historiaClinica' => 'required|max:6'
+
                 ];
         }else{
 
@@ -193,7 +213,7 @@ class PacienteController extends Controller
                 'porcentaje' => 'required|max:3',
                 'nota' => '',
                 //'txtFoto' => 'required',
-                'historiaClinica' => 'required|max:6'
+
             ];
         }
 
@@ -237,10 +257,10 @@ class PacienteController extends Controller
         $personas->ciudad = $r->ciudad;
         $personas->direccion = $r->direccion;
         $personas->telefono = $r->telefono;
+        $personas->correo = $r->correo;
         $personas->discapacidad = $r->discapacidad;
         $personas->porcentaje = $r->porcentaje;
         $personas->nota = $r->nota;
-        $personas->historiaClinica = $r->historiaClinica;
         if($r->file('txtFoto') != ''){
             $personas->rutaimagen = $rutaparaimgen;
         }

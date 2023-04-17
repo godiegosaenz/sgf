@@ -34,7 +34,7 @@ class ListarPacienteController extends Controller
                 ->addColumn('edad', function ($listapersona) {
                     $yearactual = date('Y');
                     $yearnacimiento = explode('-',$listapersona->fechaNacimiento);
-                    $edad = $yearactual - $yearnacimiento[0];
+                    $edad = intval($yearactual) - intval($yearnacimiento[0]);
                     return $edad.' años';
                 })
                 ->addColumn('foto', function($listapersona){
@@ -64,7 +64,7 @@ class ListarPacienteController extends Controller
                 ->addColumn('edad', function ($listapersona) {
                     $yearactual = date('Y');
                     $yearnacimiento = explode('-',$listapersona->fechaNacimiento);
-                    $edad = $yearactual - $yearnacimiento[0];
+                    $edad = intval($yearactual) - intval($yearnacimiento[0]);
                     return $edad.' años';
                 })
                 ->addColumn('foto', function($listapersona){

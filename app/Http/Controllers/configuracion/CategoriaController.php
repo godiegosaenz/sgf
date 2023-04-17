@@ -21,10 +21,11 @@ class CategoriaController extends Controller
     public function index(Request $r , $id = null)
     {
         $Categoria = new Categoria();
+        $TodasCategorias = Categoria::all();
         if($id != null){
             $Categoria = Categoria::find($id);
         }
-        return view('configuraciones.categoria',compact('Categoria'));
+        return view('configuraciones.categoria',compact('Categoria','TodasCategorias','id'));
     }
 
     public function getValue(Request $r){

@@ -27,9 +27,6 @@ class CreateLiquidationsTable extends Migration
             $table->unsignedBigInteger('cita_id')->nullable();
             $table->index('cita_id');
             $table->foreign('cita_id')->references('id')->on('citas');
-            $table->unsignedInteger('categoria_id')->nullable();
-            $table->index('categoria_id');
-            $table->foreign('categoria_id')->references('id')->on('categorias');
             $table->timestamps();
         });
     }

@@ -6,7 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use App\models\Cita;
+use App\Models\Cita;
+use App\Models\Citaservicios;
+use App\Models\Servicios;
+use App\Models\Especialista;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cookie;
 use Datatables;
 
 class CitasController extends Controller
@@ -46,6 +51,7 @@ class CitasController extends Controller
         $messages = [
             'especialista_id.required' => 'Seleccione a un especialista',
             'persona_id.required' => 'Seleccione a un paciente',
+            'servicios.required' => 'Debe agregar al menos un servicio',
             'required' => 'El campo :attribute es requerido.',
             'unique' => 'El numero de cedula ingresado ya existe',
             'size' => 'El campo :attribute debe tener exactamente :size caracteres',
@@ -57,26 +63,65 @@ class CitasController extends Controller
             'especialista_id' => 'bail|required',
             'fecha' => 'required|date',
             'hora' => 'required',
-            'motivo' => 'required'
+            'motivo' => 'required',
+            'tipo_cita' => 'required',
+            'servicios' => 'required'
         ];
 
         $validator = Validator::make($r->all(),$reglas,$messages);
-
-        if ($validator->fails()) {
+        $checkservicios = $r->servicios;
+        $variableservicios = "";
+        if($validator->fails()) {
+            if($r->servicios != null){
+                for($i=0;$i<count($checkservicios);$i++){
+                    $valor = Servicios::where('id',$checkservicios[$i])->get();
+                    foreach($valor as $v){
+                        $variableservicios .= "seleccionarservicio(";
+                        $variableservicios .= $v->id.",";
+                        $variableservicios .= "'".$v->nombre."',";
+                        $variableservicios .= "'".$v->precio."',";
+                        $variableservicios .= "'".$v->descuento."',";
+                        $variableservicios .= "'".$v->importe."',";
+                        $variableservicios .= "'".$v->iva."',";
+                        $variableservicios .= "'".$v->retencion."',";
+                        $variableservicios .= "'".$v->subtotal."');";
+                    }
+                }
+            }
             return redirect('/cita/ingresar')
                         ->withErrors($validator)
-                        ->withInput();
+                        ->withInput()
+                        ->with('status', $variableservicios);
+                        //->with('status','vine de la validacion');
         }
 
-        $Cita = new Cita();
-        $Cita->persona_id = $r->persona_id;
-        $Cita->especialista_id = $r->especialista_id;
-        $Cita->fecha = $r->fecha;
-        $Cita->hora = $r->hora;
-        $Cita->estado = 'pendiente';
-        $Cita->motivo = $r->motivo;
-        $Cita->save();
-        return redirect('cita/'.$Cita->id.'/editar')->with('guardado','Cita agendada correctamente');
+        //DB::beginTransaction();
+        //try {
+
+            $Cita = new Cita();
+            $Cita->persona_id = $r->persona_id;
+            $Cita->especialista_id = $r->especialista_id;
+            $Cita->fecha = $r->fecha;
+            $Cita->hora = $r->hora;
+            $Cita->estado = 'pendiente';
+            $Cita->motivo = $r->motivo;
+            $Cita->tipo_cita = $r->tipo_cita;
+            $Cita->save();
+
+
+            for($i=0;$i<count($checkservicios);$i++){
+                $Citaservicios = new Citaservicios();
+                $Citaservicios->cita_id = $Cita->id;
+                $Citaservicios->servicio_id = $checkservicios[$i];
+                $Citaservicios->save();
+            }
+           //DB::commit();
+
+            return redirect('cita/'.$Cita->id.'/editar')->with('guardado','Cita agendada correctamente');
+        /*} catch (\Exception $e) {
+            DB::rollback();
+            return redirect('cita/'.$Cita->id.'/editar')->with('error','Ocurrio un error, intenta mas tarde');
+        }*/
     }
 
     /**
@@ -114,6 +159,7 @@ class CitasController extends Controller
         $messages = [
             'especialista_id.required' => 'Seleccione a un especialista',
             'persona_id.required' => 'Seleccione a un paciente',
+            'servicios.required' => 'Debe agregar al menos un servicio',
             'required' => 'El campo :attribute es requerido.',
             'unique' => 'El numero de cedula ingresado ya existe',
             'size' => 'El campo :attribute debe tener exactamente :size caracteres',
@@ -125,26 +171,64 @@ class CitasController extends Controller
             'especialista_id' => 'bail|required',
             'fecha' => 'required|date',
             'hora' => 'required',
-            'motivo' => 'required'
+            'motivo' => 'required',
+            'tipo_cita' => 'required',
+            'servicios' => 'required'
         ];
 
         $validator = Validator::make($r->all(),$reglas,$messages);
-
+        $checkservicios = $r->servicios;
+        $variableservicios = "";
         if ($validator->fails()) {
+            if($r->servicios != null){
+                for($i=0;$i<count($checkservicios);$i++){
+                    $valor = Servicios::where('id',$checkservicios[$i])->get();
+                    foreach($valor as $v){
+                        $variableservicios .= "seleccionarservicio(";
+                        $variableservicios .= $v->id.",";
+                        $variableservicios .= "'".$v->nombre."',";
+                        $variableservicios .= "'".$v->precio."',";
+                        $variableservicios .= "'".$v->descuento."',";
+                        $variableservicios .= "'".$v->importe."',";
+                        $variableservicios .= "'".$v->iva."',";
+                        $variableservicios .= "'".$v->retencion."',";
+                        $variableservicios .= "'".$v->subtotal."');";
+                    }
+                }
+            }
             return redirect('/cita/'.$id.'/editar')
                         ->withErrors($validator)
-                        ->withInput();
+                        ->withInput()
+                        ->with('status', $variableservicios);
         }
 
-        $Cita = Cita::find($id);
-        $Cita->persona_id = $r->persona_id;
-        $Cita->especialista_id = $r->especialista_id;
-        $Cita->fecha = $r->fecha;
-        $Cita->hora = $r->hora;
-        $Cita->estado = 'pendiente';
-        $Cita->motivo = $r->motivo;
-        $Cita->save();
-        return redirect('cita/'.$Cita->id.'/editar')->with('guardado','La cita se actualizo correctamente');
+        DB::beginTransaction();
+        try {
+
+            $Cita = Cita::find($id);
+            $Cita->persona_id = $r->persona_id;
+            $Cita->especialista_id = $r->especialista_id;
+            $Cita->fecha = $r->fecha;
+            $Cita->hora = $r->hora;
+            $Cita->estado = 'pendiente';
+            $Cita->motivo = $r->motivo;
+            $Cita->tipo_cita = $r->tipo_cita;
+            $Cita->save();
+
+            $deleted = Citaservicios::where('cita_id', $id)->delete();
+
+            for($i=0;$i<count($checkservicios);$i++){
+                $Citaservicios = new Citaservicios();
+                $Citaservicios->cita_id = $Cita->id;
+                $Citaservicios->servicio_id = $checkservicios[$i];
+                $Citaservicios->save();
+            }
+            DB::commit();
+            return redirect('cita/'.$Cita->id.'/editar')->with('guardado','La cita se actualizo correctamente');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect('cita/'.$Cita->id.'/editar')->with('error','Ocurrio un error, intenta mas tarde');
+        }
     }
 
     /**
@@ -159,7 +243,16 @@ class CitasController extends Controller
     }
 
     public function list(Request $r){
-        $Cita = Cita::where('fecha',$r->fecha)->get();
+        $idpersona = Auth()->user()->idpersona;
+        if(Especialista::EsEspecialista($idpersona) == true){
+            $Cita = Cita::where([
+                'fecha' => $r->fecha,
+                'especialista_id' => $idpersona,
+            ])->get();
+        }else{
+            $Cita = Cita::where('fecha',$r->fecha)->get();
+        }
+
         return Datatables($Cita)
                 ->removeColumn('persona_id')
                 ->removeColumn('especialista_id')
@@ -186,12 +279,13 @@ class CitasController extends Controller
                     $botonesCita = '';
                     if($Cita->estado == 'pendiente'){
                         $botonesCita .= '<a href="'.route('create.consulta',$Cita->id).'" class="btn btn-primary btn-sm"><i class="bi bi-check-circle-fill"></i> Atender</a> ';
-                        $botonesCita .= '<a onclick="mostrarToasCancelarCita('.$Cita->id.')" class="btn btn-danger btn-sm"><i class="bi bi-x-circle-fill"></i> Cancelar</a>';
+                        $botonesCita .= '<a onclick="mostrarToasCancelarCita('.$Cita->id.')" class="btn btn-danger btn-sm"><i class="bi bi-x-circle-fill"></i> Cancelar</a> ';
+                        $botonesCita .= '<a href="'.route('edit.cita',$Cita->id).'" class="btn btn-warning btn-sm"><i class="bi bi-check-circle-fill"></i> Editar</a> ';
                     }else if($Cita->estado == 'atendido'){
                         $botonesCita .= '<a href="'.route('index.pago',$Cita->id).'" class="btn btn-primary btn-sm"><i class="bi bi-receipt"></i> Procesar pago</a> ';
                         $botonesCita .= '<a href="'.route('ficha.citareporte',$Cita->id).'" class="btn btn-secondary btn-sm"><i class="bi bi-file-pdf"></i> reporte</a> ';
                     }else if($Cita->estado == 'completado'){
-                        $botonesCita .= '<a href="'.route('index.pago',$Cita->id).'" class="btn btn-primary btn-sm"><i class="bi bi-receipt"></i> Procesar pago</a> ';
+                        $botonesCita .= '<a href="'.route('index.pago',$Cita->id).'" class="btn btn-primary btn-sm"><i class="bi bi-receipt"></i> Generar recibo</a> ';
                         $botonesCita .= '<a href="'.route('ficha.citareporte',$Cita->id).'" class="btn btn-secondary btn-sm"><i class="bi bi-file-pdf"></i> reporte</a> ';
                     }
                     return $botonesCita;
