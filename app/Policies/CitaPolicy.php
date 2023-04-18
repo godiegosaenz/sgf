@@ -2,14 +2,23 @@
 
 namespace App\Policies;
 
-use App\Models\Persona;
 use App\Models\User;
+use App\Models\Cita;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Auth\Access\Response;
 
-class PersonaPolicy
+class CitaPolicy
 {
     use HandlesAuthorization;
+
+    /**
+     * Create a new policy instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
 
     /**
      * Determine whether the user can view any models.
@@ -19,7 +28,7 @@ class PersonaPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasPermissionTo('listar personas');
+        return $user->hasPermissionTo('listar citas');
     }
 
     /**
@@ -31,7 +40,7 @@ class PersonaPolicy
      */
     public function view(User $user)
     {
-        return $user->hasPermissionTo('mostrar personas');
+        return $user->hasPermissionTo('mostrar citas');
     }
 
     /**
@@ -42,7 +51,7 @@ class PersonaPolicy
      */
     public function create(User $user)
     {
-        return $user->hasPermissionTo('crear personas');
+        return $user->hasPermissionTo('crear citas');
     }
 
     /**
@@ -54,7 +63,7 @@ class PersonaPolicy
      */
     public function update(User $user)
     {
-        return $user->hasPermissionTo('editar personas');
+        return $user->hasPermissionTo('editar citas');
     }
 
     /**
@@ -64,7 +73,7 @@ class PersonaPolicy
      * @param  \App\Models\Persona  $persona
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Persona $persona)
+    public function delete(User $user)
     {
 
     }
@@ -76,7 +85,7 @@ class PersonaPolicy
      * @param  \App\Models\Persona  $persona
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Persona $persona)
+    public function restore(User $user)
     {
         //
     }

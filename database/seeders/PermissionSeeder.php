@@ -25,14 +25,14 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'Menu personas']);
         Permission::create(['name' => 'crear personas']);
         Permission::create(['name' => 'editar personas']);
-        Permission::create(['name' => 'eliminar personas']);
-        Permission::create(['name' => 'ver personas']);
+        Permission::create(['name' => 'mostrar personas']);
+        Permission::create(['name' => 'listar personas']);
 
         Permission::create(['name' => 'Menu citas']);
         Permission::create(['name' => 'crear citas']);
         Permission::create(['name' => 'editar citas']);
-        Permission::create(['name' => 'eliminar citas']);
-        Permission::create(['name' => 'ver citas']);
+        Permission::create(['name' => 'mostrar citas']);
+        Permission::create(['name' => 'listar citas']);
 
         Permission::create(['name' => 'Menu consultas']);
         Permission::create(['name' => 'crear consultas']);

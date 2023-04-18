@@ -13,6 +13,7 @@ use App\Models\Especialista;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cookie;
 use Datatables;
+use Illuminate\Support\Facades\Gate;
 
 class CitasController extends Controller
 {
@@ -27,6 +28,9 @@ class CitasController extends Controller
      */
     public function index()
     {
+        if (! Gate::allows('listar-citas')) {
+            abort(403);
+        }
         return view('citas.cita');
     }
 
@@ -37,6 +41,9 @@ class CitasController extends Controller
      */
     public function create()
     {
+        if (! Gate::allows('crear-citas')) {
+            abort(403);
+        }
         return view('citas.citaCreate');
     }
 
@@ -48,6 +55,9 @@ class CitasController extends Controller
      */
     public function store(Request $r)
     {
+        if (! Gate::allows('crear-citas')) {
+            abort(403);
+        }
         $messages = [
             'especialista_id.required' => 'Seleccione a un especialista',
             'persona_id.required' => 'Seleccione a un paciente',
@@ -143,6 +153,9 @@ class CitasController extends Controller
      */
     public function edit($id)
     {
+        if (! Gate::allows('editar-citas')) {
+            abort(403);
+        }
         $Cita = Cita::find($id);
         return view('citas.citaEdit',compact('Cita'));
     }
@@ -156,6 +169,9 @@ class CitasController extends Controller
      */
     public function update(Request $r, $id)
     {
+        if (! Gate::allows('editar-citas')) {
+            abort(403);
+        }
         $messages = [
             'especialista_id.required' => 'Seleccione a un especialista',
             'persona_id.required' => 'Seleccione a un paciente',

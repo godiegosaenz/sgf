@@ -5,6 +5,12 @@ namespace App\Http\Controllers\especialista;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Especialista;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Provincia;
+use App\Models\Persona;
+use App\Models\Canton;
 
 
 class EspecialistaController extends Controller
@@ -20,7 +26,7 @@ class EspecialistaController extends Controller
      */
     public function index()
     {
-        //
+        return view('especialista.especialista');
     }
 
     /**
@@ -28,9 +34,15 @@ class EspecialistaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $r)
     {
-        //
+        $provincias = Provincia::all();
+        $cantones = new Canton();
+        if(Cookie::get('provincia_id') !== null){
+            $cantones = Canton::where('id_provincia',Cookie::get('provincia_id'))->get();
+        }
+        Cookie::queue('provincia_id', '');
+        return view('especialista.especialistaCreate',compact('provincias','cantones'))->with('estado',$r->estado);
     }
 
     /**

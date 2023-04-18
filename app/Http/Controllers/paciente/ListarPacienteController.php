@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Datatables;
 use App\models\Persona;
+use Illuminate\Support\Facades\Gate;
 
 class ListarPacienteController extends Controller
 {
@@ -15,6 +16,9 @@ class ListarPacienteController extends Controller
     }
 
     public function index(){
+        if (! Gate::allows('listar-persona')) {
+            abort(403);
+        }
         return view('paciente.listarpaciente');
     }
 

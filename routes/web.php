@@ -36,6 +36,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('home', 'home')->name('home');
+
     Route::get('paciente/mostrar', [ListarPacienteController::class, 'index'])->name('mostrar.persona');
     Route::post('paciente/listar', [ListarPacienteController::class, 'listar'])->name('listar.persona');
     Route::get('paciente/ingresar', [PacienteController::class, 'create'])->name('ingresar.persona');
@@ -48,6 +49,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('paciente/editar/{id}',[PacienteController::class, 'edit'])->name('editar.paciente');
     Route::post('paciente/verificar', [PacienteController::class, 'verificarCedula'])->name('verificar.persona');
     Route::post('canton/obtener', [CantonController::class, 'obtener'])->name('canton.obtener');
+
+    Route::post('especialista/listar', [EspecialistaController::class, 'list'])->name('listar.especialista');
+    Route::get('especialista', [EspecialistaController::class, 'index'])->name('index.especialista');
+    Route::get('especialista/ingresar', [EspecialistaController::class, 'create'])->name('create.especialista');
 
     Route::get('usuario', [UsuarioController::class, 'index'])->name('index.usuario');
     Route::post('usuario/listar', [UsuarioController::class, 'list'])->name('list.usuario');

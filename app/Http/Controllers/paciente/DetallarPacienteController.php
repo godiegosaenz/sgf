@@ -11,6 +11,7 @@ use App\models\Consulta;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
+use Illuminate\Support\Facades\Gate;
 
 class DetallarPacienteController extends Controller
 {
@@ -21,6 +22,9 @@ class DetallarPacienteController extends Controller
     }
 
     public function index(Request $r, $id){
+        if (! Gate::allows('mostrar-persona')) {
+            abort(403);
+        }
         $persona = Persona::find($id);
         $archivo = Archivo::where('idpersona',$id)->get();
         //$archivo = Archivo::where('idpersona',$id)->get();

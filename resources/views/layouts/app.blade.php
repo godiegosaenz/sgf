@@ -116,6 +116,23 @@
                         </li>
                     </ul>
                   </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Especialistas
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('index.especialista') }}">
+                                Lista de especialistas
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('create.especialista') }}">
+                                Ingresar especialista
+                            </a>
+                        </li>
+                    </ul>
+                  </li>
                   <li class="nav-item dropdown me-auto">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Bienvenido {{auth()->user()->name}}

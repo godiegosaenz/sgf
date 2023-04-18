@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Gate;
 
 class PacienteController extends Controller
 {
@@ -26,7 +27,10 @@ class PacienteController extends Controller
     }
 
     public function create(Request $r){
-        //$this->authorize('create');
+        if (! Gate::allows('crear-persona')) {
+            abort(403);
+        }
+
         $provincias = Provincia::all();
         $cantones = new Canton();
         if(Cookie::get('provincia_id') !== null){
@@ -161,6 +165,9 @@ class PacienteController extends Controller
     }
 
     public function edit(Request $r,$id){
+        if (! Gate::allows('editar-persona')) {
+            abort(403);
+        }
         $provincias = Provincia::all();
         $persona = Persona::find($id);
         $cantones = Canton::where('id_provincia',$persona->provincia_id)->get();
