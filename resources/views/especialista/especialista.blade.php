@@ -20,10 +20,11 @@
                         <thead>
                             <tr>
                             <th scope="col">Acciones</th>
-                            <th>Paciente</th>
-                            <th scope="col">Especialista</th>
+                            <th>Cedula</th>
+                            <th scope="col">Nombres</th>
+                            <th scope="col">Apellidos</th>
+                            <th scope="col">Especialidad</th>
                             <th scope="col">Estado</th>
-                            <th scope="col">Fecha</th>
 
                             </tr>
                         </thead>
@@ -58,20 +59,21 @@
             "processing" : true,
             "serverSide": true,
             "ajax": {
-                "url": '{{ url("/especialista/listar") }}',
+                "url": '{{ url("/especialista/lista") }}',
                 "type": "post",
                 "data": function (d){
                     d._token = $("input[name=_token]").val();
-                    d.fecha =  $("input[name=fecha]").val();
+                    d.panel =  'especialista';
                 }
             },
             //"columnDefs": [{ targets: [3], "orderable": false}],
             "columns": [
                 {width: '',data: 'action', name: 'action', orderable: false, searchable: false},
-                {width: '',data: 'paciente'},
-                {width: '',data: 'especialista'},
+                {width: '',data: 'cedula'},
+                {width: '',data: 'nombres'},
+                {width: '',data: 'apellidos'},
+                {width: '',data: 'especialidad'},
                 {width: '',data: 'estado'},
-                {width: '',data: 'fechahora'},
 
             ],
             "fixedColumns" : true

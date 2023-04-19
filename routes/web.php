@@ -17,6 +17,7 @@ use App\Http\Controllers\reportes\CitaReporteController;
 use App\Http\Controllers\liquidaciones\PagoController;
 use App\Http\Controllers\usuarios\DetallarUsuarioController;
 use App\Http\Controllers\usuarios\UsuarioController;
+use App\Http\Controllers\HomeController;
 use GuzzleHttp\Psr7\Request;
 
 /*
@@ -35,7 +36,9 @@ Route::get('/', function () {
 })->middleware('guest');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('home', 'home')->name('home');
+    //Route::view('home', 'home')->name('home');
+
+    Route::get('home', [HomeController::class, 'index'])->name('home');
 
     Route::get('paciente/mostrar', [ListarPacienteController::class, 'index'])->name('mostrar.persona');
     Route::post('paciente/listar', [ListarPacienteController::class, 'listar'])->name('listar.persona');
@@ -50,9 +53,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('paciente/verificar', [PacienteController::class, 'verificarCedula'])->name('verificar.persona');
     Route::post('canton/obtener', [CantonController::class, 'obtener'])->name('canton.obtener');
 
-    Route::post('especialista/listar', [EspecialistaController::class, 'list'])->name('listar.especialista');
+    Route::post('especialista/lista', [EspecialistaController::class, 'list'])->name('list.especialista');
+    //Route::post('especialista/listar', [EspecialistaController::class, 'list'])->name('listar.especialista');
     Route::get('especialista', [EspecialistaController::class, 'index'])->name('index.especialista');
+    Route::post('especialista', [EspecialistaController::class, 'store'])->name('store.especialista');
+    Route::patch('especialista', [EspecialistaController::class, 'update'])->name('update.especialista');
     Route::get('especialista/ingresar', [EspecialistaController::class, 'create'])->name('create.especialista');
+    Route::get('especialista/{id}/editar', [EspecialistaController::class, 'edit'])->name('edit.especialista');
+    Route::get('especialista/{id}/detallar',[EspecialistaController::class, 'show'])->name('detallar.especialista');
 
     Route::get('usuario', [UsuarioController::class, 'index'])->name('index.usuario');
     Route::post('usuario/listar', [UsuarioController::class, 'list'])->name('list.usuario');
@@ -64,7 +72,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('usuario/detallar/{idusuario}/persona/{idpersona}', [DetallarUsuarioController::class, 'index'])->name('detallar.usuario');
     Route::get('usuario/perfil/{id}', [DetallarUsuarioController::class, 'show'])->name('show.usuario');
 
-    Route::post('especialista/lista', [EspecialistaController::class, 'list'])->name('list.especialista');
+
     Route::post('servicios/lista', [ServicioController::class, 'list'])->name('list.servicios');
 
     Route::get('cita', [CitasController::class, 'index'])->name('index.cita');

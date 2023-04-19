@@ -20,7 +20,7 @@ return new class extends Migration
             ///$table->unsignedInteger('especialidades_id')->nullable();
             //$table->foreign('especialidades_id')->references('id')->on('especialidades');
             $table->unsignedInteger('especialista_id')->nullable();
-            $table->foreign('especialista_id')->references('persona_id')->on('especialistas');
+            $table->foreign('especialista_id')->references('id')->on('users');
             $table->date('fecha');
             $table->time('hora');
             $table->enum('estado', ['pendiente', 'atendido','cancelado']);

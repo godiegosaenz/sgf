@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12" pb="10">
-                <h2 class="text-center">EDITAR PACIENTE
+                <h2 class="text-center">EDITAR ESPECIALISTA
 
                 </h2>
             </div>
@@ -24,7 +24,7 @@
                 <!-- Tab panes -->
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <form method="POST" action="{{route('actualizar.paciente',$persona->id)}}" enctype="multipart/form-data">
+                        <form method="POST" action="{{route('actualizar.paciente',$Especialista->personas->id)}}" enctype="multipart/form-data">
                             @csrf
                             @method('PATCH')
                             <div class="container">
@@ -74,7 +74,7 @@
                                                                 <div class="form-group row mb-2">
                                                                     <label for="txtCodigo" class="col-sm-3 col-form-label">Codigo </label>
                                                                     <div class="col-sm-9">
-                                                                        <input type="text" class="form-control {{$errors->has('txtCodigo') ? 'is-invalid' : ''}}" id="txtCodigo" name="txtCodigo" value="{{ $persona->id}}" disabled>
+                                                                        <input type="text" class="form-control {{$errors->has('txtCodigo') ? 'is-invalid' : ''}}" id="txtCodigo" name="txtCodigo" value="{{ $Especialista->personas->id}}" disabled>
                                                                     </div>
                                                                 </div>
                                                             </li>
@@ -82,7 +82,7 @@
                                                                 <div class="row mt-3 mb-2">
                                                                     <label for="cedula" class="col-sm-3 col-form-label">* Cédula </label>
                                                                     <div class="col-sm-9">
-                                                                    <input type="text" class="form-control {{$errors->has('cedula') ? 'is-invalid' : ''}}" id="cedula" name="cedula" value="{{$errors->any() ? old('cedula') : $persona->cedula}}">
+                                                                    <input type="text" class="form-control {{$errors->has('cedula') ? 'is-invalid' : ''}}" id="cedula" name="cedula" value="{{$errors->any() ? old('cedula') : $Especialista->personas->cedula}}">
 
                                                                         <div class="invalid-feedback">
                                                                             @if($errors->has('cedula'))
@@ -96,7 +96,7 @@
                                                                 <div class="row mt-3 mb-2">
                                                                     <label for="nombres" class="col-sm-3 col-form-label">* Nombres </label>
                                                                     <div class="col-sm-9">
-                                                                        <input type="text" class="form-control {{$errors->has('nombres') ? 'is-invalid' : ''}}" id="nombres" name="nombres" value="{{$errors->any() ? old('nombres') : $persona->nombres}}">
+                                                                        <input type="text" class="form-control {{$errors->has('nombres') ? 'is-invalid' : ''}}" id="nombres" name="nombres" value="{{$errors->any() ? old('nombres') : $Especialista->personas->nombres}}">
                                                                         <div class="invalid-feedback">
                                                                             @if($errors->has('nombres'))
                                                                                 {{$errors->first('nombres')}}
@@ -109,7 +109,7 @@
                                                                 <div class="row mt-3 mb-2">
                                                                     <label for="apellidos" class="col-sm-3 col-form-label">* Apellidos </label>
                                                                     <div class="col-sm-9">
-                                                                        <input type="text" class="form-control {{$errors->has('apellidos') ? 'is-invalid' : ''}}" id="apellidos" name="apellidos" value="{{$errors->any() ? old('apellidos') : $persona->apellidos}}">
+                                                                        <input type="text" class="form-control {{$errors->has('apellidos') ? 'is-invalid' : ''}}" id="apellidos" name="apellidos" value="{{$errors->any() ? old('apellidos') : $Especialista->personas->apellidos}}">
                                                                         <div class="invalid-feedback">
                                                                             @if($errors->has('apellidos'))
                                                                                 {{$errors->first('apellidos')}}
@@ -122,7 +122,7 @@
                                                                 <div class="form-group row mt-3">
                                                                     <label for="fechaNacimiento" class="col-3 col-form-label">* Fecha Nacimiento </label>
                                                                     <div class="col-9">
-                                                                        <input class="form-control {{$errors->has('fechaNacimiento') ? 'is-invalid' : ''}}" type="date" id="fechaNacimiento" name="fechaNacimiento" value="{{$errors->any() ? old('fechaNacimiento') : $persona->fechaNacimiento}}">
+                                                                        <input class="form-control {{$errors->has('fechaNacimiento') ? 'is-invalid' : ''}}" type="date" id="fechaNacimiento" name="fechaNacimiento" value="{{$errors->any() ? old('fechaNacimiento') : $Especialista->personas->fechaNacimiento}}">
                                                                         <div class="invalid-feedback">
                                                                             @if($errors->has('fechaNacimiento'))
                                                                                 {{$errors->first('fechaNacimiento')}}
@@ -137,31 +137,31 @@
                                                                     <div class="col-9">
                                                                         <select class="form-select {{$errors->has('estadoCivil') ? 'is-invalid' : ''}}" id="estadoCivil" name="estadoCivil">
                                                                             <option value="">Seleccione Estado</option>
-                                                                                @if ($persona->estadoCivil == 'SOLTERO/A')
+                                                                                @if ($Especialista->personas->estadoCivil == 'SOLTERO/A')
                                                                                 <option selected="selected" value="SOLTERO/A" {{ old('estadoCivil') == 'SOLTERO/A' ? 'selected' : '' }}>SOLTERO/A</option>
                                                                                 <option value="CASADO/A" {{ old('estadoCivil') == 'CASADO/A' ? 'selected' : '' }}>CASADO/A</option>
                                                                                 <option value="DIVORSIADO/A" {{ old('estadoCivil') == 'DIVORSIADO/A' ? 'selected' : '' }}>DIVORSIADO/A</option>
                                                                                 <option value="VIUDO/A" {{ old('estadoCivil') == 'VIUDO/A' ? 'selected' : '' }}>VIUDO/A</option>
                                                                                 <option value="UNION LIBRE" {{ old('estadoCivil') == 'UNION LIBRE' ? 'selected' : '' }}>UNION LIBRE</option>
-                                                                                @elseif ($persona->estadoCivil == 'CASADO/A')
+                                                                                @elseif ($Especialista->personas->estadoCivil == 'CASADO/A')
                                                                                     <option value="SOLTERO/A" {{ old('estadoCivil') == 'SOLTERO/A' ? 'selected' : '' }}>SOLTERO/A</option>
                                                                                     <option selected="selected" value="CASADO/A" {{ old('estadoCivil') == 'CASADO/A' ? 'selected' : '' }}>CASADO/A</option>
                                                                                     <option value="DIVORSIADO/A" {{ old('estadoCivil') == 'DIVORSIADO/A' ? 'selected' : '' }}>DIVORSIADO/A</option>
                                                                                     <option value="VIUDO/A" {{ old('estadoCivil') == 'VIUDO/A' ? 'selected' : '' }}>VIUDO/A</option>
                                                                                     <option value="UNION LIBRE" {{ old('estadoCivil') == 'UNION LIBRE' ? 'selected' : '' }}>UNION LIBRE</option>
-                                                                                @elseif ($persona->estadoCivil == 'DIVORSIADO/A')
+                                                                                @elseif ($Especialista->personas->estadoCivil == 'DIVORSIADO/A')
                                                                                     <option value="SOLTERO/A" {{ old('estadoCivil') == 'SOLTERO/A' ? 'selected' : '' }}>SOLTERO/A</option>
                                                                                     <option value="CASADO/A" {{ old('estadoCivil') == 'CASADO/A' ? 'selected' : '' }}>CASADO/A</option>
                                                                                     <option selected="selected" value="DIVORSIADO/A" {{ old('estadoCivil') == 'DIVORSIADO/A' ? 'selected' : '' }}>DIVORSIADO/A</option>
                                                                                     <option value="VIUDO/A" {{ old('estadoCivil') == 'VIUDO/A' ? 'selected' : '' }}>VIUDO/A</option>
                                                                                     <option value="UNION LIBRE" {{ old('estadoCivil') == 'UNION LIBRE' ? 'selected' : '' }}>UNION LIBRE</option>
-                                                                                @elseif ($persona->estadoCivil == 'VIUDO/A')
+                                                                                @elseif ($Especialista->personas->estadoCivil == 'VIUDO/A')
                                                                                     <option value="SOLTERO/A" {{ old('estadoCivil') == 'SOLTERO/A' ? 'selected' : '' }}>SOLTERO/A</option>
                                                                                     <option value="CASADO/A" {{ old('estadoCivil') == 'CASADO/A' ? 'selected' : '' }}>CASADO/A</option>
                                                                                     <option value="DIVORSIADO/A" {{ old('estadoCivil') == 'DIVORSIADO/A' ? 'selected' : '' }}>DIVORSIADO/A</option>
                                                                                     <option selected="selected" value="VIUDO/A" {{ old('estadoCivil') == 'VIUDO/A' ? 'selected' : '' }}>VIUDO/A</option>
                                                                                     <option value="UNION LIBRE" {{ old('estadoCivil') == 'UNION LIBRE' ? 'selected' : '' }}>UNION LIBRE</option>
-                                                                                @elseif ($persona->estadoCivil == 'UNION LIBRE')
+                                                                                @elseif ($Especialista->personas->estadoCivil == 'UNION LIBRE')
                                                                                     <option value="SOLTERO/A" {{ old('estadoCivil') == 'SOLTERO/A' ? 'selected' : '' }}>SOLTERO/A</option>
                                                                                     <option value="CASADO/A" {{ old('estadoCivil') == 'CASADO/A' ? 'selected' : '' }}>CASADO/A</option>
                                                                                     <option value="DIVORSIADO/A" {{ old('estadoCivil') == 'DIVORSIADO/A' ? 'selected' : '' }}>DIVORSIADO/A</option>
@@ -188,7 +188,7 @@
                                                                 <div class="form-group row mt-3 mb-2">
                                                                     <label for="ocupacion" class="col-sm-3 col-form-label">Ocupacion </label>
                                                                     <div class="col-sm-9">
-                                                                        <input type="text" class="form-control {{$errors->has('ocupacion') ? 'is-invalid' : ''}}" id="ocupacion" name="ocupacion" value="{{$errors->any() ? old('ocupacion') : $persona->ocupacion}}">
+                                                                        <input type="text" class="form-control {{$errors->has('ocupacion') ? 'is-invalid' : ''}}" id="ocupacion" name="ocupacion" value="{{$errors->any() ? old('ocupacion') : $Especialista->personas->ocupacion}}">
                                                                         <div class="invalid-feedback">
                                                                             @if($errors->has('ocupacion'))
                                                                                 {{$errors->first('ocupacion')}}
@@ -202,8 +202,8 @@
                                                                     <label for="txtEdad" class="col-sm-3 col-form-label">Edad </label>
                                                                     <div class="col-sm-9">
                                                                         <input type="text" class="form-control {{$errors->has('txtEdad') ? 'is-invalid' : ''}}" id="txtEdad" name="txtEdad" disabled value="<?php
-                                                                                if(isset($persona->fechaNacimiento)){
-                                                                                    $fechaN = explode('-',date($persona->fechaNacimiento));
+                                                                                if(isset($Especialista->personas->fechaNacimiento)){
+                                                                                    $fechaN = explode('-',date($Especialista->personas->fechaNacimiento));
                                                                                     $valida = checkdate($fechaN[2], $fechaN[1], $fechaN[0]);
                                                                                     if($valida){
                                                                                         $year = date("Y");
@@ -227,7 +227,7 @@
                                                                 <div class="form-group row mt-3">
                                                                     <label for="telefono" class="col-sm-3 col-form-label">Telefono</label>
                                                                     <div class="col-sm-9">
-                                                                        <input type="text" class="form-control {{$errors->has('telefono') ? 'is-invalid' : ''}}" id="telefono" name="telefono" value="{{$errors->any() ? old('telefono') : $persona->telefono}}">
+                                                                        <input type="text" class="form-control {{$errors->has('telefono') ? 'is-invalid' : ''}}" id="telefono" name="telefono" value="{{$errors->any() ? old('telefono') : $Especialista->personas->telefono}}">
                                                                         <div class="invalid-feedback">
                                                                             @if($errors->has('telefono'))
                                                                                 {{$errors->first('telefono')}}
@@ -240,7 +240,7 @@
                                                                 <div class="form-group row mt-3">
                                                                     <label for="correo" class="col-sm-3 col-form-label">Correo</label>
                                                                     <div class="col-sm-9">
-                                                                        <input type="text" class="form-control {{$errors->has('correo') ? 'is-invalid' : ''}}" id="correo" name="correo" value="{{$errors->any() ? old('correo') : $persona->correo}}">
+                                                                        <input type="text" class="form-control {{$errors->has('correo') ? 'is-invalid' : ''}}" id="correo" name="correo" value="{{$errors->any() ? old('correo') : $Especialista->personas->correo}}">
                                                                         <div class="invalid-feedback">
                                                                             @if($errors->has('correo'))
                                                                                 {{$errors->first('correo')}}
@@ -263,9 +263,9 @@
                                                 <div class="row">
                                                     <div class="col-6">
 
-                                                        @if(isset($persona->rutaimagen))
+                                                        @if(isset($Especialista->personas->rutaimagen))
                                                         <div class="media">
-                                                            <img height="130px" src="{{ asset($persona->rutaimagen) }}" class="mr-3" alt="">
+                                                            <img height="130px" src="{{ asset($Especialista->personas->rutaimagen) }}" class="mr-3" alt="">
                                                         </div>
                                                         <div class="mb-3">
                                                             <input class="form-control" id="txtFoto" name="txtFoto" type="file" >
@@ -286,7 +286,7 @@
                                                             <div class="form-group row">
 
                                                                 <div class="col-sm-12">
-                                                                    <input type="text" class="form-control {{$errors->has('historiaClinica') ? 'is-invalid' : ''}}" id="secuencia_historia_clinica" name="secuencia_historia_clinica" value="{{$errors->any() ? old('secuencia_historia_clinica'): $persona->secuencia_historia_clinica }}" disabled>
+                                                                    <input type="text" class="form-control {{$errors->has('historiaClinica') ? 'is-invalid' : ''}}" id="secuencia_historia_clinica" name="secuencia_historia_clinica" value="{{$errors->any() ? old('secuencia_historia_clinica'): $Especialista->personas->secuencia_historia_clinica }}" disabled>
                                                                     <div class="invalid-feedback">
                                                                         @if($errors->has('secuencia_historia_clinica'))
                                                                             {{$errors->first('secuencia_historia_clinica')}}
@@ -311,7 +311,7 @@
                                                                     <label for="discapacidad" class="col-3 col-form-label">Discapacidad</label>
                                                                     <div class="col-9">
                                                                         <select class="form-select {{$errors->has('discapacidad') ? 'is-invalid' : ''}}" id="discapacidad" name="discapacidad">
-                                                                            @if ($persona->discapacidad == 'SI')
+                                                                            @if ($Especialista->personas->discapacidad == 'SI')
                                                                                 <option {{ old('discapacidad') == 'NO' ? 'selected' : '' }}>NO</option>
                                                                                 <option {{ old('discapacidad') == 'SI' ? 'selected' : 'selected' }}>SI</option>
                                                                             @else
@@ -332,7 +332,7 @@
                                                                 <div class="row mt-3">
                                                                     <label for="porcentaje" class="col-sm-3 col-form-label">Porcentaje :</label>
                                                                     <div class="col-sm-9">
-                                                                        <input type="text" class="form-control {{$errors->has('porcentaje') ? 'is-invalid' : ''}}" id="porcentaje" name="porcentaje" value="{{$errors->any() ? old('porcentaje') : $persona->porcentaje}}">
+                                                                        <input type="text" class="form-control {{$errors->has('porcentaje') ? 'is-invalid' : ''}}" id="porcentaje" name="porcentaje" value="{{$errors->any() ? old('porcentaje') : $Especialista->personas->porcentaje}}">
                                                                         <div class="invalid-feedback">
                                                                             @if($errors->has('porcentaje'))
                                                                                 {{$errors->first('porcentaje')}}
@@ -359,7 +359,7 @@
                                                                                         <select class="form-select {{$errors->has('provincia_id') ? 'is-invalid' : ''}}" id="provincia_id" name="provincia_id">
                                                                                             <option value="">Seleccione provincia</option>
                                                                                             @foreach ($provincias as $p)
-                                                                                                <option value="{{$p->id}}" {{ $persona->provincia == $p->nombre ? 'selected' : '' }}>{{$p->nombre}}</option>
+                                                                                                <option value="{{$p->id}}" {{ $Especialista->personas->provincia == $p->nombre ? 'selected' : '' }}>{{$p->nombre}}</option>
                                                                                             @endforeach
                                                                                         </select>
                                                                                         <div class="invalid-feedback">
@@ -378,7 +378,7 @@
                                                                                         <option value="" id="optionSelectCanton">Seleccione canton</option>
                                                                                         @isset($cantones)
                                                                                             @foreach ($cantones as $c)
-                                                                                                <option value="{{$c->id}}" {{ $persona->canton_id == $c->id ? 'selected' : '' }}>{{$c->nombre}}</option>
+                                                                                                <option value="{{$c->id}}" {{ $Especialista->personas->canton_id == $c->id ? 'selected' : '' }}>{{$c->nombre}}</option>
                                                                                             @endforeach
                                                                                         @endisset
                                                                                     </select>
@@ -394,7 +394,7 @@
                                                                             <div class="form-group row mt-3 mb-2">
                                                                                 <label for="ciudad" class="col-sm-3 col-form-label">Ciudad </label>
                                                                                 <div class="col-sm-9">
-                                                                                    <input type="text" class="form-control {{$errors->has('ciudad') ? 'is-invalid' : ''}}" id="ciudad" name="ciudad" value="{{$errors->any() ? old('ciudad') : $persona->ciudad}}">
+                                                                                    <input type="text" class="form-control {{$errors->has('ciudad') ? 'is-invalid' : ''}}" id="ciudad" name="ciudad" value="{{$errors->any() ? old('ciudad') : $Especialista->personas->ciudad}}">
 
                                                                                 </div>
                                                                             </div>
@@ -403,7 +403,7 @@
                                                                             <div class="form-group row mt-3 mb-2">
                                                                                 <label for="direccion" class="col-sm-3 col-form-label">Direccion </label>
                                                                                 <div class="col-sm-9">
-                                                                                    <input type="text" class="form-control {{$errors->has('direccion') ? 'is-invalid' : ''}}" id="direccion" name="direccion" value="{{ $errors->any() ? old('direccion') : $persona->direccion}}">
+                                                                                    <input type="text" class="form-control {{$errors->has('direccion') ? 'is-invalid' : ''}}" id="direccion" name="direccion" value="{{ $errors->any() ? old('direccion') : $Especialista->personas->direccion}}">
 
                                                                                 </div>
                                                                             </div>
@@ -428,7 +428,7 @@
                                                             <div class="form-group row mt-3">
                                                                 <label for="nota" class="col-sm-2 col-form-label">Nota : </label>
                                                                 <div class="col-sm-10">
-                                                                    <textarea class="form-control {{$errors->has('nota') ? 'is-invalid' : ''}}" id="nota" name="nota" rows="3">{{$errors->any() ? old('nota') : $persona->nota}}</textarea>
+                                                                    <textarea class="form-control {{$errors->has('nota') ? 'is-invalid' : ''}}" id="nota" name="nota" rows="3">{{$errors->any() ? old('nota') : $Especialista->personas->nota}}</textarea>
                                                                     <div class="invalid-feedback">
                                                                         @if($errors->has('nota'))
                                                                             {{$errors->first('nota')}}
@@ -455,7 +455,7 @@
                                                                 <div class="form-group row mt-3">
                                                                     <label for="created_at" class="col-sm-3 col-form-label">Fecha de Ingreso </label>
                                                                     <div class="col-sm-9">
-                                                                        <input type="text" class="form-control {{$errors->has('created_at') ? 'is-invalid' : ''}}" id="created_at" name="created_at" value="{{ $persona->created_at}}" disabled>
+                                                                        <input type="text" class="form-control {{$errors->has('created_at') ? 'is-invalid' : ''}}" id="created_at" name="created_at" value="{{ $Especialista->personas->created_at}}" disabled>
 
                                                                     </div>
                                                                 </div>
@@ -479,7 +479,7 @@
                                                                 <div class="form-group row mt-3">
                                                                     <label for="updated_at" class="col-sm-3 col-form-label">Ultima actualizacion</label>
                                                                     <div class="col-sm-9">
-                                                                        <input type="text" class="form-control {{$errors->has('updated_at') ? 'is-invalid' : ''}}" id="updated_at" name="updated_at" value="{{ $persona->updated_at}}" disabled>
+                                                                        <input type="text" class="form-control {{$errors->has('updated_at') ? 'is-invalid' : ''}}" id="updated_at" name="updated_at" value="{{ $Especialista->personas->updated_at}}" disabled>
 
                                                                     </div>
                                                                 </div>
@@ -494,7 +494,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group row mt-3">
                                             <div class="col-sm-12 col-md-12">
-                                                <input type="hidden" name="idpersona" value="{{$persona->id}}">
+                                                <input type="hidden" name="idpersona" value="{{$Especialista->personas->id}}">
                                                 <button type="submit" name="btn_Guardar_Persona" class="btn btn-primary btn-block">Actualizar datos</button>
                                             </div>
                                         </div>
@@ -515,7 +515,7 @@
                                             <ul class="list-group list-group-flush">
                                                 <form method="POST" action="{{route('guardar.archivo')}}" enctype="multipart/form-data">
                                                     @csrf
-                                                    <input type="hidden" name="idpersona" value="{{$persona->id}}">
+                                                    <input type="hidden" name="idpersona" value="{{$Especialista->personas->id}}">
                                                     <li class="list-group-item">
                                                         <div class="form-group row mt-3">
                                                             <label for="nombres" class="col-sm-3 col-form-label">Nombre del archivo :</label>

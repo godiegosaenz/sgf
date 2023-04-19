@@ -6,11 +6,12 @@
 
             <div class="col-md-9 ">
                 <div class="row mb-5">
-                    <h2>Formulario de especialista</h2>
+                    <h2>Actualizar especialista</h2>
                 </div>
 
                 <div class="row">
-                    <form method="POST" action="{{route('store.especialista')}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('update.especialista',['id' => $Especialista->id])}}" enctype="multipart/form-data">
+                        @method('PATCH')
                         <div class="row mb-3">
                             <div id="alertPersona" class="alert alert-danger" role="alert" style="display: none;">
                                     El campo cedula debe estar lleno
@@ -51,7 +52,7 @@
                         <div class="row mb-3">
                             <label for="nombres" class="col-sm-2 col-form-label">* Nombres</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control {{$errors->has('nombres') ? 'is-invalid' : ''}}" id="nombres" name="nombres" placeholder="Ejemplo Juan" value="{{ old('nombres')}}" @if($errors->any())  @else disabled @endif>
+                                <input type="text" class="form-control {{$errors->has('nombres') ? 'is-invalid' : ''}}" id="nombres" name="nombres" placeholder="Ejemplo Juan" value="{{ old('nombres',$Especialista->personas->nombres)}}">
                                 <div class="invalid-feedback">
                                     @if($errors->has('nombres'))
                                         {{$errors->first('nombres')}}
@@ -62,7 +63,7 @@
                         <div class="row mb-3">
                             <label for="apellidos" class="col-sm-2 col-form-label">* Apellidos</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control {{$errors->has('apellidos') ? 'is-invalid' : ''}}" id="apellidos" name="apellidos" placeholder="Ejemplo Solorzano" value="{{ old('apellidos')}}" @if($errors->any())  @else disabled @endif>
+                                <input type="text" class="form-control {{$errors->has('apellidos') ? 'is-invalid' : ''}}" id="apellidos" name="apellidos" placeholder="Ejemplo Solorzano" value="{{ old('apellidos',$Especialista->personas->apellidos)}}">
                                 <div class="invalid-feedback">
                                     @if($errors->has('apellidos'))
                                         {{$errors->first('apellidos')}}
@@ -73,7 +74,7 @@
                         <div class="row mb-3">
                             <label for="fechaNacimiento" class="col-2 col-form-label">* Fecha Nacimiento</label>
                             <div class="col-10">
-                                <input class="form-control {{$errors->has('fechaNacimiento') ? 'is-invalid' : ''}}" type="date" id="fechaNacimiento" name="fechaNacimiento" value="{{ old('fechaNacimiento')}}" @if($errors->any())  @else disabled @endif>
+                                <input class="form-control {{$errors->has('fechaNacimiento') ? 'is-invalid' : ''}}" type="date" id="fechaNacimiento" name="fechaNacimiento" value="{{ old('fechaNacimiento',$Especialista->personas->fechaNacimiento)}}">
                                 <div class="invalid-feedback">
                                     @if($errors->has('fechaNacimiento'))
                                         {{$errors->first('fechaNacimiento')}}
@@ -84,13 +85,13 @@
                         <div class="row mb-3">
                             <label for="estadoCivil" class="col-2 col-form-label">* Estado Civil</label>
                             <div class="col-10">
-                                <select class="form-select {{$errors->has('estadoCivil') ? 'is-invalid' : ''}}" id="estadoCivil" name="estadoCivil" @if($errors->any())  @else disabled @endif>
+                                <select class="form-select {{$errors->has('estadoCivil') ? 'is-invalid' : ''}}" id="estadoCivil" name="estadoCivil">
                                     <option value="">Seleccione Estado</option>
-                                    <option value="SOLTERO/A" {{ old('estadoCivil') == 'SOLTERO/A' ? 'selected' : '' }}>SOLTERO/A</option>
-                                    <option value="CASADO/A" {{ old('estadoCivil') == 'CASADO/A' ? 'selected' : '' }}>CASADO/A</option>
-                                    <option value="DIVORSIADO/A" {{ old('estadoCivil') == 'DIVORSIADO/A' ? 'selected' : '' }}>DIVORSIADO/A</option>
-                                    <option value="VIUDO/A" {{ old('estadoCivil') == 'VIUDO/A' ? 'selected' : '' }}>VIUDO/A</option>
-                                    <option value="UNION LIBRE" {{ old('estadoCivil') == 'UNION LIBRE' ? 'selected' : '' }}>UNION LIBRE</option>
+                                    <option value="SOLTERO/A" {{ old('estadoCivil') == 'SOLTERO/A' || $Especialista->personas->estadoCivil == 'SOLTERO/A' ? 'selected' : '' }}>SOLTERO/A</option>
+                                    <option value="CASADO/A" {{ old('estadoCivil') == 'CASADO/A' || $Especialista->personas->estadoCivil == 'CASADO/A' ? 'selected' : '' }}>CASADO/A</option>
+                                    <option value="DIVORSIADO/A" {{ old('estadoCivil') == 'DIVORSIADO/A' || $Especialista->personas->estadoCivil == 'DIVORSIADO/A' ? 'selected' : '' }}>DIVORSIADO/A</option>
+                                    <option value="VIUDO/A" {{ old('estadoCivil') == 'VIUDO/A' || $Especialista->personas->estadoCivil == 'VIUDO/A' ? 'selected' : '' }}>VIUDO/A</option>
+                                    <option value="UNION LIBRE" {{ old('estadoCivil') == 'UNION LIBRE' || $Especialista->personas->estadoCivil == 'UNION LIBRE' ? 'selected' : '' }}>UNION LIBRE</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     @if($errors->has('estadoCivil'))
@@ -102,7 +103,7 @@
                         <div class="row mb-3">
                             <label for="ocupacion" class="col-sm-2 col-form-label">* Ocupacion</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control {{$errors->has('ocupacion') ? 'is-invalid' : ''}}" id="ocupacion" name="ocupacion" placeholder="Ejemplo Contador" value="{{ old('ocupacion')}}" @if($errors->any())  @else disabled @endif>
+                                <input type="text" class="form-control {{$errors->has('ocupacion') ? 'is-invalid' : ''}}" id="ocupacion" name="ocupacion" placeholder="Ejemplo Contador" value="{{ old('ocupacion',$Especialista->personas->ocupacion)}}">
                                 <div class="invalid-feedback">
                                     @if($errors->has('ocupacion'))
                                         {{$errors->first('ocupacion')}}
@@ -113,10 +114,10 @@
                         <div class="row mb-3">
                             <label for="provincia_id" class="col-2 col-form-label">* Provincia</label>
                             <div class="col-10">
-                                <select class="form-select {{$errors->has('provincia_id') ? 'is-invalid' : ''}}" id="provincia_id" name="provincia_id" @if($errors->any())  @else disabled @endif>
+                                <select class="form-select {{$errors->has('provincia_id') ? 'is-invalid' : ''}}" id="provincia_id" name="provincia_id">
                                     <option value="">Seleccione provincia</option>
                                     @foreach ($provincias as $p)
-                                        <option value="{{$p->id}}" {{ old('provincia_id') == $p->id ? 'selected' : '' }}>{{$p->nombre}}</option>
+                                        <option value="{{$p->id}}" {{ old('provincia_id') == $p->id || $Especialista->personas->provincia_id == $p->id ? 'selected' : '' }}>{{$p->nombre}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">
@@ -129,11 +130,11 @@
                         <div class="row mb-3">
                             <label for="canton_id" class="col-2 col-form-label">* Canton</label>
                             <div class="col-10">
-                                <select class="form-select {{$errors->has('canton_id') ? 'is-invalid' : ''}}" id="canton_id" name="canton_id" @if($errors->any())  @else disabled @endif>
+                                <select class="form-select {{$errors->has('canton_id') ? 'is-invalid' : ''}}" id="canton_id" name="canton_id">
                                     <option value="" id="optionSelectCanton">Seleccione canton</option>
                                     @if(is_countable($cantones) && count($cantones) > 0)
                                         @foreach ($cantones as $c)
-                                            <option value="{{$c->id}}" {{ old('canton_id') == $c->id ? 'selected' : '' }}>{{$c->nombre}}</option>
+                                            <option value="{{$c->id}}" {{ old('canton_id') == $c->id || $Especialista->personas->canton_id == $c->id ? 'selected' : '' }}>{{$c->nombre}}</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -147,7 +148,7 @@
                         <div class="row mb-3">
                             <label for="ciudad" class="col-sm-2 col-form-label">Ciudad</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control {{$errors->has('ciudad') ? 'is-invalid' : ''}}" id="ciudad" name="ciudad" placeholder="Ejemplo Bahia de Caraquez" value="{{ old('ciudad')}}" @if($errors->any())  @else disabled @endif>
+                                <input type="text" class="form-control {{$errors->has('ciudad') ? 'is-invalid' : ''}}" id="ciudad" name="ciudad" placeholder="Ejemplo Bahia de Caraquez" value="{{ old('ciudad',$Especialista->personas->ciudad)}}">
                                 <div class="invalid-feedback">
                                     @if($errors->has('ciudad'))
                                         {{$errors->first('ciudad')}}
@@ -158,7 +159,7 @@
                         <div class="row mb-3">
                             <label for="direccion" class="col-sm-2 col-form-label">Direccion</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control {{$errors->has('direccion') ? 'is-invalid' : ''}}" id="direccion" name="direccion" rows="3" @if($errors->any())  @else disabled @endif>{{ old('direccion')}}</textarea>
+                                <textarea class="form-control {{$errors->has('direccion') ? 'is-invalid' : ''}}" id="direccion" name="direccion" rows="3" >{{ old('direccion',$Especialista->personas->direccion)}}</textarea>
                                 <div class="invalid-feedback">
                                     @if($errors->has('direccion'))
                                         {{$errors->first('direccion')}}
@@ -169,7 +170,7 @@
                         <div class="row mb-3">
                             <label for="telefono" class="col-sm-2 col-form-label">Telefono</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control {{$errors->has('telefono') ? 'is-invalid' : ''}}" id="telefono" name="telefono" placeholder="Ejemplo 0965456544" value="{{ old('telefono')}}" @if($errors->any())  @else disabled @endif>
+                                <input type="number" class="form-control {{$errors->has('telefono') ? 'is-invalid' : ''}}" id="telefono" name="telefono" placeholder="Ejemplo 0965456544" value="{{ old('telefono',$Especialista->personas->telefono)}}">
                                 <div class="invalid-feedback">
                                     @if($errors->has('telefono'))
                                         {{$errors->first('telefono')}}
@@ -181,9 +182,9 @@
                         <div class="row mb-3">
                             <label for="discapacidad" class="col-2 col-form-label">Discapacidad</label>
                             <div class="col-10">
-                                <select class="form-select {{$errors->has('discapacidad') ? 'is-invalid' : ''}}" id="discapacidad" name="discapacidad" @if($errors->any())  @else disabled @endif>
-                                    <option {{ old('discapacidad') == 'NO' ? 'selected' : '' }}>NO</option>
-                                    <option {{ old('discapacidad') == 'SI' ? 'selected' : '' }}>SI</option>
+                                <select class="form-select {{$errors->has('discapacidad') ? 'is-invalid' : ''}}" id="discapacidad" name="discapacidad">
+                                    <option {{ old('discapacidad') == 'NO' || $Especialista->personas->discapacidad == 'NO' ? 'selected' : '' }}>NO</option>
+                                    <option {{ old('discapacidad') == 'SI' || $Especialista->personas->discapacidad == 'SI' ? 'selected' : '' }}>SI</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     @if($errors->has('discapacidad'))
@@ -195,7 +196,7 @@
                         <div class="row mb-3">
                             <label for="porcentaje" class="col-sm-2 col-form-label">Porcentaje</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control {{$errors->has('porcentaje') ? 'is-invalid' : ''}}" id="porcentaje" name="porcentaje" placeholder="Ejemplo 10" value="{{ old('porcentaje')}}" @if($errors->any())  @else disabled @endif>
+                                <input type="text" class="form-control {{$errors->has('porcentaje') ? 'is-invalid' : ''}}" id="porcentaje" name="porcentaje" placeholder="Ejemplo 10" value="{{ old('porcentaje',$Especialista->personas->porcentaje)}}">
                                 <div class="invalid-feedback">
                                     @if($errors->has('porcentaje'))
                                         {{$errors->first('porcentaje')}}
@@ -206,7 +207,7 @@
                         <div class="row mb-3">
                             <label for="nota" class="col-sm-2 col-form-label">Nota</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control {{$errors->has('nota') ? 'is-invalid' : ''}}" id="nota" name="nota" rows="3" @if($errors->any())  @else disabled @endif>{{ old('nota')}}</textarea>
+                                <textarea class="form-control {{$errors->has('nota') ? 'is-invalid' : ''}}" id="nota" name="nota" rows="3">{{ old('nota',$Especialista->personas->nota)}}</textarea>
                                 <div class="invalid-feedback">
                                     @if($errors->has('nota'))
                                         {{$errors->first('nota')}}
@@ -218,7 +219,7 @@
                         <div class="row mb-3">
                             <label for="formFile" class="col-sm-2 col-form-label">Foto</label>
                             <div class="col-sm-10">
-                                <input class="form-control {{$errors->has('txtFoto') ? 'is-invalid' : ''}}" type="file" id="txtFoto" name="txtFoto" @if($errors->any())  @else disabled @endif>
+                                <input class="form-control {{$errors->has('txtFoto') ? 'is-invalid' : ''}}" type="file" id="txtFoto" name="txtFoto">
                                 <div class="invalid-feedback">
                                     @if($errors->has('txtFoto'))
                                         {{$errors->first('txtFoto')}}
@@ -229,10 +230,10 @@
                         <div class="row mb-3">
                             <label for="especialidad" class="col-2 col-form-label">* Especialidad</label>
                             <div class="col-10">
-                                <select class="form-select {{$errors->has('especialidad') ? 'is-invalid' : ''}}" id="especialidad" name="especialidad" @if($errors->any())  @else disabled @endif>
+                                <select class="form-select {{$errors->has('especialidad') ? 'is-invalid' : ''}}" id="especialidad" name="especialidad">
                                     <option value="">Seleccione especialidad</option>
                                     @foreach ($Especialidades as $e)
-                                        <option value="{{$e->id}}" @selected(old('especialidad') == $e->id)>{{$e->nombre}}</option>
+                                        <option value="{{$e->id}}" {{ old('especialidad') == $e->id || $Especialista->especialidades_id == $e->id ? 'selected' : '' }}>{{$e->nombre}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">
@@ -245,7 +246,7 @@
                         <div class="row mb-3">
                             <label for="titulo" class="col-sm-2 col-form-label">Titulo</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control {{$errors->has('titulo') ? 'is-invalid' : ''}}" id="titulo" name="titulo" placeholder="Ejemplo Licenciado" value="{{ old('titulo')}}" @if($errors->any())  @else disabled @endif>
+                                <input type="text" class="form-control {{$errors->has('titulo') ? 'is-invalid' : ''}}" id="titulo" name="titulo" placeholder="Ejemplo Licenciado" value="{{ old('titulo',$Especialista->titulo)}}">
                                 <div class="invalid-feedback">
                                     @if($errors->has('titulo'))
                                         {{$errors->first('titulo')}}
@@ -256,10 +257,10 @@
                         <div class="row mb-3">
                             <label for="estado" class="col-2 col-form-label">* Estado</label>
                             <div class="col-10">
-                                <select class="form-select {{$errors->has('estado') ? 'is-invalid' : ''}}" id="estado" name="estado" @if($errors->any())  @else disabled @endif>
+                                <select class="form-select {{$errors->has('estado') ? 'is-invalid' : ''}}" id="estado" name="estado">
                                     <option value="">Seleccione estado</option>
-                                    <option value="1" {{ old('estado') == '1' ? 'selected' : '' }}>Activo</option>
-                                    <option value="0" {{ old('estado') == '0' ? 'selected' : '' }}>Inactivo</option>
+                                    <option value="true" {{ old('estado') == true || $Especialista->estado == true ? 'selected' : '' }})>Activo</option>
+                                    <option value="false" {{ old('estado') == false || $Especialista->estado == false ? 'selected' : '' }}>Inactivo</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     @if($errors->has('estado'))
@@ -271,10 +272,10 @@
                         <div class="row mb-3">
                             <label for="email" class="col-sm-2 col-form-label">Correo</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control {{$errors->has('email') ? 'is-invalid' : ''}}" id="email" name="email" placeholder="Ejemplo micorreo@hotmail.com" value="{{ old('email')}}" @if($errors->any())  @else disabled @endif>
+                                <input type="email" class="form-control {{$errors->has('email') ? 'is-invalid' : ''}}" id="email" name="email" placeholder="Ejemplo micorreo@hotmail.com" value="{{ old('email',$Especialista->email)}}">
                                 <div class="invalid-feedback">
-                                    @if($errors->has('email'))
-                                        {{$errors->first('email')}}
+                                    @if($errors->has('correo'))
+                                        {{$errors->first('correo')}}
                                     @endif
                                 </div>
                             </div>
@@ -282,7 +283,7 @@
                         <div class="row mb-3">
                             <label for="password" class="col-sm-2 col-form-label">*Contraseña </label>
                             <div class="col-sm-10">
-                                <input class="form-control {{$errors->has('password') ? 'is-invalid' : ''}}" type="password" id="password" name="password" value="{{ old('password')}}" @if($errors->any())  @else disabled @endif>
+                                <input class="form-control {{$errors->has('password') ? 'is-invalid' : ''}}" type="password" id="password" name="password" value="{{ old('password',$Especialista->password)}}">
                                 <div class="invalid-feedback">
                                     @if($errors->has('password'))
                                         {{$errors->first('password')}}
@@ -293,7 +294,7 @@
                         <div class="row mb-3">
                             <label for="name" class="col-sm-2 col-form-label">*Confirmar Contraseña </label>
                             <div class="col-sm-10">
-                                <input id="password-confirm" type="password" class="form-control {{$errors->has('password-confirm') ? 'is-invalid' : ''}}" name="password_confirmation" autocomplete="new-password" value="{{ old('password_confirmation')}}" @if($errors->any())  @else disabled @endif>
+                                <input id="password-confirm" type="password" class="form-control {{$errors->has('password-confirm') ? 'is-invalid' : ''}}" name="password_confirmation" autocomplete="new-password" value="{{ old('password_confirmation',$Especialista->password)}}">
                                 <div class="invalid-feedback">
                                     @if($errors->has('password-confirm'))
                                         {{$errors->first('password-confirm')}}

@@ -22,6 +22,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'especialidades_id',
+        'idpersona',
+        'tipo_usuario',
+        'estado',
+        'titulo',
     ];
 
     /**
@@ -47,8 +52,8 @@ class User extends Authenticatable
         return $this->belongsTo(Persona::class,'idpersona', 'id');
     }
 
-    public function especialista(){
-        return $this->belongsTo(Especialista::class,'idpersona', 'id');
+    public function especialidad(){
+        return $this->belongsTo(Especialidades::class,'especialidades_id');
     }
 
 }

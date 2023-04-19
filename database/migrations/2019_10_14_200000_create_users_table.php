@@ -15,14 +15,19 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('especialidades_id')->nullable();
+            $table->foreign('especialidades_id')->references('id')->on('especialidades');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->unsignedInteger('idpersona');
+            $table->foreign('idpersona')->references('id')->on('personas');
+            $table->enum('tipo_usuario', ['paciente', 'especialista'])->default('especialista');
+            $table->boolean('estado')->default(true);
+            $table->string('titulo')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->unsignedInteger('idpersona');
-            $table->foreign('idpersona')->references('id')->on('personas');
         });
     }
 

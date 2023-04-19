@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Models\Cita;
 use App\Models\Citaservicios;
 use App\Models\Servicios;
-use App\Models\Especialista;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cookie;
 use Datatables;
@@ -259,8 +259,9 @@ class CitasController extends Controller
     }
 
     public function list(Request $r){
+        $tipo_usuario = Auth()->user()->tipo_usuario;
         $idpersona = Auth()->user()->idpersona;
-        if(Especialista::EsEspecialista($idpersona) == true){
+        if($tipo_usuario == 'especialista'){
             $Cita = Cita::where([
                 'fecha' => $r->fecha,
                 'especialista_id' => $idpersona,
