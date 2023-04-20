@@ -6,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use App\Policies\PersonaPolicy;
 use App\Policies\CitaPolicy;
+use App\Policies\UsuarioPolicy;
 
 
 class AuthServiceProvider extends ServiceProvider
@@ -41,5 +42,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('mostrar-citas', [CitaPolicy::class, 'view']);
         Gate::define('crear-citas', [CitaPolicy::class, 'create']);
         Gate::define('editar-citas', [CitaPolicy::class, 'update']);
+
+        Gate::define('listar-usuarios', [UsuarioPolicy::class, 'viewAny']);
+        Gate::define('mostrar-usuarios', [UsuarioPolicy::class, 'view']);
+        Gate::define('crear-usuarios', [UsuarioPolicy::class, 'create']);
+        Gate::define('editar-usuarios', [UsuarioPolicy::class, 'update']);
     }
 }

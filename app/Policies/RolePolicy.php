@@ -18,4 +18,9 @@ class RolePolicy
     {
         //
     }
+
+    public function viewAny(User $user)
+    {
+        return $user->hasPermissionTo('listar citas');
+    }
 }

@@ -144,7 +144,7 @@ class EspecialistaController extends Controller
             $arregloRutas = explode('/',$ruta);
             $rutaparaimgen = 'storage/'.$arregloRutas[1];
         }
-        $secuencia = 1;
+        /*$secuencia = 1;
         $obtenermaximasecuencia = DB::table('secuencia_historia_clinica')->max('secuencia');
         if($obtenermaximasecuencia != null){
             $secuencia = $obtenermaximasecuencia + 1;
@@ -157,7 +157,7 @@ class EspecialistaController extends Controller
                 'secuencia' => $secuencia,
                 'year' => date("Y")
             ]);
-        }
+        }*/
 
         $cedula = $r->cedula;
         $personas = new Persona;
@@ -180,7 +180,7 @@ class EspecialistaController extends Controller
         $personas->discapacidad = $r->discapacidad;
         $personas->porcentaje = $r->porcentaje;
         $personas->nota = $r->nota;
-        $personas->secuencia_historia_clinica = $secuencia;
+        //$personas->secuencia_historia_clinica = $secuencia;
 
         if($r->file('txtFoto') != ''){
             $personas->rutaimagen = $rutaparaimgen;

@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Gate;
 
 class UsuarioController extends Controller
 {
@@ -19,6 +20,9 @@ class UsuarioController extends Controller
      */
     public function index()
     {
+        if (! Gate::allows('listar-usuarios')) {
+            abort(403);
+        }
         return view('usuarios.usuarios');
     }
 
@@ -29,6 +33,9 @@ class UsuarioController extends Controller
      */
     public function create()
     {
+        if (! Gate::allows('crear-usuarios')) {
+            abort(403);
+        }
         $Role = Role::all();
         return view('usuarios.usuariosCreate',compact('Role'));
     }
@@ -41,6 +48,9 @@ class UsuarioController extends Controller
      */
     public function store(Request $r)
     {
+        if (! Gate::allows('crear-usuarios')) {
+            abort(403);
+        }
         $messages = [
             'required' => 'El campo es requerido.',
             'unique' => 'El :attribute ya existe',
@@ -99,6 +109,9 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
+        if (! Gate::allows('editar-usuarios')) {
+            abort(403);
+        }
         $User = User::find($id);
         $Role = Role::all();
         return view('usuarios.usuariosEdit',compact('Role','User'));
@@ -113,6 +126,9 @@ class UsuarioController extends Controller
      */
     public function update(Request $r, $id)
     {
+        if (! Gate::allows('editar-usuarios')) {
+            abort(403);
+        }
         $messages = [
             'required' => 'El campo es requerido.',
             'unique' => 'El :attribute ya existe',

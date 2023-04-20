@@ -20,7 +20,8 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'crear usuarios']);
         Permission::create(['name' => 'editar usuarios']);
         Permission::create(['name' => 'eliminar usuarios']);
-        Permission::create(['name' => 'ver usuarios']);
+        Permission::create(['name' => 'mostrar usuarios']);
+        Permission::create(['name' => 'listar usuarios']);
 
         Permission::create(['name' => 'Menu personas']);
         Permission::create(['name' => 'crear personas']);
@@ -33,17 +34,35 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'editar citas']);
         Permission::create(['name' => 'mostrar citas']);
         Permission::create(['name' => 'listar citas']);
+        Permission::create(['name' => 'eliminar citas']);
 
         Permission::create(['name' => 'Menu consultas']);
         Permission::create(['name' => 'crear consultas']);
-        Permission::create(['name' => 'editar consulta']);
-        Permission::create(['name' => 'eliminar consulta']);
-        Permission::create(['name' => 'ver consulta']);
+        Permission::create(['name' => 'editar consultas']);
+        Permission::create(['name' => 'mostrar consultas']);
+        Permission::create(['name' => 'listar consultas']);
+        Permission::create(['name' => 'eliminar consultas']);
+
+        Permission::create(['name' => 'Menu especialistas']);
+        Permission::create(['name' => 'crear especialistas']);
+        Permission::create(['name' => 'editar especialistas']);
+        Permission::create(['name' => 'mostrar especialistas']);
+        Permission::create(['name' => 'listar especialistas']);
+        Permission::create(['name' => 'eliminar especialistas']);
 
         Permission::create(['name' => 'Menu configuraciones']);
-        Permission::create(['name' => 'ver roles']);
+        Permission::create(['name' => 'listar roles']);
         Permission::create(['name' => 'Editar roles']);
         Permission::create(['name' => 'Crear roles']);
+        Permission::create(['name' => 'mostrar roles']);
+        Permission::create(['name' => 'asignar roles']);
+
+        Permission::create(['name' => 'Menu servicios']);
+        Permission::create(['name' => 'listar servicios']);
+        Permission::create(['name' => 'mostrar servicios']);
+        Permission::create(['name' => 'crear servicios']);
+        Permission::create(['name' => 'editar servicios']);
+        Permission::create(['name' => 'eliminar servicios']);
 
 
     }

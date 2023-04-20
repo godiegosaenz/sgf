@@ -32,7 +32,7 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0">
-
+                  @can('Menu personas')
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Paciente
@@ -52,6 +52,8 @@
                         <li><a class="dropdown-item" href="#">Reportes</a></li>
                     </ul>
                   </li>
+                  @endcan
+                  @can('Menu citas')
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Citas
@@ -71,6 +73,8 @@
                         <li><a class="dropdown-item" href="#">Reportes</a></li>
                     </ul>
                   </li>
+                  @endcan
+                  @can('Menu consultas')
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Consultas
@@ -83,6 +87,8 @@
                         </li>
                     </ul>
                   </li>
+                  @endcan
+                  @can('Menu configuraciones')
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Configuraciones
@@ -103,19 +109,10 @@
                                 Asignar roles
                             </a>
                         </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('index.usuario') }}">
-                                usuarios
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('create.usuario') }}">
-                                Ingresar usuario
-                            </a>
-                        </li>
                     </ul>
                   </li>
+                  @endcan
+                  @can('Menu especialistas')
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Especialistas
@@ -133,6 +130,26 @@
                         </li>
                     </ul>
                   </li>
+                  @endcan
+                  @can('Menu usuarios')
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Usuarios
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('index.usuario') }}">
+                                usuarios
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('create.usuario') }}">
+                                Ingresar usuario
+                            </a>
+                        </li>
+                    </ul>
+                  </li>
+                  @endcan
                   <li class="nav-item dropdown me-auto">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Bienvenido {{auth()->user()->name}}

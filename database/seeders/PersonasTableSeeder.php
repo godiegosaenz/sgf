@@ -31,21 +31,6 @@ class PersonasTableSeeder extends Seeder
             'telefono' => '0939120904',
             'discapacidad' => 'NO'
         ]);
-        $persona = DB::table('personas')->insert([
-            'cedula' => '1314801348',
-            'apellidos' => 'Zambrano Zambrano',
-            'nombres' =>'Ronald',
-            'fechaNacimiento' => '1992-03-16',
-            'estadoCivil' => 'SOLTERO/A',
-            'ocupacion' => 'Ingeniero en Sistemas',
-            'provincia' => 'MANABI',
-            'provincia_id' => 13,
-            'canton' => 'SUCRE',
-            'canton_id' => 62,
-            'direccion' => 'Leonidas Plaza - Cdla Marianita del Jesus',
-            'telefono' => '0939120904',
-            'discapacidad' => 'NO'
-        ]);
 
     }
 }

@@ -20,7 +20,9 @@ class UsersTableSeeder extends Seeder
             'name' => 'Diego',
             'email' => 'tecnologia.informacion@sanvicente.gob.ec',
             'password' => bcrypt('123456'),
-            'idpersona' => 1
+            'idpersona' => 1,
+            'tipo_usuario' => 'paciente',
+            'estado' => 'true'
         ]);
 
         $User = User::find(1);
