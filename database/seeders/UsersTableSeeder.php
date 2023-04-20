@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('123456'),
             'idpersona' => 1,
             'tipo_usuario' => 'paciente',
-            'estado' => 'true'
+            'estado' => true
         ]);
 
         $User = User::find(1);
