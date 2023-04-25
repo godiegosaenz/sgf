@@ -7,6 +7,7 @@ use App\Http\Controllers\paciente\DetallarPacienteController;
 use App\Http\Controllers\configuracion\CantonController;
 use App\Http\Controllers\configuracion\CategoriaController;
 use App\Http\Controllers\configuracion\ServicioController;
+use App\Http\Controllers\configuracion\SecuencialController;
 use App\Http\Controllers\configuracion\RolesController;
 use App\Http\Controllers\configuracion\PermissionController;
 use App\Http\Controllers\configuracion\AssignRoles;
@@ -118,6 +119,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('roles', [RolesController::class, 'store'])->name('store.roles');
 
     Route::post('permissions/obtener', [PermissionController::class, 'obtener'])->name('obtener.permissions');
+    Route::get('secuencial', [SecuencialController::class, 'index'])->name('index.secuencial');
 
 });
 

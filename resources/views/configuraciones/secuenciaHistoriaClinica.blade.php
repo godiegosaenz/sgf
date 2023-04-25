@@ -8,32 +8,43 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center">LISTA DE PERSONAS</h2>
+                <h2 class="text-center">CONFIGURACION SECUENCIA DE HISTORIAL CLINICA</h2>
             </div>
         </div>
-        <div class="row">
-            <div class="col-6">
-                <a href="{{route('ingresar.persona')}}" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Ingresar persona</a>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-8">
+                <div class="alert alert-info alert-dismissible">
+                    <div>
+                        <h5><i class="bi-info-circle"></i> Recuerda!</h5>
+                        Si desactivas la opcion de secuencia automática de historial clínica, tendras que ingresar el secuencial de forma manual.
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row mt-3">
-            @csrf
-            <div class="table-responsive">
-                <table class="table table-bordered" style="width:100%" id="tablePersona">
-                    <thead>
-                        <tr>
-                            <th scope="col">Accion</th>
-                            <th>Foto</th>
-                            <th scope="col">Cedula</th>
-                            <th scope="col">Nombres</th>
-                            <th scope="col">Apellidos</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
+        <form action="{{ route('store.roles') }}" method="post">
+            <div class="row justify-content-center align-items-center mt-3">
+                @csrf
+                <div class="col-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Secuencial automático</label>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="mb-3">
+                        <label for="name">*Numero de secuencia de inicial</label>
+                        <input class="form-control {{$errors->has('name') ? 'is-invalid' : ''}}" type="text" id="name" name="name" value="{{ old('name')}}">
+                        <div class="invalid-feedback">
+                            @if($errors->has('name'))
+                                {{$errors->first('name')}}
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <button class="btn btn-primary"><i class="bi bi-clipboard2-check"></i> Guardar</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 @endsection
