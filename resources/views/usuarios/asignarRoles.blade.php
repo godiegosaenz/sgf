@@ -47,7 +47,7 @@
                                 <select class="form-select {{$errors->has('User') ? 'is-invalid' : ''}}" aria-label="Default select example" id="usuario" name="usuario">
                                     <option value="">Seleccione usuario</option>
                                     @foreach ($User as $u)
-                                        <option value="{{$u->name}}" @selected(old('usuario') == $u->name)>{{$u->name}}</option>
+                                        <option value="{{$u->id}}" @selected(old('usuario') == $u->id)>{{$u->name}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">

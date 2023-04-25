@@ -43,6 +43,12 @@ class AssignRoles extends Controller
             'selectrol' => 'bail|required',
             'usuario' => 'bail|required',
         ]);
+
+        $User = User::find($request->usuario);
+        $User->assignRole($request->selectrol);
+
+        return back()->withInput()->with('guardado','El rol fue asignado correctamente');
+
     }
 
     /**
