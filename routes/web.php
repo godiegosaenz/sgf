@@ -102,7 +102,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('consulta', [ConsultaController::class, 'update'])->name('update.consulta');
     Route::post('consulta/listar', [ConsultaController::class, 'list'])->name('list.consulta');
 
-    Route::get('asignacion/crear', [AssignRoles::class, 'create'])->name('create.assign');
+    Route::get('roles/asignacion/create', [AssignRoles::class, 'create'])->name('crear.asignar.roles');
+    Route::post('roles/asignacion', [AssignRoles::class, 'store'])->name('guardar.asignar.roles');
+
+    Route::get('servicios', [ServicioController::class, 'index'])->name('index.servicios');
+    Route::post('servicios/listar', [ServicioController::class, 'list'])->name('list.servicios');
+    Route::get('servicios/ingresar', [ServicioController::class, 'create'])->name('create.servicios');
+    Route::post('servicios', [ServicioController::class, 'store'])->name('store.servicios');
 
     Route::get('roles', [RolesController::class, 'index'])->name('index.roles');
     Route::post('roles/listar', [RolesController::class, 'list'])->name('list.roles');

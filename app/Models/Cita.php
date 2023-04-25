@@ -27,7 +27,7 @@ class Cita extends Model
     }
 
     public function especialista(){
-        return $this->belongsTo(Especialista::class,'especialista_id','persona_id');
+        return $this->belongsTo(User::class,'especialista_id','id');
     }
 
     public function consulta(){

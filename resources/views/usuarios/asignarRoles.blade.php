@@ -10,9 +10,9 @@
 
             <div class="col-md-11">
                 <div class="row mb-1">
-                    <h2>Ingresar usuarios</h2>
+                    <h2>Asignar rol</h2>
                 </div>
-                <form action="{{ route('store.usuario') }}" method="post">
+                <form action="{{ route('guardar.asignar.roles') }}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-12">
@@ -42,17 +42,20 @@
                             <hr>
                         </div>
                         <div class="col-6">
-                            <label for="cc_ruc"> Selecciona Persona *</label>
-                            <div class="input-group mb-3">
-                                <button class="btn btn-outline-secondary" id="buttonModalPersona" type="button">Buscar</button>
-                                <input id="inputCedulaPersona" type="text" class="form-control {{$errors->has('idpersona') ? 'is-invalid' : ''}}" placeholder="" aria-label="Example text with button addon" aria-describedby="buttonModalPersona" value="{{old('name')}}" disabled>
+                            <div class="mb-3">
+                                <label for="usuario"> Usuario *</label>
+                                <select class="form-select {{$errors->has('User') ? 'is-invalid' : ''}}" aria-label="Default select example" id="usuario" name="usuario">
+                                    <option value="">Seleccione usuario</option>
+                                    @foreach ($User as $u)
+                                        <option value="{{$u->name}}" @selected(old('usuario') == $u->name)>{{$u->name}}</option>
+                                    @endforeach
+                                </select>
                                 <div class="invalid-feedback">
-                                    @if($errors->has('idpersona'))
-                                        {{$errors->first('idpersona')}}
+                                    @if($errors->has('usuario'))
+                                        {{$errors->first('usuario')}}
                                     @endif
                                 </div>
                             </div>
-                            <input type="hidden" name="idpersona" id="idpersona" value="{{old('idpersona')}}">
                         </div>
                         <div class="col-6">
                             <div class="mb-3">
@@ -69,18 +72,12 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="tipo_cita"> Permisos *</label>
-                                <div id="mostrarpermisos">
-
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn btn-primary"><i class="bi bi-clipboard2-check"></i> Crer usuario</button>
+                            <button class="btn btn-primary"><i class="bi bi-clipboard2-check"></i> Asignar rol</button>
                         </div>
                     </div>
                 </form>
@@ -169,47 +166,6 @@
             modalPersona.show();
         });
     var selectrol = document.getElementById('selectrol');
-    selectrol.addEventListener('change', function() {
-        //var optionSelectName = document.getElementById('optionSelectCanton');
-        //optionSelectName.innerHTML = 'Cargando...';
-        var selectedOption = this.options[selectrol.selectedIndex];
-        //console.log(selectedOption.value + ': ' + selectedOption.text);
-        cargarpermisos(selectedOption.value);
-    });
-    function cargarpermisos(nameRol){
-        var mostrarpermisos = document.getElementById('mostrarpermisos');
-        axios.post('{{route('obtener.permissions')}}', {
-            _token: token,
-            name:nameRol
-        }).then(function(res) {
-            if(res.status==200) {
-                var htmlchecks = '';
-                count = Object.keys(res.data.permissions).length;
-                console.log(res.data.permissions);
-                for(var cont = 1; cont < count; cont++){
-                    htmlchecks += '<div class="form-check">';
-                    htmlchecks += '<input class="form-check-input" type="checkbox" value=""  name="permissions[]" checked disabled>';
-                    htmlchecks += '<label class="form-check-label" for="flexCheckDefault">';
-                    htmlchecks += res.data.permissions[cont].name;
-                    htmlchecks += '</label>';
-                    htmlchecks += '</div>';
-                }
-                mostrarpermisos.innerHTML = htmlchecks;
-            }
-        }).catch(function(err) {
-            if(err.response.status == 500){
-                toastr.error('Error al comunicarse con el servidor, contacte al administrador de Sistemas');
-                console.log('error al consultar al servidor');
-            }
-
-            if(err.response.status == 419){
-                toastr.error('Es posible que tu session haya caducado, vuelve a iniciar sesion');
-                console.log('Es posible que tu session haya caducado, vuelve a iniciar sesion');
-            }
-        }).then(function() {
-
-        });
-    }
 
     function seleccionarpersona(id,cedula,nombres,apellidos){
         var name = document.getElementById('name');

@@ -73,6 +73,33 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="mb-3">
+                                <label for="tipo_usuario">*Tipo de usuario</label>
+                                <select class="form-select {{$errors->has('tipo_usuario') ? 'is-invalid' : ''}}" aria-label="Default select example" id="tipo_usuario" name="tipo_usuario">
+                                    <option value="">Seleccione usuario</option>
+                                    <option @selected(old('tipo_usuario') == 'paciente' || $User->tipo_usuario == 'paciente') value="paciente">Paciente</option>
+                                    <option @selected(old('tipo_usuario') == 'especialista' || $User->tipo_usuario == 'especialista') value="especialista">Especialista</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    @if($errors->has('tipo_usuario'))
+                                        {{$errors->first('tipo_usuario')}}
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="especialidad">*Especialista</label>
+                                <select class="form-select {{$errors->has('especialidad') ? 'is-invalid' : ''}}" id="especialidad" name="especialidad">
+                                    <option value="">Seleccione especialidad</option>
+                                    @foreach ($Especialidades as $e)
+                                        <option value="{{$e->id}}" @selected(old('especialidad') == $e->id || $User->especialidades_id == $e->id)>{{$e->nombre}}</option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback">
+                                    @if($errors->has('especialidad'))
+                                        {{$errors->first('especialidad')}}
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                         <div class="col-6">
                             <div class="mb-3">
@@ -90,6 +117,28 @@
                                 <div class="invalid-feedback">
                                     @if($errors->has('password-confirm'))
                                         {{$errors->first('password-confirm')}}
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="estado">*Estado</label>
+                                <select class="form-select {{$errors->has('estado') ? 'is-invalid' : ''}}" aria-label="Default select example" id="estado" name="estado">
+                                    <option value="">Seleccione estado</option>
+                                    <option value="1" {{ old('estado') == '1' || $User->estado == '1' ? 'selected' : '' }}>Activo</option>
+                                    <option value="0" {{ old('estado') == '0' || $User->estado == '0' ? 'selected' : '' }}>Inactivo</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    @if($errors->has('estado'))
+                                        {{$errors->first('estado')}}
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="titulo">Titulo</label>
+                                <input class="form-control {{$errors->has('titulo') ? 'is-invalid' : ''}}" type="text" id="titulo" name="titulo" value="{{ old('titulo',$User->titulo)}}" required>
+                                <div class="invalid-feedback">
+                                    @if($errors->has('titulo'))
+                                        {{$errors->first('titulo')}}
                                     @endif
                                 </div>
                             </div>

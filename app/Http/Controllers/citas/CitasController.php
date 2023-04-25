@@ -105,8 +105,8 @@ class CitasController extends Controller
                         //->with('status','vine de la validacion');
         }
 
-        //DB::beginTransaction();
-        //try {
+        DB::beginTransaction();
+        try {
 
             $Cita = new Cita();
             $Cita->persona_id = $r->persona_id;
@@ -125,13 +125,13 @@ class CitasController extends Controller
                 $Citaservicios->servicio_id = $checkservicios[$i];
                 $Citaservicios->save();
             }
-           //DB::commit();
+            DB::commit();
 
             return redirect('cita/'.$Cita->id.'/editar')->with('guardado','Cita agendada correctamente');
-        /*} catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
-            return redirect('cita/'.$Cita->id.'/editar')->with('error','Ocurrio un error, intenta mas tarde');
-        }*/
+            return redirect('cita/ingresar')->with('error',$e->getMessage().' Alerta: Ocurrio un error al procesar la informacion, intenta mas tarde o consulte al administrador de sistema');
+        }
     }
 
     /**
@@ -191,7 +191,8 @@ class CitasController extends Controller
             'tipo_cita' => 'required',
             'servicios' => 'required'
         ];
-
+        //DB::beginTransaction();
+        try {
         $validator = Validator::make($r->all(),$reglas,$messages);
         $checkservicios = $r->servicios;
         $variableservicios = "";
@@ -218,9 +219,6 @@ class CitasController extends Controller
                         ->with('status', $variableservicios);
         }
 
-        DB::beginTransaction();
-        try {
-
             $Cita = Cita::find($id);
             $Cita->persona_id = $r->persona_id;
             $Cita->especialista_id = $r->especialista_id;
@@ -239,11 +237,11 @@ class CitasController extends Controller
                 $Citaservicios->servicio_id = $checkservicios[$i];
                 $Citaservicios->save();
             }
-            DB::commit();
+            //DB::commit();
             return redirect('cita/'.$Cita->id.'/editar')->with('guardado','La cita se actualizo correctamente');
         } catch (\Exception $e) {
-            DB::rollback();
-            return redirect('cita/'.$Cita->id.'/editar')->with('error','Ocurrio un error, intenta mas tarde');
+            //DB::rollback();
+            return redirect('cita/ingresar')->with('error','Ocurrio un error, intenta mas tarde');
         }
     }
 
@@ -277,7 +275,7 @@ class CitasController extends Controller
                     return $Cita->persona->nombres.' '.$Cita->persona->apellidos;
                 })
                 ->addColumn('especialista', function($Cita){
-                    return $Cita->especialista->persona->nombres.' '.$Cita->especialista->persona->apellidos;
+                    return $Cita->especialista->personas->nombres.' '.$Cita->especialista->personas->apellidos;
                 })
                 ->addColumn('fechahora', function($Cita){
                     return $Cita->fecha.' '.$Cita->hora;
@@ -295,7 +293,9 @@ class CitasController extends Controller
                 ->addColumn('action', function ($Cita) {
                     $botonesCita = '';
                     if($Cita->estado == 'pendiente'){
-                        $botonesCita .= '<a href="'.route('create.consulta',$Cita->id).'" class="btn btn-primary btn-sm"><i class="bi bi-check-circle-fill"></i> Atender</a> ';
+                        if(auth()->user()->tipo_usuario == 'especialista'){
+                            $botonesCita .= '<a href="'.route('create.consulta',$Cita->id).'" class="btn btn-primary btn-sm"><i class="bi bi-check-circle-fill"></i> Atender</a> ';
+                        }
                         $botonesCita .= '<a onclick="mostrarToasCancelarCita('.$Cita->id.')" class="btn btn-danger btn-sm"><i class="bi bi-x-circle-fill"></i> Cancelar</a> ';
                         $botonesCita .= '<a href="'.route('edit.cita',$Cita->id).'" class="btn btn-warning btn-sm"><i class="bi bi-check-circle-fill"></i> Editar</a> ';
                     }else if($Cita->estado == 'atendido'){

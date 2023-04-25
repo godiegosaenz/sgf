@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nombre')->nullable();
             $table->text('descripcion')->nullable();
             $table->boolean('status');
+            $table->boolean('es_bono')->default(false);
             $table->decimal('precio',$precision = 20, $scale = 2)->nullable();
             $table->decimal('importe',$precision = 20, $scale = 2)->nullable();
             $table->decimal('descuento',$precision = 20, $scale = 2)->nullable();

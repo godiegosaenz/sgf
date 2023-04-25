@@ -19,8 +19,8 @@ class CreatePersonasTable extends Migration
             Schema::create('personas', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('cedula', 10)->unique()->nullable();
-                $table->string('apellidos', 250);
-                $table->string('nombres', 250);
+                $table->string('apellidos', 300);
+                $table->string('nombres', 300);
                 $table->date('fechaNacimiento')->nullable();
                 $table->enum('estadoCivil', ['SOLTERO/A', 'CASADO/A','DIVORSIADO/A','VIUDO/A','UNION LIBRE'])->nullable();
                 $table->integer('idocupacion')->nullable();
@@ -35,6 +35,8 @@ class CreatePersonasTable extends Migration
                 $table->text('direccion')->nullable();
                 $table->string('telefono',12)->nullable();
                 $table->string('correo',100)->nullable();
+                $table->string('tipoDiscapacidad',100)->nullable();
+                $table->integer('idhistoriaClinica')->nullable();
                 $table->integer('secuencia_historia_clinica')->nullable();
                 $table->enum('discapacidad',['SI','NO'])->nullable();
                 $table->integer('porcentaje')->nullable();

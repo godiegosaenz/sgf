@@ -29,6 +29,11 @@
                                     {{session('guardado')}}
                                 </div>
                             @endif
+                            @if(session('error'))
+                                <div id="" class="alert alert-danger" role="alert">
+                                    {{session('error')}}
+                                </div>
+                            @endif
                             @if($errors->any())
                                 <div id="" class="alert alert-danger" role="alert">
                                     Llene todos los campos obligatorios.
@@ -114,7 +119,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <input type="hidden" name="especialista_id" id="especialista_id" value="{{old('especialista_id')}}">
+                            <input type="text" name="especialista_id" id="especialista_id" value="{{old('especialista_id')}}">
                             <input type="hidden" name="especialista_name" id="especialista_name" value="{{old('especialista_name')}}">
                             <input type="hidden" name="especialista_cedula" id="especialista_cedula" value="{{old('especialista_cedula')}}">
                         </div>

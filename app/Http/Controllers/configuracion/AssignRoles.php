@@ -5,6 +5,7 @@ namespace App\Http\Controllers\configuracion;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Models\User;
 
 class AssignRoles extends Controller
 {
@@ -26,7 +27,8 @@ class AssignRoles extends Controller
     public function create()
     {
         $Role = Role::all();
-        return view('usuarios.asignarRoles',compact('Role'));
+        $User = User::all();
+        return view('usuarios.asignarRoles',compact('Role','User'));
     }
 
     /**
@@ -37,7 +39,10 @@ class AssignRoles extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $datavalidate = $request->validate([
+            'selectrol' => 'bail|required',
+            'usuario' => 'bail|required',
+        ]);
     }
 
     /**

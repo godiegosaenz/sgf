@@ -11,6 +11,11 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-6">
+                <a href="{{route('ingresar.persona')}}" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Ingresar persona</a>
+            </div>
+        </div>
+        <div class="row mt-3">
             @csrf
             <div class="table-responsive">
                 <table class="table table-bordered" style="width:100%" id="tablePersona">

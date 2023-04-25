@@ -105,8 +105,13 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="{{ route('create.assign') }}">
+                            <a class="dropdown-item" href="{{ route('crear.asignar.roles') }}">
                                 Asignar roles
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('index.servicios') }}">
+                                servicios
                             </a>
                         </li>
                     </ul>

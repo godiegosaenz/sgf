@@ -10,7 +10,12 @@
                 <h2 class="text-center">LISTA DE USUARIOS</h2>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-2">
+            <div class="col-6">
+                <a href="{{route('create.usuario')}}" class="btn btn-primary"><i class="bi bi-plus-circle" disabled></i> Ingresar usuario</a>
+            </div>
+        </div>
+        <div class="row mt-3">
             @csrf
             <div class="table-responsive">
                 <table class="table table-bordered" style="width:100%" id="tableUsuario">
@@ -19,6 +24,7 @@
                             <th scope="col">Accion</th>
                             <th scope="col">Nombres</th>
                             <th scope="col">correo</th>
+                            <th scope="col">Roles</th>
                             <th scope="col">Fecha de creacion</th>
                         </tr>
                     </thead>
@@ -62,6 +68,7 @@
                 {width: '',data: 'action', name: 'action', orderable: false, searchable: false},
                 {width: '',data: 'name', name: 'foto', orderable: false, searchable: false},
                 {width: '',data: 'email'},
+                {width: '',data: 'roles'},
                 {width: '',data: 'created_at'},
             ],
             "fixedColumns" : true

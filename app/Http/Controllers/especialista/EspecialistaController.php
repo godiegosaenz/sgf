@@ -301,7 +301,7 @@ class EspecialistaController extends Controller
                 return $especialista->especialidad->nombre;
             })
             ->addColumn('action', function ($especialista) {
-                return '<a class="btn btn-primary btn-sm" onclick="seleccionarespecialista(\''.$especialista->personas->id.'\',\''.$especialista->personas->cedula.'\',\''.$especialista->personas->nombres.'\',\''.$especialista->personas->apellidos.'\')">Seleccionar</a>';
+                return '<a class="btn btn-primary btn-sm" onclick="seleccionarespecialista(\''.$especialista->id.'\',\''.$especialista->personas->cedula.'\',\''.$especialista->personas->nombres.'\',\''.$especialista->personas->apellidos.'\')">Seleccionar</a>';
             })
             ->make(true);
         }

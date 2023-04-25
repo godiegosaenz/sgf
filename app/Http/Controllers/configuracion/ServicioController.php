@@ -5,6 +5,7 @@ namespace App\Http\Controllers\configuracion;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\models\Servicios;
+use Datatables;
 
 class ServicioController extends Controller
 {
@@ -15,7 +16,7 @@ class ServicioController extends Controller
      */
     public function index()
     {
-        //
+        return view('configuraciones.servicios');
     }
 
     /**
@@ -25,7 +26,7 @@ class ServicioController extends Controller
      */
     public function create()
     {
-        //
+        return view('configuraciones.serviciosCreate');
     }
 
     /**
@@ -86,12 +87,23 @@ class ServicioController extends Controller
 
     public function list(Request $r){
         $servicios = Servicios::all();
-        return Datatables($servicios)
-        ->addColumn('action', function($servicios){
-            $botones = '';
-            $botones .= '<a onclick="seleccionarservicio('.$servicios->id.',\''.$servicios->nombre.'\','.$servicios->precio.','.$servicios->descuento.','.$servicios->importe.','.$servicios->iva.','.$servicios->retencion.','.$servicios->subtotal.')" class="btn btn-success btn-sm"><i class="bi bi-plus-circle"></i> agregar</a>';
-            return $botones;
-        })
-        ->make(true);
+        if($r->vista == 'servicios'){
+            return Datatables($servicios)
+            ->addColumn('action', function($servicios){
+                return '';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }else{
+            return Datatables($servicios)
+            ->addColumn('action', function($servicios){
+                $botones = '';
+                $botones .= '<a onclick="seleccionarservicio('.$servicios->id.',\''.$servicios->nombre.'\','.$servicios->precio.','.$servicios->descuento.','.$servicios->importe.','.$servicios->iva.','.$servicios->retencion.','.$servicios->subtotal.')" class="btn btn-success btn-sm"><i class="bi bi-plus-circle"></i> agregar</a>';
+                return $botones;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
+
     }
 }

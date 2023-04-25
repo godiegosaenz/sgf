@@ -114,7 +114,7 @@
                             <label for="cc_ruc"> Selecciona Especialista *</label>
                             <div class="input-group mb-3">
                                 <button class="btn btn-outline-secondary" type="button" id="buttonModalEspecialista">Buscar</button>
-                                <input id="inputCedulaEspecialista" type="text" class="form-control {{$errors->has('especialista_id') ? 'is-invalid' : ''}}" placeholder="" aria-label="Example text with button addon" aria-describedby="buttonModalEspecialista" value="{{ old('especialista_name',$Cita->especialista->persona->nombres.' '.$Cita->especialista->persona->apellidos) }}" disabled>
+                                <input id="inputCedulaEspecialista" type="text" class="form-control {{$errors->has('especialista_id') ? 'is-invalid' : ''}}" placeholder="" aria-label="Example text with button addon" aria-describedby="buttonModalEspecialista" value="{{ old('especialista_name',$Cita->especialista->personas->nombres.' '.$Cita->especialista->personas->apellidos) }}" disabled>
                                 <div class="invalid-feedback">
                                     @if($errors->has('especialista_id'))
                                         {{$errors->first('especialista_id')}}
@@ -122,8 +122,8 @@
                                 </div>
                             </div>
                             <input type="hidden" name="especialista_id" id="especialista_id" value="{{old('especialista_id',$Cita->especialista_id)}}">
-                            <input type="hidden" name="especialista_name" id="especialista_name" value="{{old('especialista_name',$Cita->especialista->persona->nombres.' '.$Cita->especialista->persona->apellidos)}}">
-                            <input type="hidden" name="especialista_cedula" id="especialista_cedula" value="{{old('especialista_cedula',$Cita->especialista->persona->cedula)}}">
+                            <input type="hidden" name="especialista_name" id="especialista_name" value="{{old('especialista_name',$Cita->especialista->personas->nombres.' '.$Cita->especialista->personas->apellidos)}}">
+                            <input type="hidden" name="especialista_cedula" id="especialista_cedula" value="{{old('especialista_cedula',$Cita->especialista->personas->cedula)}}">
                             <label for="cc_ruc"> Estado</label>
                             <div class="input-group mb-3">
                                 <button class="btn btn-outline-success" type="button" id="button-addon1">Atender</button>
