@@ -106,7 +106,7 @@
                         <td>Historia Clinica</td>
                     </tr>
                     <tr>
-                        <td>{{$persona->historiaClinica}}</td>
+                        <td>{{$persona->secuencia_historia_clinica}}</td>
                     </tr>
                 </table>
 
