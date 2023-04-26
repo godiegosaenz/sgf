@@ -36,6 +36,22 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modaleliminar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title" id="exampleModalToggleLabel">¿Estas seguro que quieres eliminar un paciente?</h6>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <button id="btnSi" class="btn btn-success">SI</button>
+              <button id="btnNo" class="btn btn-danger">NO</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 @endsection
 @push('scripts')
  <!-- jQuery -->
@@ -78,16 +94,24 @@
         });
     })
 
+    function modalEliminarPaciente(idpaciente){
+        var btnSi = document.getElementById('btnSi');
+        btnSi.setAttribute('onclick','eliminarPaciente('+idpaciente+')');
+        var modaleliminar = new bootstrap.Modal(document.getElementById('modaleliminar'), {
+        keyboard: false
+        })
+        modaleliminar.show();
+    }
+    let token = "{{csrf_token()}}";
     function eliminarPaciente(idpaciente){
         axios.post('{{route('eliminar.persona')}}',{
-            id: id,
+            id: idpaciente,
             _token: token
         }).then(function(res) {
             console.log(res);
             if(res.status==200) {
                 if(res.data.respuesta == true){
                     tablePersona.ajax.reload();
-                    new bootstrap.Toast(document.querySelector('#ToastCancelCita')).hide();
                 }else{
 
                 }

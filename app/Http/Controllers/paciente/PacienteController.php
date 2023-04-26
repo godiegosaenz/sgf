@@ -285,4 +285,14 @@ class PacienteController extends Controller
             }
             echo json_encode($arrayRespuesta);
     }
+
+    public function delete(Request $r){
+
+        $Persona = Persona::find($r->id);
+        $Persona->delete();
+
+        return response()->json(
+            ['respuesta' => true]
+        );
+    }
 }

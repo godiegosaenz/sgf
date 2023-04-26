@@ -83,7 +83,7 @@ class ListarPacienteController extends Controller
                     $buttonPersona = '';
                     $buttonPersona .= '<a class="btn btn-primary btn-sm" href="'.route('detallar.persona',$listapersona->id).'">Ver</a> ';
                     $buttonPersona .= '<a class="btn btn-warning btn-sm" href="'.route('editar.paciente',$listapersona->id).'">Editar</a> ';
-                    $buttonPersona .= '<a class="btn btn-danger btn-sm" onclick="eliminarPaciente('.$listapersona->id.')">Eliminar</a>';
+                    $buttonPersona .= '<a class="btn btn-danger btn-sm" onclick="modalEliminarPaciente('.$listapersona->id.')">Eliminar</a>';
                     return $buttonPersona;
 
                 })
