@@ -82,7 +82,8 @@ class ListarPacienteController extends Controller
                 ->addColumn('action', function ($listapersona) {
                     $buttonPersona = '';
                     $buttonPersona .= '<a class="btn btn-primary btn-sm" href="'.route('detallar.persona',$listapersona->id).'">Ver</a> ';
-                    $buttonPersona .= '<a class="btn btn-warning btn-sm" href="'.route('editar.paciente',$listapersona->id).'">Editar</a>';
+                    $buttonPersona .= '<a class="btn btn-warning btn-sm" href="'.route('editar.paciente',$listapersona->id).'">Editar</a> ';
+                    $buttonPersona .= '<a class="btn btn-danger btn-sm" onclick="eliminarPaciente('.$listapersona->id.')">Eliminar</a>';
                     return $buttonPersona;
 
                 })

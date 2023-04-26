@@ -22,6 +22,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Accion</th>
+                            <th>Historia clinica</th>
                             <th>Foto</th>
                             <th scope="col">Cedula</th>
                             <th scope="col">Nombres</th>
@@ -67,6 +68,7 @@
             //"columnDefs": [{ targets: [3], "orderable": false}],
             "columns": [
                 {width: '',data: 'action', name: 'action', orderable: false, searchable: false},
+                {width: '',data: 'secuencia_historia_clinica'},
                 {width: '',data: 'foto', name: 'foto', orderable: false, searchable: false},
                 {width: '',data: 'cedula'},
                 {width: '',data: 'nombres'},
@@ -75,5 +77,26 @@
             "fixedColumns" : true
         });
     })
+
+    function eliminarPaciente(idpaciente){
+        axios.post('{{route('eliminar.persona')}}',{
+            id: id,
+            _token: token
+        }).then(function(res) {
+            console.log(res);
+            if(res.status==200) {
+                if(res.data.respuesta == true){
+                    tablePersona.ajax.reload();
+                    new bootstrap.Toast(document.querySelector('#ToastCancelCita')).hide();
+                }else{
+
+                }
+            }
+        }).catch(function(err) {
+            console.log(err);
+        }).then(function() {
+
+        });
+    }
 </script>
 @endpush

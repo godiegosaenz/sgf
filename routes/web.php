@@ -52,6 +52,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('paciente/detallar/{id}',[DetallarPacienteController::class, 'index'])->name('detallar.persona');
     Route::get('paciente/editar/{id}',[PacienteController::class, 'edit'])->name('editar.paciente');
     Route::post('paciente/verificar', [PacienteController::class, 'verificarCedula'])->name('verificar.persona');
+    Route::post('paciente/eliminar', [PacienteController::class, 'delete'])->name('eliminar.persona');
     Route::post('canton/obtener', [CantonController::class, 'obtener'])->name('canton.obtener');
 
     Route::post('especialista/lista', [EspecialistaController::class, 'list'])->name('list.especialista');
@@ -119,6 +120,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('roles', [RolesController::class, 'store'])->name('store.roles');
 
     Route::post('permissions/obtener', [PermissionController::class, 'obtener'])->name('obtener.permissions');
+    Route::get('secuencial', [SecuencialController::class, 'index'])->name('index.secuencial');
+
     Route::get('secuencial', [SecuencialController::class, 'index'])->name('index.secuencial');
 
 });

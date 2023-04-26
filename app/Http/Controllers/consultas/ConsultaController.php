@@ -170,7 +170,7 @@ class ConsultaController extends Controller
                     return $Consulta->cita->persona->nombres.' '.$Consulta->cita->persona->apellidos;
                 })
                 ->addColumn('especialista', function($Consulta){
-                    return $Consulta->cita->especialista->persona->nombres.' '.$Consulta->cita->especialista->persona->apellidos;
+                    return $Consulta->cita->especialista->personas->nombres.' '.$Consulta->cita->especialista->personas->apellidos;
                 })
                 ->addColumn('fechahora', function($Consulta){
                     return $Consulta->fecha.' '.$Consulta->hora;

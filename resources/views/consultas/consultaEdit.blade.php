@@ -94,7 +94,7 @@
                                     </tr>
                                     <tr>
                                         <td style="width: 25%"><i class="fa fa-phone"></i><strong>Especialista :</strong></td>
-                                        <td colspan="3" style="width: 25%">{{$Cita->especialista->persona->nombres.' '.$Cita->especialista->persona->apellidos}}</td>
+                                        <td colspan="3" style="width: 25%">{{$Cita->especialista->personas->nombres.' '.$Cita->especialista->personas->apellidos}}</td>
                                     </tr>
                                     <tr>
                                         <td style="width: 25%"><i class="fa fa-phone"></i><strong>Motivo :</strong></td>

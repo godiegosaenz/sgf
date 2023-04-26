@@ -262,7 +262,6 @@ class CitasController extends Controller
         if($tipo_usuario == 'especialista'){
             $Cita = Cita::where([
                 'fecha' => $r->fecha,
-                'especialista_id' => $idpersona,
             ])->get();
         }else{
             $Cita = Cita::where('fecha',$r->fecha)->get();
