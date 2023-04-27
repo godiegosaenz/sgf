@@ -44,9 +44,10 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
+                <div id="alertModalEliminar" class="alert alert-danger" role="alert" style="display: none;">
+                </div>
               <button id="btnSi" class="btn btn-success">SI</button>
-              <button id="btnNo" class="btn btn-danger">NO</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
             </div>
           </div>
         </div>
@@ -104,20 +105,37 @@
     }
     let token = "{{csrf_token()}}";
     function eliminarPaciente(idpaciente){
+
         axios.post('{{route('eliminar.persona')}}',{
             id: idpaciente,
             _token: token
         }).then(function(res) {
-            console.log(res);
-            if(res.status==200) {
-                if(res.data.respuesta == true){
-                    tablePersona.ajax.reload();
-                }else{
 
+            if(res.status==200) {
+                var alertModalEliminar = document.getElementById('alertModalEliminar');
+                if(res.data.respuesta == 'eliminado'){
+                    tablePersona.ajax.reload();
+                    alertModalEliminar.removeAttribute('style');
+                    alertModalEliminar.setAttribute('class','alert alert-info');
+                    alertModalEliminar.innerHTML = res.data.message;
+                    //var modal = bootstrap.Modal.getInstance(modaleliminar)
+                    //modal.hide();
+                }else if('validacion'){
+                    alertModalEliminar.removeAttribute('style');
+                    alertModalEliminar.setAttribute('class','alert alert-warning');
+                    alertModalEliminar.innerHTML = res.data.message;
+
+                    //console.log(res.data.message);
+                }else if('error'){
+                    alert('error');
+                    alertModalEliminar.setAttribute('alert alert-danger');
+                    alertModalEliminar.innerHtml = res.data.message;
                 }
+            }else{
+                console.log('error');
             }
         }).catch(function(err) {
-            console.log(err);
+
         }).then(function() {
 
         });

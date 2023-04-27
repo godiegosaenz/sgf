@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Provincia;
 use App\Models\Persona;
 use App\Models\Canton;
+use App\Models\User;
 use App\Models\Archivo;
 use App\Models\ClinicalHistorySequence;
 use Illuminate\Support\Facades\Validator;
@@ -287,12 +288,26 @@ class PacienteController extends Controller
     }
 
     public function delete(Request $r){
+        try {
+            $counUser = DB::table('users')->where('idpersona', $r->id)->count();
+            if($counUser == 1){
+                return response()->json(
+                    ['respuesta' => 'validacion',
+                    'message' => 'Advertencia : No se puede eliminar el paciente, tiene asociado un usuario']
+                );
+            }
+            $Persona = Persona::find($r->id);
+            $Persona->delete();
 
-        $Persona = Persona::find($r->id);
-        $Persona->delete();
+            return response()->json(
+                ['respuesta' => 'eliminado', 'message' => 'Informacion : El paciente fue eliminado']
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                ['respuesta' => 'error',
+                'message' => $e->getMessage()]
+            );
+        }
 
-        return response()->json(
-            ['respuesta' => true]
-        );
     }
 }

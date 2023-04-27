@@ -224,7 +224,7 @@ class UsuarioController extends Controller
                return Datatables($listausuario)
                ->addColumn('action', function ($listausuario) {
                    $buttonPersona = '';
-                   $buttonPersona .= '<a class="btn btn-primary btn-sm" href="'.route('detallar.persona',$listausuario->id).'">Ver</a> ';
+                   //$buttonPersona .= '<a class="btn btn-primary btn-sm" href="'.route('detallar.persona',$listausuario->id).'">Ver</a> ';
                    $buttonPersona .= '<a class="btn btn-warning btn-sm" href="'.route('edit.usuario',$listausuario->id).'">Editar</a>';
                    return $buttonPersona;
 

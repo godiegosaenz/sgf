@@ -60,7 +60,10 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3" style="align-content: center"><strong>Comprobante de pago</strong></td>
+                                            <td colspan="3" style="text-align: center"><strong>Comprobante de recaudacion Unidad de Fisioterapia Municipal</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="text-align: center"><strong></strong></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -115,7 +118,7 @@
                                             <td style="width: 50%">________________________</td>
                                         </tr>
                                         <tr>
-                                            <td>Alanista de rentas</td>
+                                            <td>Analista de renta Mcpal</td>
                                             <td>Unidad de Fisioterapia</td>
                                         </tr>
                                     </table>
