@@ -119,7 +119,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <input type="text" name="especialista_id" id="especialista_id" value="{{old('especialista_id')}}">
+                            <input type="hidden" name="especialista_id" id="especialista_id" value="{{old('especialista_id')}}">
                             <input type="hidden" name="especialista_name" id="especialista_name" value="{{old('especialista_name')}}">
                             <input type="hidden" name="especialista_cedula" id="especialista_cedula" value="{{old('especialista_cedula')}}">
                         </div>
@@ -532,6 +532,9 @@
         tdBase.innerHTML = '<strong>TOTAL BASE ($)</strong>  '+roundToTwo(localStorage.getItem("totalbase"));
         tdIva.innerHTML = '<strong>TOTAL IVA ($)</strong>  '+roundToTwo(localStorage.getItem("totaliva"));
         tbodyservicios.appendChild(fila1);
+        alertServicios.removeAttribute('style');
+        alertServicios.setAttribute('class','alert alert-success');
+        alertServicios.innerHTML = 'Servicio agregado';
     }
     function eliminarFila(btn,subtotal,importe,iva) {
         // Obtener la fila a eliminar

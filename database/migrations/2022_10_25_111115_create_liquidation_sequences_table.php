@@ -17,9 +17,9 @@ class CreateLiquidationSequencesTable extends Migration
             $table->id();
             $table->bigInteger('sequence');
             $table->integer('year');
-            $table->unsignedBigInteger('type_liquidation_id');
-            $table->index('type_liquidation_id');
-            $table->foreign('type_liquidation_id')->references('id')->on('type_liquidations');
+            $table->unsignedBigInteger('servicios_id');
+            $table->index('servicios_id');
+            $table->foreign('servicios_id')->references('id')->on('servicios');
             $table->timestamps();
         });
     }

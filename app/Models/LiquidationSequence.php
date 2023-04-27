@@ -14,7 +14,7 @@ class LiquidationSequence extends Model
     protected $fillable = ['id',
                             'sequence',
                             'year',
-                            'type_liquidation_id',
+                            'servicios_id',
                             'created_at',
                             'updated_at'
                         ];

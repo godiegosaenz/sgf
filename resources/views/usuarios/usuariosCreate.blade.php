@@ -31,7 +31,7 @@
                             @endif
                             @if($errors->any())
                                 <div id="" class="alert alert-danger" role="alert">
-                                    Llene todos los campos obligatorios.
+                                    Llene todos los campos obligatorios. {{$errors}}
                                 </div>
                             @endif
                         </div>

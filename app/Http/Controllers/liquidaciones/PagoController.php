@@ -11,6 +11,7 @@ use App\models\LiquidationSequence;
 use App\models\LiquidationServices;
 use Illuminate\Support\Facades\Validator;
 use PDF;
+use Illuminate\Support\Facades\DB;
 
 class PagoController extends Controller
 {
@@ -72,24 +73,16 @@ class PagoController extends Controller
                         ->withInput();
         }
 
-        //obtener maxima secuencia;
-        $secuenciamaxima = LiquidationSequence::max('sequence');
-        $secuenciaLiquidacion = $secuenciamaxima + 1;
-        //registramos la secuencia nueva
-        $LiquidationSequence = new LiquidationSequence();
-        $LiquidationSequence->sequence = $secuenciaLiquidacion;
-        $LiquidationSequence->year = date('Y');
-        $LiquidationSequence->type_liquidation_id = 1;
-        $LiquidationSequence->save();
+
 
         $Liquidation = new Liquidation();
         $Liquidation->total_payment = $r->inputValorCobrar;
         $Liquidation->cita_id = $r->cita_id;
         $Liquidation->type_liquidation_id = 1;
-        $Liquidation->year = '2022';
+        $Liquidation->year = date('Y');
         $Liquidation->status = 1;
         $Liquidation->username = Auth()->user()->email;
-        $Liquidation->voucher_number = $secuenciaLiquidacion;
+        //$Liquidation->voucher_number = $secuenciaLiquidacion;
         $Liquidation->save();
 
         $Cita = Cita::find($r->cita_id);
@@ -107,7 +100,24 @@ class PagoController extends Controller
             $LiquidationServices->retencion = $c->retencion;
             $LiquidationServices->descuento = $c->descuento;
             $LiquidationServices->save();
+
+            //obtener maxima secuencia;
+            $secuenciamaxima = LiquidationSequence::where('servicios_id', $LiquidationServices->servicios_id)->max('sequence');
+            //$secuenciamaxima = LiquidationSequence::max('sequence');
+            $secuenciaLiquidacion = $secuenciamaxima + 1;
+            //registramos la secuencia nueva
+            $LiquidationSequence = new LiquidationSequence();
+            $LiquidationSequence->sequence = $secuenciaLiquidacion;
+            $LiquidationSequence->year = date('Y');
+            //$LiquidationSequence->type_liquidation_id = 1;
+            $LiquidationSequence->servicios_id = $LiquidationServices->servicios_id;
+            $LiquidationSequence->save();
+
+            $affected = DB::table('liquidations')->where('id', $LiquidationServices->liquidation_id)->update(['voucher_number' => $LiquidationSequence->sequence]);
         }
+
+
+
 
         return redirect('pago/'.$r->cita_id)->with('guardado','Pago realizado con exito, descargue el comprobante');
     }
