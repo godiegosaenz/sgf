@@ -2,106 +2,182 @@
 <html>
 <head>
     <title>Generacion de recibo</title>
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap-icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('font/font.css') }}" rel="stylesheet">
-    <style>
 
+    <style>
+        .container {
+			position: relative;
+			width: 100%;
+			height: 200px;
+		}
+
+		.left {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 50%;
+			height: 100%;
+            border:solid 1px;
+            border-color: #D9D9D9;
+		}
+
+		.right {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 50%;
+			height: 100%;
+            border:solid 1px;
+            border-color: #D9D9D9;
+
+		}
     </style>
 </head>
 <body>
-    <div class="row">
-        <div class="col-8">
-            <div class="card">
-                <div class="card-body">
-
-                    <div class="row">
-                        <div class="col-12">
-
-                            <table>
+    <div class="container">
+        <div class="left">
+            <div class="">
+                <table style="font-size:10px;">
+                    <tr>
+                        <td><img src="{{asset('img/logogadmsv.jpg')}}" alt="" sizes="" srcset="" height="50px"></td>
+                        <td>
+                            <table style="text-align: center;margin-rigth:20px">
                                 <tr>
-                                    <td><img src="{{asset('img/SALADEFISIOTERAPIALOGO.jpg')}}" alt="" sizes="" srcset="" height="95px"></td>
-
-                                    <td>
-                                        <div class="card">
-                                            <div class="card-body">
-
-                                                <table>
-                                                    <tr>
-                                                        <td><strong>Comprobante</strong></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>N° {{$Liquidation->voucher_number}}</td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <td><strong>GAD MUNICIPAL DEL CANTÓN SAN VICENTE</strong></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3" style="text-align: center"><strong><h3>Comprobante de recaudacion Unidad de Fisioterapia Municipal</h3></strong> </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-
-                            <table style="border: 1px solid;" width="100%">
-                                <tr style="border: 1px solid; border-color:darkgrey">
-                                    <th style="border: 1px solid; border-color:darkgrey" colspan="3">Datos de usuario</th>
-                                </tr>
-                                <tr style="border: 1px solid; border-color:darkgrey">
-                                    <td style="border: 1px solid; border-color:darkgrey">Cedula</td>
-                                    <td style="border: 1px solid; border-color:darkgrey">Usuario/a</td>
-                                    <td style="border: 1px solid; border-color:darkgrey">Fecha de expedicion</td>
-                                </tr>
-                                <tr style="border: 1px solid; border-color:darkgrey">
-                                    <td style="border: 1px solid; border-color:darkgrey">{{$Cita->persona->cedula}}</td>
-                                    <td style="border: 1px solid; border-color:darkgrey">{{$Cita->persona->nombres.' '.$Cita->persona->apellidos}}</td>
-                                    <td style="border: 1px solid; border-color:darkgrey">{{$Cita->fecha}}</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-8">
-                            <table class="" width="60%" style="margin-top: 20px">
-                                <tr style="border: 1px solid; border-color:darkgrey">
-                                    <td style="border: 1px solid; border-color:darkgrey"><strong>Concepto de pago</strong></td>
-                                    <td style="border: 1px solid; border-color:darkgrey"><strong>Valor</strong></td>
-                                </tr>
-                                @foreach ($Liquidation->liquidation_services as $lr)
-                                    <tr style="border: 1px solid; border-color:darkgrey">
-                                        <td style="border: 1px solid; border-color:darkgrey">{{$lr->nombre}}</td>
-                                        <td style="border: 1px solid; border-color:darkgrey">{{$lr->subtotal}}</td>
-                                    </tr>
-                                @endforeach
-                                <tr style="border: 1px solid; border-color:darkgrey">
-                                    <td style="border: 1px solid; border-color:darkgrey">Total</td>
-                                    <td style="border: 1px solid; border-color:darkgrey">{{$Liquidation->total_payment}}</td>
-                                </tr>
-                            </table>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <table class="mt-5" width="100%">
-                                <tr>
-                                    <td style="width: 50%">________________________</td>
-                                    <td style="width: 50%">________________________</td>
+                                    <td><strong>DIRECCIÓN FINANCIERA</strong></td>
                                 </tr>
                                 <tr>
-                                    <td>Analista de renta Mcpal</td>
-                                    <td>Unidad de Fisioterapia</td>
+                                    <td>COMPROBANTE DE RECAUDACIÓN</td>
+                                </tr>
+                                <tr style="border:solid 1px;border-color:#DEDEDE;">
+                                    <td>UNIDAD DE FISIOTERAPIA MUNICIPAL</td>
                                 </tr>
                             </table>
-                        </div>
-                    </div>
+                        </td>
+                        <td style="text-align:right;">
+                            <table style="text-align:right;margin-left:20px">
+                                <tr>
+                                    <td><img src="{{asset('img/logo.png')}}" alt="" sizes="" srcset="" height="30px"></td>
+                                </tr>
+                                <tr>
+                                    <td style="color:#D31515;">N°: {{str_pad($Liquidation->voucher_number, 6, '0', STR_PAD_LEFT);}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
 
-                </div>
+                    <tr>
+                        <td colspan="3" style="text-align: center"><strong></strong></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="">
+                <table style="font-size:10px;" >
+                    @foreach ($Liquidation->liquidation_services as $lr)
+                        <tr>
+                            <td>{{$lr->nombre}}</td>
+                            <td style="width:50px;">Tarifa</td>
+                            <td style="width:70px;background-color: #{{$lr->descripcion}}">{{$lr->pivot->subtotal}}</td>
+                        </tr>
+                    @endforeach
+
+                </table>
+            </div>
+            <div class="">
+                <table style="font-size:10px;">
+                    <tr>
+                        <th >Usuario:</th>
+                        <td>{{$Cita->persona->nombres.' '.$Cita->persona->apellidos}}</td>
+                    </tr>
+
+                </table>
+            </div>
+            <br>
+            <div class="">
+                <table style="font-size:10px" class="mt-5" width="100%">
+                    <tr>
+                        <td style="width: 50%">________________________</td>
+                        <td style="width: 50%">________________________</td>
+                    </tr>
+                    <tr>
+                        <td>Analista de renta Mcpal</td>
+                        <td>Unidad de Fisioterapia</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="right">
+            <div class="">
+                <table style="font-size:10px;">
+                    <tr>
+                        <td><img src="{{asset('img/logogadmsv.jpg')}}" alt="" sizes="" srcset="" height="50px"></td>
+                        <td>
+                            <table style="text-align: center;margin-rigth:20px">
+                                <tr>
+                                    <td><strong>GAD MUNICIPAL DEL CANTÓN SAN VICENTE</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>DIRECCIÓN FINANCIERA</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>COMPROBANTE DE RECAUDACIÓN</td>
+                                </tr>
+                                <tr style="border:solid 1px;border-color:#DEDEDE;">
+                                    <td>UNIDAD DE FISIOTERAPIA MUNICIPAL</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="text-align:right;">
+                            <table style="text-align:right;margin-left:20px">
+                                <tr>
+                                    <td><img src="{{asset('img/logo.png')}}" alt="" sizes="" srcset="" height="30px"></td>
+                                </tr>
+                                <tr>
+                                    <td style="color:#D31515;">N°: {{str_pad($Liquidation->voucher_number, 6, '0', STR_PAD_LEFT);}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3" style="text-align: center"><strong></strong></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="">
+                <table style="font-size:10px;" >
+                    @foreach ($Liquidation->liquidation_services as $lr)
+                        <tr>
+                            <td>{{$lr->nombre}}</td>
+                            <td style="width:50px;">Tarifa</td>
+                            <td style="width:70px;background-color: #{{$lr->descripcion}}">{{$lr->pivot->subtotal}}</td>
+                        </tr>
+                    @endforeach
+
+                </table>
+            </div>
+            <div class="">
+                <table style="font-size:10px;">
+                    <tr>
+                        <th >Usuario:</th>
+                        <td>{{$Cita->persona->nombres.' '.$Cita->persona->apellidos}}</td>
+                    </tr>
+
+                </table>
+            </div>
+            <br>
+            <div class="">
+                <table style="font-size:10px" class="mt-5" width="100%">
+                    <tr>
+                        <td style="width: 50%">________________________</td>
+                        <td style="width: 50%">________________________</td>
+                    </tr>
+                    <tr>
+                        <td>Analista de renta Mcpal</td>
+                        <td>Unidad de Fisioterapia</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

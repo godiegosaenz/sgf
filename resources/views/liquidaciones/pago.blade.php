@@ -32,7 +32,7 @@
             </div>
 
             @if(session('guardado') || $contadorLiquidacion == 1)
-                <div class="col-8">
+                <div class="col-5">
                     <div class="card">
                         <div class="card-body">
 
@@ -41,72 +41,65 @@
 
                                     <table>
                                         <tr>
-                                            <td><img src="{{asset('img/SALADEFISIOTERAPIALOGO.jpg')}}" alt="" sizes="" srcset="" height="140px"></td>
-
+                                            <td><img src="{{asset('img/logogadmsv.jpg')}}" alt="" sizes="" srcset="" height="100px"></td>
                                             <td>
-                                                <div class="card">
-                                                    <div class="card-body">
-
-                                                        <table>
-                                                            <tr>
-                                                                <td><strong>Comprobante</strong></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>N° {{$Liquidation->voucher_number}}</td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                </div>
+                                                <table style="text-align: center;margin-rigth:20px">
+                                                    <tr>
+                                                        <td><strong>GAD MUNICIPAL DEL CANTÓN SAN VICENTE</strong></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>DIRECCIÓN FINANCIERA</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>COMPROBANTE DE RECAUDACIÓN</td>
+                                                    </tr>
+                                                    <tr style="border:solid 1px;border-color:#DEDEDE;">
+                                                        <td>UNIDAD DE FISIOTERAPIA MUNICIPAL</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <table style="text-align:right;margin-left:20px">
+                                                    <tr>
+                                                        <td><img src="{{asset('img/logo.png')}}" alt="" sizes="" srcset="" height="60px"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="color:#D31515;">N°: {{str_pad($Liquidation->voucher_number, 6, '0', STR_PAD_LEFT);}}</td>
+                                                    </tr>
+                                                </table>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td colspan="3" style="text-align: center"><strong>Comprobante de recaudacion Unidad de Fisioterapia Municipal</strong></td>
-                                        </tr>
+
                                         <tr>
                                             <td colspan="3" style="text-align: center"><strong></strong></td>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-12">
-
-                                    <table class="table table-bordered mt-3">
-                                        <tr>
-                                            <th colspan="3">Datos de usuario</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedula</td>
-                                            <td>Usuario/a</td>
-                                            <td>Fecha de expedicion</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{$Cita->persona->cedula}}</td>
-                                            <td>{{$Cita->persona->nombres.' '.$Cita->persona->apellido}}</td>
-                                            <td>{{$Cita->fecha}}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-
+                            <br>
                             <div class="row">
                                 <div class="col-8">
-                                    <table class="table table-bordered">
-                                        <tr>
-
-                                            <td>Concepto de pago</td>
-                                            <td>Valor</td>
-                                        </tr>
+                                    <table style="width: 570px;font-size:14px;" >
                                         @foreach ($Liquidation->liquidation_services as $lr)
                                             <tr>
                                                 <td>{{$lr->nombre}}</td>
-                                                <td>{{$lr->pivot->subtotal}}</td>
+                                                <td style="width:50px;">Tarifa</td>
+                                                <td style="width:70px;background-color: #{{$lr->descripcion}}">{{$lr->pivot->subtotal}}</td>
                                             </tr>
                                         @endforeach
+
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <table style="width: 500px;font-size:14px;">
                                         <tr>
-                                            <td>Total</td>
-                                            <td>{{$Liquidation->total_payment}}</td>
+                                            <th >Usuario:</th>
+                                            <td style="text-align: left;">{{$Cita->persona->nombres.' '.$Cita->persona->apellidos}}</td>
                                         </tr>
+
                                     </table>
                                 </div>
                             </div>
