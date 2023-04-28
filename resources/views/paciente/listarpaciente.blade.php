@@ -32,6 +32,16 @@
                     <tbody>
 
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Acciones</th>
+                            <th><input type="number" class="form-control"></th>
+                            <th></th>
+                            <th><input type="number" class="form-control"></th>
+                            <th><input type="text" class="form-control"></th>
+                            <th><input type="text" class="form-control"></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -81,6 +91,20 @@
                     d._token = $("input[name=_token]").val();
                     d.formulario = "persona";
                 }
+            },
+            initComplete: function () {
+                // Apply the search
+                this.api()
+                    .columns()
+                    .every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that.search(this.value).draw();
+                            }
+                        });
+                    });
             },
             //"columnDefs": [{ targets: [3], "orderable": false}],
             "columns": [
