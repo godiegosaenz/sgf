@@ -200,7 +200,7 @@ class PacienteController extends Controller
                     'discapacidad' => 'required',
                     'porcentaje' => '',
                     'nota' => '',
-                    //'txtFoto' => 'required',
+                    'secuencia_historia_clinica' => ['bail','required',Rule::unique('App\Models\Persona')->ignore($id)],
 
                 ];
         }else{
@@ -220,8 +220,7 @@ class PacienteController extends Controller
                 'discapacidad' => 'required',
                 'porcentaje' => 'required|max:3',
                 'nota' => '',
-                //'txtFoto' => 'required',
-
+                'secuencia_historia_clinica' => ['bail','required',Rule::unique('App\Models\Persona')->ignore($id)],
             ];
         }
 
@@ -269,6 +268,7 @@ class PacienteController extends Controller
         $personas->discapacidad = $r->discapacidad;
         $personas->porcentaje = $r->porcentaje;
         $personas->nota = $r->nota;
+        $personas->secuencia_historia_clinica = $r->secuencia_historia_clinica;
         if($r->file('txtFoto') != ''){
             $personas->rutaimagen = $rutaparaimgen;
         }

@@ -72,16 +72,16 @@
                                                         <ul class="list-group list-group-flush">
                                                             <li class="list-group-item">
                                                                 <div class="form-group row mb-2">
-                                                                    <label for="txtCodigo" class="col-sm-3 col-form-label">Codigo </label>
-                                                                    <div class="col-sm-9">
+                                                                    <label for="txtCodigo" class="col-sm-12 col-md-3 col-form-label">Codigo </label>
+                                                                    <div class="col-sm-12 col-md-9">
                                                                         <input type="text" class="form-control {{$errors->has('txtCodigo') ? 'is-invalid' : ''}}" id="txtCodigo" name="txtCodigo" value="{{ $persona->id}}" disabled>
                                                                     </div>
                                                                 </div>
                                                             </li>
                                                             <li class="list-group-item">
                                                                 <div class="row mt-3 mb-2">
-                                                                    <label for="cedula" class="col-sm-3 col-form-label">* Cédula </label>
-                                                                    <div class="col-sm-9">
+                                                                    <label for="cedula" class="col-sm-12 col-md-3 col-form-label">* Cédula </label>
+                                                                    <div class="col-sm-12 col-md-9">
                                                                     <input type="text" class="form-control {{$errors->has('cedula') ? 'is-invalid' : ''}}" id="cedula" name="cedula" value="{{$errors->any() ? old('cedula') : $persona->cedula}}">
 
                                                                         <div class="invalid-feedback">
@@ -94,8 +94,8 @@
                                                             </li>
                                                             <li class="list-group-item">
                                                                 <div class="row mt-3 mb-2">
-                                                                    <label for="nombres" class="col-sm-3 col-form-label">* Nombres </label>
-                                                                    <div class="col-sm-9">
+                                                                    <label for="nombres" class="col-sm-12 col-md-3 col-form-label">* Nombres </label>
+                                                                    <div class="col-sm-12 col-md-9">
                                                                         <input type="text" class="form-control {{$errors->has('nombres') ? 'is-invalid' : ''}}" id="nombres" name="nombres" value="{{$errors->any() ? old('nombres') : $persona->nombres}}">
                                                                         <div class="invalid-feedback">
                                                                             @if($errors->has('nombres'))
@@ -107,8 +107,8 @@
                                                             </li>
                                                             <li class="list-group-item">
                                                                 <div class="row mt-3 mb-2">
-                                                                    <label for="apellidos" class="col-sm-3 col-form-label">* Apellidos </label>
-                                                                    <div class="col-sm-9">
+                                                                    <label for="apellidos" class="col-sm-12 col-md-3 col-form-label">* Apellidos </label>
+                                                                    <div class="col-sm-12 col-md-9">
                                                                         <input type="text" class="form-control {{$errors->has('apellidos') ? 'is-invalid' : ''}}" id="apellidos" name="apellidos" value="{{$errors->any() ? old('apellidos') : $persona->apellidos}}">
                                                                         <div class="invalid-feedback">
                                                                             @if($errors->has('apellidos'))
@@ -120,8 +120,8 @@
                                                             </li>
                                                             <li class="list-group-item">
                                                                 <div class="form-group row mt-3">
-                                                                    <label for="fechaNacimiento" class="col-3 col-form-label">* Fecha Nacimiento </label>
-                                                                    <div class="col-9">
+                                                                    <label for="fechaNacimiento" class="col-sm-12 col-md-3 col-form-label">* Fecha Nacimiento </label>
+                                                                    <div class="col-sm-12 col-md-9">
                                                                         <input class="form-control {{$errors->has('fechaNacimiento') ? 'is-invalid' : ''}}" type="date" id="fechaNacimiento" name="fechaNacimiento" value="{{$errors->any() ? old('fechaNacimiento') : $persona->fechaNacimiento}}">
                                                                         <div class="invalid-feedback">
                                                                             @if($errors->has('fechaNacimiento'))
@@ -133,8 +133,8 @@
                                                             </li>
                                                             <li class="list-group-item">
                                                                 <div class="row mt-3 mb-2">
-                                                                    <label for="estadoCivil" class="col-3 col-form-label">* Estado Civil </label>
-                                                                    <div class="col-9">
+                                                                    <label for="estadoCivil" class="col-sm-12 col-md-3 col-form-label">* Estado Civil </label>
+                                                                    <div class="col-sm-12 col-md-9">
                                                                         <select class="form-select {{$errors->has('estadoCivil') ? 'is-invalid' : ''}}" id="estadoCivil" name="estadoCivil">
                                                                             <option value="">Seleccione Estado</option>
                                                                                 @if ($persona->estadoCivil == 'SOLTERO/A')
@@ -186,8 +186,8 @@
 
                                                             <li class="list-group-item">
                                                                 <div class="form-group row mt-3 mb-2">
-                                                                    <label for="ocupacion" class="col-sm-3 col-form-label">Ocupacion </label>
-                                                                    <div class="col-sm-9">
+                                                                    <label for="ocupacion" class="col-sm-12 col-md-3 col-form-label">Ocupacion </label>
+                                                                    <div class="col-sm-12 col-md-9">
                                                                         <input type="text" class="form-control {{$errors->has('ocupacion') ? 'is-invalid' : ''}}" id="ocupacion" name="ocupacion" value="{{$errors->any() ? old('ocupacion') : $persona->ocupacion}}">
                                                                         <div class="invalid-feedback">
                                                                             @if($errors->has('ocupacion'))
@@ -199,8 +199,8 @@
                                                             </li>
                                                             <li class="list-group-item">
                                                                 <div class="row mt-3 mb-2">
-                                                                    <label for="txtEdad" class="col-sm-3 col-form-label">Edad </label>
-                                                                    <div class="col-sm-9">
+                                                                    <label for="txtEdad" class="col-sm-12 col-md-3 col-form-label">Edad </label>
+                                                                    <div class="col-sm-12 col-md-9">
                                                                         <input type="text" class="form-control {{$errors->has('txtEdad') ? 'is-invalid' : ''}}" id="txtEdad" name="txtEdad" disabled value="<?php
                                                                                 if(isset($persona->fechaNacimiento)){
                                                                                     $fechaN = explode('-',date($persona->fechaNacimiento));
@@ -225,8 +225,8 @@
                                                             </li>
                                                             <li class="list-group-item">
                                                                 <div class="form-group row mt-3">
-                                                                    <label for="telefono" class="col-sm-3 col-form-label">Telefono</label>
-                                                                    <div class="col-sm-9">
+                                                                    <label for="telefono" class="col-sm-12 col-md-3 col-form-label">Telefono</label>
+                                                                    <div class="col-sm-12 col-md-9">
                                                                         <input type="text" class="form-control {{$errors->has('telefono') ? 'is-invalid' : ''}}" id="telefono" name="telefono" value="{{$errors->any() ? old('telefono') : $persona->telefono}}">
                                                                         <div class="invalid-feedback">
                                                                             @if($errors->has('telefono'))
@@ -238,8 +238,8 @@
                                                             </li>
                                                             <li class="list-group-item">
                                                                 <div class="form-group row mt-3">
-                                                                    <label for="correo" class="col-sm-3 col-form-label">Correo</label>
-                                                                    <div class="col-sm-9">
+                                                                    <label for="correo" class="col-sm-12 col-md-3 col-form-label">Correo</label>
+                                                                    <div class="col-sm-12 col-md-9">
                                                                         <input type="text" class="form-control {{$errors->has('correo') ? 'is-invalid' : ''}}" id="correo" name="correo" value="{{$errors->any() ? old('correo') : $persona->correo}}">
                                                                         <div class="invalid-feedback">
                                                                             @if($errors->has('correo'))
@@ -286,7 +286,7 @@
                                                             <div class="form-group row">
 
                                                                 <div class="col-sm-12">
-                                                                    <input type="text" class="form-control {{$errors->has('historiaClinica') ? 'is-invalid' : ''}}" id="secuencia_historia_clinica" name="secuencia_historia_clinica" value="{{$errors->any() ? old('secuencia_historia_clinica'): $persona->secuencia_historia_clinica }}" disabled>
+                                                                    <input type="text" class="form-control {{$errors->has('secuencia_historia_clinica') ? 'is-invalid' : ''}}" id="secuencia_historia_clinica" name="secuencia_historia_clinica" value="{{$errors->any() ? old('secuencia_historia_clinica'): $persona->secuencia_historia_clinica }}" >
                                                                     <div class="invalid-feedback">
                                                                         @if($errors->has('secuencia_historia_clinica'))
                                                                             {{$errors->first('secuencia_historia_clinica')}}
@@ -354,8 +354,8 @@
                                                                     <ul class="list-group list-group-flush">
                                                                         <li class="list-group-item">
                                                                             <div class="row mb-3">
-                                                                                <label for="provincia_id" class="col-3 col-form-label">* Provincia</label>
-                                                                                    <div class="col-9">
+                                                                                <label for="provincia_id" class="col-sm-12 col-md-3 col-form-label">* Provincia</label>
+                                                                                    <div class="col-sm-12 col-md-9">
                                                                                         <select class="form-select {{$errors->has('provincia_id') ? 'is-invalid' : ''}}" id="provincia_id" name="provincia_id">
                                                                                             <option value="">Seleccione provincia</option>
                                                                                             @foreach ($provincias as $p)
@@ -372,8 +372,8 @@
                                                                         </li>
                                                                         <li class="list-group-item">
                                                                             <div class="row mb-3">
-                                                                                <label for="canton_id" class="col-3 col-form-label">* Canton</label>
-                                                                                <div class="col-9">
+                                                                                <label for="canton_id" class="col-sm-12 col-md-3 col-form-label">* Canton</label>
+                                                                                <div class="col-sm-12 col-md-9">
                                                                                     <select class="form-select {{$errors->has('canton_id') ? 'is-invalid' : ''}}" id="canton_id" name="canton_id">
                                                                                         <option value="" id="optionSelectCanton">Seleccione canton</option>
                                                                                         @isset($cantones)
@@ -392,8 +392,8 @@
                                                                         </li>
                                                                         <li class="list-group-item">
                                                                             <div class="form-group row mt-3 mb-2">
-                                                                                <label for="ciudad" class="col-sm-3 col-form-label">Ciudad </label>
-                                                                                <div class="col-sm-9">
+                                                                                <label for="ciudad" class="col-sm-12 col-md-3 col-form-label">Ciudad </label>
+                                                                                <div class="col-sm-12 col-md-9">
                                                                                     <input type="text" class="form-control {{$errors->has('ciudad') ? 'is-invalid' : ''}}" id="ciudad" name="ciudad" value="{{$errors->any() ? old('ciudad') : $persona->ciudad}}">
 
                                                                                 </div>
@@ -401,8 +401,8 @@
                                                                         </li>
                                                                         <li class="list-group-item">
                                                                             <div class="form-group row mt-3 mb-2">
-                                                                                <label for="direccion" class="col-sm-3 col-form-label">Direccion </label>
-                                                                                <div class="col-sm-9">
+                                                                                <label for="direccion" class="col-sm-12 col-md-3 col-form-label">Direccion </label>
+                                                                                <div class="col-sm-12 col-md-9">
                                                                                     <input type="text" class="form-control {{$errors->has('direccion') ? 'is-invalid' : ''}}" id="direccion" name="direccion" value="{{ $errors->any() ? old('direccion') : $persona->direccion}}">
 
                                                                                 </div>
@@ -426,8 +426,8 @@
                                                     <ul class="list-group list-group-flush">
                                                         <li class="list-group-item">
                                                             <div class="form-group row mt-3">
-                                                                <label for="nota" class="col-sm-2 col-form-label">Nota : </label>
-                                                                <div class="col-sm-10">
+                                                                <label for="nota" class="col-sm-12 col-md-2 col-form-label">Nota : </label>
+                                                                <div class="col-sm-12 col-md-10">
                                                                     <textarea class="form-control {{$errors->has('nota') ? 'is-invalid' : ''}}" id="nota" name="nota" rows="3">{{$errors->any() ? old('nota') : $persona->nota}}</textarea>
                                                                     <div class="invalid-feedback">
                                                                         @if($errors->has('nota'))
@@ -445,7 +445,7 @@
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-sm-12 col-md-6">
                                         <div class="card mt-4">
                                             <div class="card-body">
                                                 <div class="row">
@@ -468,7 +468,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-sm-12 col-md-6">
                                         <div class="card mt-4">
                                             <div class="card-body">
                                                 <div class="row">
