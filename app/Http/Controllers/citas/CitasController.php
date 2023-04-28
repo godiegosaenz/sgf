@@ -292,9 +292,9 @@ class CitasController extends Controller
                 ->addColumn('action', function ($Cita) {
                     $botonesCita = '';
                     if($Cita->estado == 'pendiente'){
-                        if(auth()->user()->tipo_usuario == 'especialista'){
-                            $botonesCita .= '<a href="'.route('create.consulta',$Cita->id).'" class="btn btn-primary btn-sm"><i class="bi bi-check-circle-fill"></i> Atender</a> ';
-                        }
+
+                        $botonesCita .= '<a href="'.route('create.consulta',$Cita->id).'" class="btn btn-primary btn-sm"><i class="bi bi-check-circle-fill"></i> Atender</a> ';
+
                         $botonesCita .= '<a onclick="mostrarToasCancelarCita('.$Cita->id.')" class="btn btn-danger btn-sm"><i class="bi bi-x-circle-fill"></i> Cancelar</a> ';
                         $botonesCita .= '<a href="'.route('edit.cita',$Cita->id).'" class="btn btn-warning btn-sm"><i class="bi bi-check-circle-fill"></i> Editar</a> ';
                     }else if($Cita->estado == 'atendido'){
