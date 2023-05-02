@@ -262,9 +262,9 @@ class CitasController extends Controller
         if($tipo_usuario == 'especialista'){
             $Cita = Cita::where([
                 'fecha' => $r->fecha,
-            ])->get();
+            ])->orderBy('fecha', 'desc')->orderBy('hora', 'desc')->get();
         }else{
-            $Cita = Cita::where('fecha',$r->fecha)->get();
+            $Cita = Cita::where('fecha',$r->fecha)->orderBy('fecha', 'desc')->orderBy('hora', 'desc')->get();
         }
 
         return Datatables($Cita)
@@ -300,8 +300,7 @@ class CitasController extends Controller
                     }else if($Cita->estado == 'atendido'){
                         $botonesCita .= '<a href="'.route('index.pago',$Cita->id).'" class="btn btn-primary btn-sm"><i class="bi bi-receipt"></i> Procesar pago</a> ';
                         $botonesCita .= '<a href="'.route('ficha.citareporte',$Cita->id).'" class="btn btn-secondary btn-sm"><i class="bi bi-file-pdf"></i> reporte</a> ';
-                    }else if($Cita->estado == 'completado'){
-                        $botonesCita .= '<a href="'.route('index.pago',$Cita->id).'" class="btn btn-primary btn-sm"><i class="bi bi-receipt"></i> Generar recibo</a> ';
+                    }else if($Cita->estado == 'cancelado'){
                         $botonesCita .= '<a href="'.route('ficha.citareporte',$Cita->id).'" class="btn btn-secondary btn-sm"><i class="bi bi-file-pdf"></i> reporte</a> ';
                     }
                     return $botonesCita;

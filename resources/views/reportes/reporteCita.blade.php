@@ -29,7 +29,7 @@
                     <td><i class="fa fa-user"></i> Cedula :</td>
                     <td>{{$Cita->persona->cedula}}</td>
                     <td>Historia clínica</td>
-                    <td>{{$Cita->persona->historiaClinica}}</td>
+                    <td>{{$Cita->persona->secuencia_historia_clinica}}</td>
                 </tr>
                 <tr>
                     <td><i class="fa fa-user"></i> Nombres :</td>
@@ -82,9 +82,32 @@
                     <td style="width: 25%"><i class="fa fa-hourglass"></i> Motivo :</td>
                     <td style="width: 25%">{{$Cita->motivo}}</td>
                 </tr>
+                <tr style="background-color: #BCDCF9">
+                    <td colspan="4" style="text-align: center"><strong>Informacion de la consulta</strong></td>
+                </tr>
+                <tr>
+                    <td style="width: 25%"><i class="fa fa-phone"></i> Fecha :</td>
+                    <td style="width: 25%">{{$Cita->consulta->fecha}}</td>
+                    <td style="width: 25%"><i class="fa fa-hourglass"></i> Hora :</td>
+                    <td style="width: 25%">{{$Cita->consulta->hora}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 25%"><i class="fa fa-phone"></i> diagnostico :</td>
+                    <td style="width: 25%">{{$Cita->consulta->diagnostico}}</td>
+                    <td style="width: 25%"><i class="fa fa-hourglass"></i> Motivo :</td>
+                    <td style="width: 25%">{{$Cita->consulta->tratamiento}}</td>
+                </tr>
             </tbody>
 
         </table>
+    </div>
+    <div class="row" style="margin-top: 200px;">
+        <div class="col-12">
+            <p>________________________</p>
+        </div>
+        <div class="col-12">
+            <p>{{$Cita->especialista->personas->nombres.' '.$Cita->especialista->personas->apellidos}}</p>
+        </div>
     </div>
 </body>
 </html>

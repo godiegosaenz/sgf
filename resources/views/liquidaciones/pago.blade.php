@@ -11,7 +11,15 @@
                 </div>
             </div>
         </div>
-
+        @if($Cita->persona->discapacidad == 'SI')
+        <div class="row justify-content-md-center">
+            <div class="col-8">
+                <div class="alert alert-info" role="alert">
+                    Importante. El usuario tiene discapacidad, por lo tanto el pago será exonerado
+                </div>
+            </div>
+        </div>
+        @endif
         @if ($contadorLiquidacion == 1)
         <div class="row justify-content-md-center">
             <div class="col-8">
@@ -80,6 +88,12 @@
                             <div class="row">
                                 <div class="col-8">
                                     <table style="width: 570px;font-size:14px;" >
+                                        @if($Cita->persona->discapacidad == 'SI')
+                                        <tr style="background-color: #CFF4FC;">
+                                            <td>EXONERADO</td>
+                                        </tr>
+                                        @endif
+
                                         @foreach ($Liquidation->liquidation_services as $lr)
                                             <tr>
                                                 <td>{{$lr->nombre}}</td>
@@ -143,7 +157,11 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="diagnostico">* Valor a cobrar : </label>
+                                                @if($Cita->persona->discapacidad == 'SI')
+                                                <input type="text" class="form-control" id="inputValorCobrar" name="inputValorCobrar" value="{{number_format(0.00, 2);}}">
+                                                @else
                                                 <input type="text" class="form-control" id="inputValorCobrar" name="inputValorCobrar" value="{{number_format($Cita->servicios_citas->sum('subtotal'), 2);}}">
+                                                @endif
                                             </div>
                                             <div class="mb-3">
                                                 <label for="diagnostico">* Cambio : </label>
@@ -157,7 +175,11 @@
                                         </div>
                                         <div class="col-5">
                                             <p class="fs-3">TOTAL A PAGAR</p>
+                                            @if($Cita->persona->discapacidad == 'SI')
+                                            <h1><span class="badge bg-primary" id="spanValor">$ {{number_format(0.00, 2);}}</span></h1>
+                                            @else
                                             <h1><span class="badge bg-primary" id="spanValor">$ {{number_format($Cita->servicios_citas->sum('subtotal'), 2);}}</span></h1>
+                                            @endif
                                         </div>
                                     </div>
                                 </form>
@@ -181,20 +203,37 @@
                                 </tr>
                             </thead>
                             <tbody id="tbodyservicios">
+                                @if($Cita->persona->discapacidad == 'SI')
+                                    @foreach ($Cita->servicios_citas as $cs)
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td>1</td>
+                                            <td>{{$cs->nombre}}</td>
+                                            <td>0.00</td>
+                                            <td>0.00</td>
+                                            <td>0.00</td>
+                                            <td>0.00</td>
+                                            <td>0.00</td>
+                                            <td>0.00</td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                 @foreach ($Cita->servicios_citas as $cs)
-                                    <tr>
-                                        <td>
-                                        </td>
-                                        <td>1</td>
-                                        <td>{{$cs->nombre}}</td>
-                                        <td>{{$cs->precio}}</td>
-                                        <td>{{$cs->descuento}}</td>
-                                        <td>{{$cs->importe}}</td>
-                                        <td>{{$cs->iva}}</td>
-                                        <td>{{$cs->retencion}}</td>
-                                        <td>{{$cs->subtotal}}</td>
-                                    </tr>
-                                @endforeach
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td>1</td>
+                                            <td>{{$cs->nombre}}</td>
+                                            <td>{{$cs->precio}}</td>
+                                            <td>{{$cs->descuento}}</td>
+                                            <td>{{$cs->importe}}</td>
+                                            <td>{{$cs->iva}}</td>
+                                            <td>{{$cs->retencion}}</td>
+                                            <td>{{$cs->subtotal}}</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                             <tfoot>
                                 <tr>

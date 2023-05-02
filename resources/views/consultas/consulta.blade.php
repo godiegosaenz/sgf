@@ -107,5 +107,9 @@
             "fixedColumns" : true
         });
     });
+    let btnActualizar = document.getElementById('btnActualizar');
+    btnActualizar.addEventListener('click',function(){
+        tableCita.ajax.reload();
+    })
 </script>
 @endpush

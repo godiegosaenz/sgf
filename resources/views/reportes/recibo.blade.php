@@ -74,6 +74,11 @@
             </div>
             <div class="">
                 <table style="font-size:10px;" >
+                    @if($Cita->persona->discapacidad == 'SI')
+                    <tr style="background-color: #CFF4FC;">
+                        <td>EXONERADO</td>
+                    </tr>
+                    @endif
                     @foreach ($Liquidation->liquidation_services as $lr)
                         <tr>
                             <td>{{$lr->nombre}}</td>
@@ -147,6 +152,11 @@
             </div>
             <div class="">
                 <table style="font-size:10px;" >
+                    @if($Cita->persona->discapacidad == 'SI')
+                    <tr style="background-color: #CFF4FC;">
+                        <td>EXONERADO</td>
+                    </tr>
+                    @endif
                     @foreach ($Liquidation->liquidation_services as $lr)
                         <tr>
                             <td>{{$lr->nombre}}</td>

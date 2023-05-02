@@ -187,6 +187,7 @@ class ConsultaController extends Controller
                 })
                 ->addColumn('action', function ($Consulta) {
                     $botonesCita = '';
+                    $botonesCita .= '<a href="'.route('ficha.citareporte',$Consulta->cita_id).'" class="btn btn-secondary btn-sm"><i class="bi bi-file-pdf"></i> reporte</a> ';
                     /*if($Consulta->estado == 'pendiente'){
                         $botonesCita .= '<a href="'.route('create.consulta',$Consulta->id).'" class="btn btn-primary btn-sm"><i class="bi bi-check-circle-fill"></i> Atender</a> ';
                         $botonesCita .= '<a onclick="mostrarToasCancelarCita('.$Consulta->id.')" class="btn btn-danger btn-sm"><i class="bi bi-x-circle-fill"></i> Cancelar</a> ';

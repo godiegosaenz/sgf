@@ -73,32 +73,48 @@ class PagoController extends Controller
                         ->withInput();
         }
 
-
+        $Cita = Cita::find($r->cita_id);
 
         $Liquidation = new Liquidation();
         $Liquidation->total_payment = $r->inputValorCobrar;
         $Liquidation->cita_id = $r->cita_id;
         $Liquidation->type_liquidation_id = 1;
         $Liquidation->year = date('Y');
-        $Liquidation->status = 1;
+        if($Cita->persona->discapacidad == 'SI'){
+            $Liquidation->status = 3; //PAGADO  - 2 SIN PAGAR - 3 EXONERADO - 4 ANULADO
+        }else{
+            $Liquidation->status = 1;
+        }
         $Liquidation->username = Auth()->user()->email;
         //$Liquidation->voucher_number = $secuenciaLiquidacion;
         $Liquidation->save();
 
-        $Cita = Cita::find($r->cita_id);
 
         foreach($Cita->servicios_citas as $c){
             $LiquidationServices = new LiquidationServices();
             $LiquidationServices->servicios_id = $c->id;
+
             $LiquidationServices->liquidation_id = $Liquidation->id;
-            $LiquidationServices->subtotal = $c->subtotal;
-            $LiquidationServices->status = true;
+            if($Cita->persona->discapacidad == 'SI'){
+
+                $LiquidationServices->status = 3;
+                $LiquidationServices->subtotal = 0.00;
+                $LiquidationServices->precio = 0.00;
+                $LiquidationServices->importe = 0.00;
+                $LiquidationServices->iva = 0.00;
+                $LiquidationServices->retencion = 0.00;
+                $LiquidationServices->descuento = 0.00;
+            }else{
+                $LiquidationServices->status = 1;
+                $LiquidationServices->subtotal = $c->subtotal;
+                $LiquidationServices->precio = $c->precio;
+                $LiquidationServices->importe = $c->importe;
+                $LiquidationServices->iva = $c->iva;
+                $LiquidationServices->retencion = $c->retencion;
+                $LiquidationServices->descuento = $c->descuento;
+            }
             $LiquidationServices->cantidad = 1;
-            $LiquidationServices->precio = $c->precio;
-            $LiquidationServices->importe = $c->importe;
-            $LiquidationServices->iva = $c->iva;
-            $LiquidationServices->retencion = $c->retencion;
-            $LiquidationServices->descuento = $c->descuento;
+
             $LiquidationServices->save();
 
             //obtener maxima secuencia;
