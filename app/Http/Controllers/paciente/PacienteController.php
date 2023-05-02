@@ -268,7 +268,7 @@ class PacienteController extends Controller
         $personas->discapacidad = $r->discapacidad;
         $personas->porcentaje = $r->porcentaje;
         $personas->nota = $r->nota;
-        //$personas->secuencia_historia_clinica = $r->secuencia_historia_clinica;
+        $personas->secuencia_historia_clinica = $r->secuencia_historia_clinica;
         if($r->file('txtFoto') != ''){
             $personas->rutaimagen = $rutaparaimgen;
         }
