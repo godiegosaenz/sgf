@@ -297,6 +297,7 @@ class CitasController extends Controller
 
                         $botonesCita .= '<a onclick="mostrarToasCancelarCita('.$Cita->id.')" class="btn btn-danger btn-sm"><i class="bi bi-x-circle-fill"></i> Cancelar</a> ';
                         $botonesCita .= '<a href="'.route('edit.cita',$Cita->id).'" class="btn btn-warning btn-sm"><i class="bi bi-check-circle-fill"></i> Editar</a> ';
+                        $botonesCita .= '<a class="btn btn-danger btn-sm" onclick="modalEliminarCita('.$Cita->id.')">Eliminar</a>';
                     }else if($Cita->estado == 'atendido'){
                         $botonesCita .= '<a href="'.route('index.pago',$Cita->id).'" class="btn btn-primary btn-sm"><i class="bi bi-receipt"></i> Procesar pago</a> ';
                         $botonesCita .= '<a href="'.route('ficha.citareporte',$Cita->id).'" class="btn btn-secondary btn-sm"><i class="bi bi-file-pdf"></i> reporte</a> ';
@@ -315,5 +316,29 @@ class CitasController extends Controller
         $Cita->save();
         $arrayRespuesta = array('respuesta' => true);
         echo json_encode($arrayRespuesta);
+    }
+
+    public function delete(Request $r){
+        try {
+            $counUser = DB::table('citas')->where('estado','<>','pendiente')->count();
+            if($counUser == 1){
+                return response()->json(
+                    ['respuesta' => 'validacion',
+                    'message' => 'Advertencia : No se puede eliminar el paciente, tiene asociado un usuario']
+                );
+            }
+            $Cita = Cita::find($r->id);
+            $Cita->delete();
+
+            return response()->json(
+                ['respuesta' => 'eliminado', 'message' => 'Informacion : La cita ha sido eliminada']
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                ['respuesta' => 'error',
+                'message' => $e->getMessage()]
+            );
+        }
+
     }
 }

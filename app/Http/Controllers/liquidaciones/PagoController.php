@@ -116,8 +116,8 @@ class PagoController extends Controller
             $LiquidationServices->cantidad = 1;
 
             $LiquidationServices->save();
-
-            //obtener maxima secuencia;
+            if($Cita->persona->discapacidad == 'NO'){
+                 //obtener maxima secuencia;
             $secuenciamaxima = LiquidationSequence::where('servicios_id', $LiquidationServices->servicios_id)->max('sequence');
             //$secuenciamaxima = LiquidationSequence::max('sequence');
             $secuenciaLiquidacion = $secuenciamaxima + 1;
@@ -130,6 +130,8 @@ class PagoController extends Controller
             $LiquidationSequence->save();
 
             $affected = DB::table('liquidations')->where('id', $LiquidationServices->liquidation_id)->update(['voucher_number' => $LiquidationSequence->sequence]);
+            }
+
         }
 
 

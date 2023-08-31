@@ -77,6 +77,22 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modaleliminar" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title" id="exampleModalToggleLabel">¿Estas seguro que quieres eliminar una cita?</h6>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="alertModalEliminar" class="alert alert-danger" role="alert" style="display: none;">
+                </div>
+              <button id="btnSi" class="btn btn-success">SI</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
+            </div>
+          </div>
+        </div>
+    </div>
 @endsection
 @push('scripts')
  <!-- jQuery -->
@@ -163,6 +179,50 @@
     btnActualizar.addEventListener('click',function(){
         tableCita.ajax.reload();
     })
+    function modalEliminarCita(idcita){
+        var btnSi = document.getElementById('btnSi');
+        btnSi.setAttribute('onclick','eliminarCita('+idcita+')');
+        var modaleliminar = new bootstrap.Modal(document.getElementById('modaleliminar'), {
+        keyboard: false
+        })
+        modaleliminar.show();
+    }
+    function eliminarCita(idcita){
+
+        axios.post('{{route('delete.cita')}}',{
+            id: idcita,
+            _token: token
+        }).then(function(res) {
+
+            if(res.status==200) {
+                var alertModalEliminar = document.getElementById('alertModalEliminar');
+                if(res.data.respuesta == 'eliminado'){
+                    tableCita.ajax.reload();
+                    alertModalEliminar.removeAttribute('style');
+                    alertModalEliminar.setAttribute('class','alert alert-info');
+                    alertModalEliminar.innerHTML = res.data.message;
+                    //var modal = bootstrap.Modal.getInstance(modaleliminar)
+                    //modal.hide();
+                }else if('validacion'){
+                    alertModalEliminar.removeAttribute('style');
+                    alertModalEliminar.setAttribute('class','alert alert-warning');
+                    alertModalEliminar.innerHTML = res.data.message;
+
+                    //console.log(res.data.message);
+                }else if('error'){
+                    alert('error');
+                    alertModalEliminar.setAttribute('alert alert-danger');
+                    alertModalEliminar.innerHtml = res.data.message;
+                }
+            }else{
+                console.log('error');
+            }
+        }).catch(function(err) {
+
+        }).then(function() {
+
+        });
+    }
 
 </script>
 @endpush

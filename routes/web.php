@@ -16,6 +16,7 @@ use App\Http\Controllers\consultas\ConsultaController;
 use App\Http\Controllers\especialista\EspecialistaController;
 use App\Http\Controllers\reportes\CitaReporteController;
 use App\Http\Controllers\liquidaciones\PagoController;
+use App\Http\Controllers\liquidaciones\LiquidationController;
 use App\Http\Controllers\usuarios\DetallarUsuarioController;
 use App\Http\Controllers\usuarios\UsuarioController;
 use App\Http\Controllers\HomeController;
@@ -84,10 +85,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('cita/listar', [CitasController::class, 'list'])->name('list.cita');
     Route::patch('cita/{id}', [CitasController::class, 'update'])->name('update.cita');
     Route::post('cita/cancel', [CitasController::class, 'cancel'])->name('cancel.cita');
+    Route::post('cita/eliminar', [CitasController::class, 'delete'])->name('delete.cita');
 
     Route::get('pago/{id}', [PagoController::class, 'index'])->name('index.pago');
     Route::post('pago', [PagoController::class, 'store'])->name('store.pago');
     Route::get('recibo/{id}', [PagoController::class, 'recibo'])->name('recibo.pago');
+
+    Route::get('liquidaciones', [LiquidationController::class, 'index'])->name('index.liquidaciones');
+    Route::post('liquidaciones/listar', [LiquidationController::class, 'list'])->name('list.liquidaciones');
 
     Route::get('citareporte/ficha/{id}', [CitaReporteController::class, 'index'])->name('ficha.citareporte');
     Route::get('citareporte/recibo/{id}', [CitaReporteController::class, 'recibo'])->name('recibo.citareporte');
@@ -120,8 +125,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('roles', [RolesController::class, 'store'])->name('store.roles');
 
     Route::post('permissions/obtener', [PermissionController::class, 'obtener'])->name('obtener.permissions');
-    Route::get('secuencial', [SecuencialController::class, 'index'])->name('index.secuencial');
-
     Route::get('secuencial', [SecuencialController::class, 'index'])->name('index.secuencial');
 
 });
