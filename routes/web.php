@@ -71,7 +71,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('usuario/{id}/editar', [UsuarioController::class, 'edit'])->name('edit.usuario');
     Route::post('usuario',[UsuarioController::class, 'store'])->name('store.usuario');
     Route::patch('usuario/{id}',[UsuarioController::class, 'update'])->name('update.usuario');
-    Route::post('usuario/verificar',[CrearUsuarioController::class, 'verificarUsuario'])->name('verificar.usuario');
+    //Route::post('usuario/verificar',[CrearUsuarioController::class, 'verificarUsuario'])->name('verificar.usuario');
     Route::get('usuario/detallar/{idusuario}/persona/{idpersona}', [DetallarUsuarioController::class, 'index'])->name('detallar.usuario');
     Route::get('usuario/perfil/{id}', [DetallarUsuarioController::class, 'show'])->name('show.usuario');
 
