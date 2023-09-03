@@ -76,7 +76,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('usuario/perfil/{id}', [DetallarUsuarioController::class, 'show'])->name('show.usuario');
 
 
-    Route::post('servicios/lista', [ServicioController::class, 'list'])->name('list.servicios');
+    //Route::post('servicios/lista', [ServicioController::class, 'list'])->name('list.servicios');
 
     Route::get('cita', [CitasController::class, 'index'])->name('index.cita');
     Route::get('cita/ingresar', [CitasController::class, 'create'])->name('create.cita');
