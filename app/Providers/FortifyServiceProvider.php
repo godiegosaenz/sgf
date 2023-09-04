@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
-use App\models\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class FortifyServiceProvider extends ServiceProvider
