@@ -5,7 +5,7 @@ namespace App\Http\Controllers\reportes;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use PDF;
-use App\models\Cita;
+use App\Models\Cita;
 
 class CitaReporteController extends Controller
 {

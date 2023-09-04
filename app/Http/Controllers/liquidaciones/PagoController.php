@@ -4,11 +4,11 @@ namespace App\Http\Controllers\liquidaciones;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\models\Categoria;
-use App\models\Cita;
-use App\models\Liquidation;
-use App\models\LiquidationSequence;
-use App\models\LiquidationServices;
+use App\Models\Categoria;
+use App\Models\Cita;
+use App\Models\Liquidation;
+use App\Models\LiquidationSequence;
+use App\Models\LiquidationServices;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 use Illuminate\Support\Facades\DB;

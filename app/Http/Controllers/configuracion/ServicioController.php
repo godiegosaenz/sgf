@@ -4,7 +4,7 @@ namespace App\Http\Controllers\configuracion;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\models\Servicios;
+use App\Models\Servicios;
 use Datatables;
 
 class ServicioController extends Controller

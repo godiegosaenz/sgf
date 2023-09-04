@@ -4,9 +4,9 @@ namespace App\Http\Controllers\consultas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\models\Cita;
-use App\models\Consulta;
-use App\models\Especialista;
+use App\Models\Cita;
+use App\Models\Consulta;
+use App\Models\Especialista;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 
